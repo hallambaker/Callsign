@@ -1,8 +1,0 @@
-﻿
-Namespace Goedel.CallSign.Registrar
-
-	Exception TBS
-		Console "Exception TBS"
-		Description
-			|TBS
-

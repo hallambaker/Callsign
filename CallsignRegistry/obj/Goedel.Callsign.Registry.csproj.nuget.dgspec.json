@@ -1,0 +1,689 @@
+{
+  "format": 1,
+  "restore": {
+    "C:\\Users\\hallam\\Work\\Callsign\\CallsignRegistry\\Goedel.Callsign.Registry.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\hallam\\Work\\Callsign\\CallsignRegistry\\Goedel.Callsign.Registry.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\CallsignRegistry\\Goedel.Callsign.Registry.csproj",
+        "projectName": "Goedel.Callsign.Registry",
+        "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\CallsignRegistry\\Goedel.Callsign.Registry.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\Callsign\\CallsignRegistry\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\Goedel.Cryptography.Dare.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\Goedel.Cryptography.Dare.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\Goedel.ASN.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\Goedel.ASN.csproj",
+        "projectName": "Goedel.ASN",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\Goedel.ASN.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\Goedel.Discovery.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\Goedel.Discovery.csproj",
+        "projectName": "Goedel.Discovery",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\Goedel.Discovery.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\Goedel.FSR.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\Goedel.FSR.csproj",
+        "projectName": "Goedel.FSR",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\Goedel.FSR.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj",
+        "projectName": "Goedel.IO",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj",
+        "projectName": "Goedel.Utilities",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "netcoreapp3.1"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\Goedel.Cryptography.Dare.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\Goedel.Cryptography.Dare.csproj",
+        "projectName": "Goedel.Cryptography.Dare",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\Goedel.Cryptography.Dare.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Dare\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj",
+        "projectName": "Goedel.Cryptography.Jose",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\Goedel.Cryptography.Jose.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography.Jose\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj",
+        "projectName": "Goedel.Cryptography",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\Goedel.Cryptography.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Cryptography\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\Goedel.ASN.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.ASN\\Goedel.ASN.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj",
+        "projectName": "Goedel.Protocol",
+        "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\Goedel.Protocol.csproj",
+        "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Protocol\\obj\\",
+        "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
+          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
+        "configFilePaths": [
+          "C:\\Users\\hallam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net5.0"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net5.0": {
+            "targetAlias": "net5.0",
+            "projectReferences": {
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\Goedel.Discovery.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Discovery\\Goedel.Discovery.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\Goedel.FSR.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.FSR\\Goedel.FSR.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.IO\\Goedel.IO.csproj"
+              },
+              "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net5.0": {
+          "targetAlias": "net5.0",
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

@@ -19,9 +19,9 @@
     <ProjectReference Include="..\..\mmm\Libraries\Core\Goedel.Utilities\Goedel.Utilities.csproj" />
     <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol.Debug\Goedel.Protocol.Debug.csproj" />
     <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
-    <ProjectReference Include="..\CallSignRegistrar\Goedel.Callsign.Registrar.csproj" />
-    <ProjectReference Include="..\CallsignRegistry\Goedel.Callsign.Registry.csproj" />
-    <ProjectReference Include="..\Callsign\Goedel.Callsign.Log.csproj" />
+    <ProjectReference Include="..\Goedel.Callsign.Log\Goedel.Callsign.Log.csproj" />
+    <ProjectReference Include="..\Goedel.Callsign.Registrar\Goedel.Callsign.Registrar.csproj" />
+    <ProjectReference Include="..\Goedel.Callsign.Registry\Goedel.Callsign.Registry.csproj" />
   </ItemGroup>
 
   <ItemGroup>

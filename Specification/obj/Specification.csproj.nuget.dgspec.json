@@ -189,6 +189,9 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
+              "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj"
+              },
               "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
                 "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"
               },

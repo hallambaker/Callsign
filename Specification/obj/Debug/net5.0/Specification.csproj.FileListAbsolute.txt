@@ -57,3 +57,6 @@ C:\Users\hallam\Work\Callsign\Specification\obj\Debug\net5.0\Specification.dll
 C:\Users\hallam\Work\Callsign\Specification\obj\Debug\net5.0\ref\Specification.dll
 C:\Users\hallam\Work\Callsign\Specification\obj\Debug\net5.0\Specification.pdb
 C:\Users\hallam\Work\Callsign\Specification\obj\Debug\net5.0\Specification.genruntimeconfig.cache
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Mesh.dll
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Mesh.pdb
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Mesh.xml

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ThresholdSecrets.Com")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("© 2021")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+build20210315220857")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+build20210316051047")]
 [assembly: System.Reflection.AssemblyProductAttribute("Specification")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Specification")]
 

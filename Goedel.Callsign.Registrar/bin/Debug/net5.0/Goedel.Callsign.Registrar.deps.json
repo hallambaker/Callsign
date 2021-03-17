@@ -26,7 +26,7 @@
           "Goedel.ASN.dll": {}
         }
       },
-      "Goedel.Callsign.Log/1.0.0": {
+      "Goedel.Callsign/1.0.0": {
         "dependencies": {
           "Goedel.Cryptography.Dare": "1.0.0",
           "Goedel.Cryptography.Jose": "1.0.0",
@@ -35,12 +35,12 @@
           "Goedel.Utilities": "1.0.0"
         },
         "runtime": {
-          "Goedel.Callsign.Log.dll": {}
+          "Goedel.Callsign.dll": {}
         }
       },
       "Goedel.Callsign.Registry/1.0.0": {
         "dependencies": {
-          "Goedel.Callsign.Log": "1.0.0",
+          "Goedel.Callsign": "1.0.0",
           "Goedel.Cryptography.Dare": "1.0.0",
           "Goedel.Cryptography.Jose": "1.0.0",
           "Goedel.Protocol": "1.0.0",
@@ -141,7 +141,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Goedel.Callsign.Log/1.0.0": {
+    "Goedel.Callsign/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

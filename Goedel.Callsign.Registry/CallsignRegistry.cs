@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 3/16/2021 1:10:45 AM
+//  This file was automatically generated at 3/17/2021 1:25:21 AM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -47,7 +47,7 @@ using Goedel.Protocol;
 
 using Goedel.Cryptography.Jose;
 using Goedel.Cryptography.Dare;
-using Goedel.Callsign.Log;
+using Goedel.Callsign;
 
 
 namespace Goedel.Callsign.Registry {
@@ -542,7 +542,7 @@ namespace Goedel.Callsign.Registry {
         ///be granted.
         /// </summary>
 
-		public virtual Enveloped<Log.Callsign>						EnvelopedCallsign  {get; set;}
+		public virtual Enveloped<Callsign>						EnvelopedCallsign  {get; set;}
 		
 		/// <summary>
         /// Tag identifying this class
@@ -645,7 +645,7 @@ namespace Goedel.Callsign.Registry {
 					}
 				case "EnvelopedCallsign" : {
 					// An untagged structure
-					EnvelopedCallsign = new Enveloped<Log.Callsign> ();
+					EnvelopedCallsign = new Enveloped<Callsign> ();
 					EnvelopedCallsign.Deserialize (jsonReader);
  
 					break;

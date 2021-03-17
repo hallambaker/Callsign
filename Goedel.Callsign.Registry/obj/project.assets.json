@@ -15,7 +15,7 @@
           "bin/placeholder/Goedel.ASN.dll": {}
         }
       },
-      "Goedel.Callsign.Log/1.0.0": {
+      "Goedel.Callsign/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
@@ -26,10 +26,10 @@
           "Goedel.Utilities": "1.0.0"
         },
         "compile": {
-          "bin/placeholder/Goedel.Callsign.Log.dll": {}
+          "bin/placeholder/Goedel.Callsign.dll": {}
         },
         "runtime": {
-          "bin/placeholder/Goedel.Callsign.Log.dll": {}
+          "bin/placeholder/Goedel.Callsign.dll": {}
         }
       },
       "Goedel.Cryptography/1.0.0": {
@@ -163,10 +163,10 @@
       "path": "../../mmm/Libraries/Core/Goedel.ASN/Goedel.ASN.csproj",
       "msbuildProject": "../../mmm/Libraries/Core/Goedel.ASN/Goedel.ASN.csproj"
     },
-    "Goedel.Callsign.Log/1.0.0": {
+    "Goedel.Callsign/1.0.0": {
       "type": "project",
-      "path": "../Goedel.Callsign.Log/Goedel.Callsign.Log.csproj",
-      "msbuildProject": "../Goedel.Callsign.Log/Goedel.Callsign.Log.csproj"
+      "path": "../Goedel.Callsign.Log/Goedel.Callsign.csproj",
+      "msbuildProject": "../Goedel.Callsign.Log/Goedel.Callsign.csproj"
     },
     "Goedel.Cryptography/1.0.0": {
       "type": "project",
@@ -216,7 +216,7 @@
   },
   "projectFileDependencyGroups": {
     "net5.0": [
-      "Goedel.Callsign.Log >= 1.0.0",
+      "Goedel.Callsign >= 1.0.0",
       "Goedel.Cryptography.Dare >= 1.0.0",
       "Goedel.Cryptography.Jose >= 1.0.0",
       "Goedel.Protocol >= 1.0.0",
@@ -260,8 +260,8 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj": {
-              "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj"
+            "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj": {
+              "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj"
             },
             "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
               "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"

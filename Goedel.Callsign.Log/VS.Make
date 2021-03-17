@@ -18,16 +18,24 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
-    Goedel.Utilities.dll
+    Goedel.Utilities.dll\
+    Goedel.Cryptography.Dare.dll\
+    Goedel.Cryptography.Jose.dll\
+    Goedel.Protocol.dll\
+    Goedel.Mesh.dll
 
 ToolTargets = \
 	Exceptions.cs\
-	CallsignLog.cs
+	CallsignLog.cs\
+	CallsignConstants.cs
 Exceptions.cs : Exceptions.exceptional 
 	exceptional Exceptions.exceptional  /cs  Exceptions.cs
 
 CallsignLog.cs : CallsignLog.protocol 
 	protogen CallsignLog.protocol  /cs  CallsignLog.cs
+
+CallsignConstants.cs : CallsignConstants.constant 
+	constant CallsignConstants.constant  /cs  CallsignConstants.cs
 
 
 
@@ -45,5 +53,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget Callsign.dll
+	powershell publishtarget Goedel.Callsign.Log.dll
 

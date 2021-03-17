@@ -1,0 +1,134 @@
+﻿#using System.Text
+#using Goedel.CallSign.Log
+#using Goedel.Callsign.Test
+#using Goedel.Protocol
+#using Goedel.Utilities
+#% #pragma warning disable IDE0022
+#% #pragma warning disable IDE0060
+#% #pragma warning disable IDE1006
+
+#xclass Goedel.Callsign.Specification Examples
+#% public static Examples Instance (StreamWriter output) => new Examples () {_Output = output};
+
+
+#method MakeAllExamples Examples Examples
+#% Colophon(Examples);
+#% WriteCharacterPageDigits(Examples);
+#% WriteCharacterPageLatin(Examples);
+#% RegisterAlice(Examples);
+#% UpdateAlice(Examples);
+#% IoTAlice(Examples);
+#end method
+
+#zfile Examples Colophon "Examples\\Colophon.md" Examples
+
+The examples in this document were created on #{DateTime.Now.ToString()}. 
+Out of #{CountTotal} examples,
+#if (ErrorCountTotal ==0)
+all passed.
+#else
+#{ErrorCountTotal} failed.
+#end if
+
+#end zfile
+
+
+
+#zfile Examples WriteCharacterPageDigits "Examples\\CharacterPageDigits.md" Examples
+#% var CharacterPage = Examples.CharacterPage;
+~~~~
+#{Examples.CharacterPageDigits}
+~~~~
+#end zfile
+
+#zfile Examples WriteCharacterPageLatin "Examples\\CharacterPageLatin.md" Examples
+#% var CharacterPage = Examples.CharacterPage;
+~~~~
+#{Examples.CharacterPageLatin}
+~~~~
+#end zfile
+
+
+#zfile Examples RegisterAlice "Examples\\RegisterAlice.md" Examples
+#% var Registrations = Examples.Registrations;
+
+Alice registers the callsign #{Registrations.CallsignAlice.Presentation} it has the canonical form
+#{Registrations.CallsignAlice.Id}.
+
+~~~~
+#{Registrations.CallsignAlice}
+~~~~
+
+The registrar receives the request and forwards it to the registry which creates a 
+registration record that is enrolled in the callsign log:
+
+
+~~~~
+#{Registrations.RegistrationAlice}
+~~~~
+#end zfile
+
+
+#zfile Examples UpdateAlice "Examples\\UpdateAlice.md" Examples
+#% var Registrations = Examples.Registrations;
+
+Alice decides to change her service provider to #{Registrations.CallsignAlice2.Service}. She
+also decides that her callsign looks better with an initial capital and so changes the 
+presentation form to #{Registrations.CallsignAlice2.Presentation}. This change does not
+require require a new callsign to be registered as this has tghe same canonical form
+#{Registrations.CallsignAlice2.Id}.
+
+~~~~
+#{Registrations.CallsignAlice2}
+~~~~
+
+The registrar receives the request and forwards it to the registry which creates a 
+registration record that is enrolled in the callsign log:
+
+~~~~
+#{Registrations.RegistrationAlice2}
+~~~~
+#end zfile
+
+#zfile Examples IoTAlice "Examples\\IoTAlice.md" Examples
+#% var Policies = Examples.Policies;
+
+Alice adds an Internet connected Thermostat to her home. The thermostat has a built in Web
+server to allow the settings to be set by a Web browser. During the onboarding process, the
+thermostat is assigned a domain name {Policies.ThermostatDns}
+
+Alice's Mesh Service Provider maintains an authoritative DNS server for Alice's Callsign
+DNS zone {Policies.AliceDns}. The IP addresses of this server are specified in the callsign
+registration of her Mesh Service Provider:
+
+~~~~
+#{Registrations.CallsignProvider2}
+~~~~
+
+The authoritative DNS server publishes a link from which a Mesh DNS Profile specifying the
+security policy for the zone MAY be obtained:
+
+~~~~
+[This is probably a prefixed TXT record of some sort.]
+~~~~
+
+The security policy for the zone states that the DNS zone is signed using DNSSEC and 
+the thermostat supports TLS/1.2 transport layer security:
+
+~~~~
+#{Policies.AliceZone}
+~~~~
+
+A non Mesh-aware browser can access the Web site and establish a TLS connection to the 
+thermostat provided that 1) the browser uses a DNS service that supports use of Mesh callsign
+zones and 2) the device provides a certificate set that allows the browser to build a 
+valid path to a root it trusts.
+
+A Mesh aware browser can access the Web site directly and enforce the security policy
+directly. Thus preventing a downgrade attack to an insecure site.
+
+#end zfile
+
+
+
+#end xclass

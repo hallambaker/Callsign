@@ -210,9 +210,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj",
-      "projectName": "Goedel.Callsign.Log",
-      "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj",
+      "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj",
+      "projectName": "Goedel.Callsign",
+      "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj",
       "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\obj\\",
       "projectStyle": "PackageReference",

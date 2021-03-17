@@ -1,4 +1,4 @@
-﻿Protocol Goedel.Callsign.Log CallsignEntry CallsignEntry
+﻿Protocol Goedel.Callsign CallsignEntry CallsignEntry
 	Section 2 "Callsign log entries"
 
 	Description 
@@ -7,7 +7,6 @@
 		|Entries relating to descriptions of callsign character pages and entries relating
 		|to cross notarization of the log by third parties.
 
-    Using Goedel.Cryptography.Jose
     Using Goedel.Cryptography.Dare
 	Using Goedel.Mesh
 	Extern Assertion
@@ -34,6 +33,10 @@
 			Description
 				|The UDF of the holder's root of trust
 
+		String Alias
+			Description
+				|This callsign is an alias for another registered callsign.
+
 		String Service
 			Description
 				|The callsign or DNS address of the service provider
@@ -49,12 +52,13 @@
 				|The Mesh Account profile to which the callsign belongs.
 
 	Structure Registration
+		Description		
+			|A callsign registration
+
 		String Id
 			Description
 				|Unique registration identifier
 
-		Description		
-			|A callsign registration
 
 		Struct Enveloped<Callsign> SignedCallsign
 			Description
@@ -86,41 +90,47 @@
 			Description
 				|Character page identifier
 		String Allow
+			Multiple
 			Description
 				|Additional allowed pages.
-		Struct Range Ranges
+		TStruct CharacterSpan CharacterSpans
 			Multiple
 			Description
 				|Characters permitted within this code page.
-		Struct Variant Mappings
-			Multiple
-			Description
-				|Canonicalization mappings to be performed.
 
-	Structure Range
+	Structure CharacterSpan
 		Integer First
 			Description
 				|The first character in the range (inclusive)
 		Integer Last
 			Description
-				|The last character in the range (inclusive)
+				|The last character in the range (inclusive), if ommitted or
+				|equal to zero, this is the same as Last.
 
-	Structure Variant
-		Integer Source
-			Description
-				|The first character to be mapped.
-		Integer Count
-			Description
-				|The number of characters to be mapped (default is 1).
+	Structure MapChar
+		Inherits CharacterSpan
+		Description
+			|Specifies a variant mapping the range of characters First..First+n to
+			|a range of characters Target..Target+n. Where n = Last - First+1
 		Integer Target
 			Description
-				|The character the character Source is to be mapped to. If count is
-				|greater than 1, the character Source+n is mapped to Target+n.
+				|The character that First is mapped to.
+	
+	Structure MapString
+		Inherits CharacterSpan
+		Description
+			|Specifies a mapping of non canonical characters in the range specified by 
+			|First..Last to the string Target.
+		String Target
+			Description
+				|Specifies a character string that the Source character(s) are mapped to.
+				|If count is greater than 1, all the characters map to the same string.
+			
 
 	Section 3 "Notarization"
 
 	Structure Notarization
-		Struct Enveloped<Witness> Entries
+		Struct Enveloped<Witness> Entry
 			Description
 				|Enveloped witness value of a specific append only log.
 			Description
@@ -129,5 +139,38 @@
 			Description
 				|The log entry in which the Notarization appears SHOULD be signed.
 
+	Section 3 "Trust Assertions"
 
+	Structure ProfileDns
+		Description
+			|
+		External Profile
+		
 
+		Struct SecurityPolicy  SecurityPolicies
+			Multiple
+			Description
+				|Specify TLS policies for use in the zone.
+
+	Structure SecurityPolicy
+		String CName
+			Multiple
+			Description
+				|The DNS zone(s) to which this policy applies.
+
+		String Protocol
+			Multiple
+			Description
+				|IANA protocol name, e.g. SMTP, SUBMIT, HTTP, HTTPS, etc.		
+		String Enhancements
+			Multiple
+			Description
+				|Enhancements that are supported for the specified protocol. 
+				|Allowed values include none/ tls1.2/ tls1.3/ http3/ dnssec
+		Boolean Require
+			Description
+				|If true, clients MUST use one of the supported enhancements.		
+		Struct KeyData Roots
+			Multiple
+			Description
+				|Keys specifying roots of trust for the specified protocol(s).

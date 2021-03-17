@@ -17,11 +17,13 @@
   <ItemGroup>
     <ProjectReference Include="..\..\mmm\Libraries\Core\Goedel.Command\Goedel.Command.csproj" />
     <ProjectReference Include="..\..\mmm\Libraries\Core\Goedel.Utilities\Goedel.Utilities.csproj" />
+    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Cryptography.Core\Goedel.Cryptography.Core.csproj" />
     <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol.Debug\Goedel.Protocol.Debug.csproj" />
     <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
-    <ProjectReference Include="..\Goedel.Callsign.Log\Goedel.Callsign.Log.csproj" />
+    <ProjectReference Include="..\Goedel.Callsign.Log\Goedel.Callsign.csproj" />
     <ProjectReference Include="..\Goedel.Callsign.Registrar\Goedel.Callsign.Registrar.csproj" />
     <ProjectReference Include="..\Goedel.Callsign.Registry\Goedel.Callsign.Registry.csproj" />
+    <ProjectReference Include="..\Tests\SpecificationUnit\SpecificationUnit.csproj" />
   </ItemGroup>
 
   <ItemGroup>
@@ -30,13 +32,29 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
     </Compile>
+
+    <Compile Update="CallsignDraft.cs">
+      <DependentUpon>CallsignDraft.script</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    
+    
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="CallsignDraft.script">
+      <LastGenOutput>CallsignDraft.cs</LastGenOutput>
+      <Generator>gscript</Generator>
+    </None>
     <None Update="Exceptions.exceptional">
       <LastGenOutput>Exceptions.cs</LastGenOutput>
       <Generator>exceptional</Generator>
     </None>
+    
+    
+    
+    
   </ItemGroup>
 
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">

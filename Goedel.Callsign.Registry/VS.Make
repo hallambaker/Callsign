@@ -17,7 +17,12 @@
 
 MSBuildThisFileDirectory = 
 
-LinkFiles = 
+LinkFiles = \
+    Goedel.Utilities.dll\
+    Goedel.Cryptography.Dare.dll\
+    Goedel.Cryptography.Jose.dll\
+    Goedel.Protocol.dll\
+    Goedel.Callsign.Log.dll
 
 ToolTargets = \
 	CallsignRegistry.cs\
@@ -44,5 +49,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget CallsignRegistry.dll
+	powershell publishtarget Goedel.Callsign.Registry.dll
 

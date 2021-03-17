@@ -8,7 +8,7 @@
     Using Goedel.Cryptography.Jose
     Using Goedel.Cryptography.Dare
 	Using Goedel.Callsign.Registry
-	Using Goedel.Callsign.Log
+	Using Goedel.Callsign
 	
 	Extern CallsignRequest
 	Extern CallsignResponse

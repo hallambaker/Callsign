@@ -18,12 +18,21 @@
 MSBuildThisFileDirectory = 
 
 LinkFiles = \
+    Goedel.Command.dll\
     Goedel.Utilities.dll\
     Goedel.Protocol.Debug.dll\
-    Goedel.Protocol.dll
+    Goedel.Protocol.dll\
+    Goedel.Callsign.Log.dll\
+    Goedel.Callsign.Registrar.dll\
+    Goedel.Callsign.Registry.dll\
+    SpecificationUnit.dll
 
 ToolTargets = \
+	CallsignDraft.cs\
 	Exceptions.cs
+CallsignDraft.cs : CallsignDraft.script 
+	gscript CallsignDraft.script  CallsignDraft.cs
+
 Exceptions.cs : Exceptions.exceptional 
 	exceptional Exceptions.exceptional  /cs  Exceptions.cs
 
@@ -43,5 +52,5 @@ postbuild : postbuildRecurse
 
 
 postbuildwindows : 
-	powershell publishtarget Specification.dll
+	powershell publishtarget Specification.exe $(LinkFiles) 
 

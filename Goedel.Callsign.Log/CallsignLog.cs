@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 3/16/2021 1:10:45 AM
+//  This file was automatically generated at 3/17/2021 1:25:20 AM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -45,12 +45,11 @@ using Goedel.Protocol;
 #pragma warning disable IDE1006
 
 
-using Goedel.Cryptography.Jose;
 using Goedel.Cryptography.Dare;
 using Goedel.Mesh;
 
 
-namespace Goedel.Callsign.Log {
+namespace Goedel.Callsign {
 
 
 	/// <summary>
@@ -82,9 +81,12 @@ namespace Goedel.Callsign.Log {
 			{"Callsign", Callsign._Factory},
 			{"Registration", Registration._Factory},
 			{"Page", Page._Factory},
-			{"Range", Range._Factory},
-			{"Variant", Variant._Factory},
-			{"Notarization", Notarization._Factory}			};
+			{"CharacterSpan", CharacterSpan._Factory},
+			{"MapChar", MapChar._Factory},
+			{"MapString", MapString._Factory},
+			{"Notarization", Notarization._Factory},
+			{"ProfileDns", ProfileDns._Factory},
+			{"SecurityPolicy", SecurityPolicy._Factory}			};
 
         [ModuleInitializer]
         internal static void _Initialize() => AddDictionary(ref _tagDictionary);
@@ -127,6 +129,11 @@ namespace Goedel.Callsign.Log {
         /// </summary>
 
 		public virtual string						Holder  {get; set;}
+        /// <summary>
+        ///This callsign is an alias for another registered callsign.
+        /// </summary>
+
+		public virtual string						Alias  {get; set;}
         /// <summary>
         ///The callsign or DNS address of the service provider
         /// </summary>
@@ -201,6 +208,11 @@ namespace Goedel.Callsign.Log {
 				_writer.WriteToken ("Holder", 1);
 					_writer.WriteString (Holder);
 				}
+			if (Alias != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Alias", 1);
+					_writer.WriteString (Alias);
+				}
 			if (Service != null) {
 				_writer.WriteObjectSeparator (ref _first);
 				_writer.WriteToken ("Service", 1);
@@ -266,6 +278,10 @@ namespace Goedel.Callsign.Log {
 					}
 				case "Holder" : {
 					Holder = jsonReader.ReadString ();
+					break;
+					}
+				case "Alias" : {
+					Alias = jsonReader.ReadString ();
 					break;
 					}
 				case "Service" : {
@@ -492,17 +508,12 @@ namespace Goedel.Callsign.Log {
         ///Additional allowed pages.
         /// </summary>
 
-		public virtual string						Allow  {get; set;}
+		public virtual List<string>				Allow  {get; set;}
         /// <summary>
         ///Characters permitted within this code page.
         /// </summary>
 
-		public virtual List<Range>				Ranges  {get; set;}
-        /// <summary>
-        ///Canonicalization mappings to be performed.
-        /// </summary>
-
-		public virtual List<Variant>				Mappings  {get; set;}
+		public virtual List<CharacterSpan>				CharacterSpans  {get; set;}
 		
 		/// <summary>
         /// Tag identifying this class
@@ -554,38 +565,27 @@ namespace Goedel.Callsign.Log {
 			if (Allow != null) {
 				_writer.WriteObjectSeparator (ref _first);
 				_writer.WriteToken ("Allow", 1);
-					_writer.WriteString (Allow);
-				}
-			if (Ranges != null) {
-				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Ranges", 1);
 				_writer.WriteArrayStart ();
 				bool _firstarray = true;
-				foreach (var _index in Ranges) {
+				foreach (var _index in Allow) {
 					_writer.WriteArraySeparator (ref _firstarray);
-					// This is an untagged structure. Cannot inherit.
-                    //_writer.WriteObjectStart();
-                    //_writer.WriteToken(_index._Tag, 1);
-					bool firstinner = true;
-					_index.Serialize (_writer, true, ref firstinner);
-                    //_writer.WriteObjectEnd();
+					_writer.WriteString (_index);
 					}
 				_writer.WriteArrayEnd ();
 				}
 
-			if (Mappings != null) {
+			if (CharacterSpans != null) {
 				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Mappings", 1);
+				_writer.WriteToken ("CharacterSpans", 1);
 				_writer.WriteArrayStart ();
 				bool _firstarray = true;
-				foreach (var _index in Mappings) {
+				foreach (var _index in CharacterSpans) {
 					_writer.WriteArraySeparator (ref _firstarray);
-					// This is an untagged structure. Cannot inherit.
-                    //_writer.WriteObjectStart();
-                    //_writer.WriteToken(_index._Tag, 1);
+                    _writer.WriteObjectStart();
+                    _writer.WriteToken(_index._Tag, 1);
 					bool firstinner = true;
 					_index.Serialize (_writer, true, ref firstinner);
-                    //_writer.WriteObjectEnd();
+                    _writer.WriteObjectEnd();
 					}
 				_writer.WriteArrayEnd ();
 				}
@@ -628,33 +628,23 @@ namespace Goedel.Callsign.Log {
 					break;
 					}
 				case "Allow" : {
-					Allow = jsonReader.ReadString ();
-					break;
-					}
-				case "Ranges" : {
 					// Have a sequence of values
 					bool _Going = jsonReader.StartArray ();
-					Ranges = new List <Range> ();
+					Allow = new List <string> ();
 					while (_Going) {
-						// an untagged structure.
-						var _Item = new  Range ();
-						_Item.Deserialize (jsonReader);
-						// var _Item = new Range (jsonReader);
-						Ranges.Add (_Item);
+						string _Item = jsonReader.ReadString ();
+						Allow.Add (_Item);
 						_Going = jsonReader.NextArray ();
 						}
 					break;
 					}
-				case "Mappings" : {
+				case "CharacterSpans" : {
 					// Have a sequence of values
 					bool _Going = jsonReader.StartArray ();
-					Mappings = new List <Variant> ();
+					CharacterSpans = new List <CharacterSpan> ();
 					while (_Going) {
-						// an untagged structure.
-						var _Item = new  Variant ();
-						_Item.Deserialize (jsonReader);
-						// var _Item = new Variant (jsonReader);
-						Mappings.Add (_Item);
+						var _Item = CharacterSpan.FromJson (jsonReader, true); // a tagged structure
+						CharacterSpans.Add (_Item);
 						_Going = jsonReader.NextArray ();
 						}
 					break;
@@ -671,7 +661,7 @@ namespace Goedel.Callsign.Log {
 
 	/// <summary>
 	/// </summary>
-	public partial class Range : CallsignEntry {
+	public partial class CharacterSpan : CallsignEntry {
 		bool								__First = false;
 		private int						_First;
         /// <summary>
@@ -685,7 +675,8 @@ namespace Goedel.Callsign.Log {
 		bool								__Last = false;
 		private int						_Last;
         /// <summary>
-        ///The last character in the range (inclusive)
+        ///The last character in the range (inclusive), if ommitted or
+        ///equal to zero, this is the same as Last.
         /// </summary>
 
 		public virtual int						Last {
@@ -701,13 +692,13 @@ namespace Goedel.Callsign.Log {
 		/// <summary>
         /// Tag identifying this class
         /// </summary>
-		public new const string __Tag = "Range";
+		public new const string __Tag = "CharacterSpan";
 
 		/// <summary>
         /// Factory method
         /// </summary>
         /// <returns>Object of this type</returns>
-		public static new JsonObject _Factory () => new Range();
+		public static new JsonObject _Factory () => new CharacterSpan();
 
 
         /// <summary>
@@ -756,15 +747,15 @@ namespace Goedel.Callsign.Log {
         /// <param name="jsonReader">The input stream</param>
 		/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
         /// <returns>The created object.</returns>		
-        public static new Range FromJson (JsonReader jsonReader, bool tagged=true) {
+        public static new CharacterSpan FromJson (JsonReader jsonReader, bool tagged=true) {
 			if (jsonReader == null) {
 				return null;
 				}
 			if (tagged) {
 				var Out = jsonReader.ReadTaggedObject (_TagDictionary);
-				return Out as Range;
+				return Out as CharacterSpan;
 				}
-		    var Result = new Range ();
+		    var Result = new CharacterSpan ();
 			Result.Deserialize (jsonReader);
 			Result.PostDecode();
 			return Result;
@@ -797,33 +788,15 @@ namespace Goedel.Callsign.Log {
 		}
 
 	/// <summary>
+	///
+	/// Specifies a variant mapping the range of characters First..First+n to
+	/// a range of characters Target..Target+n. Where n = Last - First+1
 	/// </summary>
-	public partial class Variant : CallsignEntry {
-		bool								__Source = false;
-		private int						_Source;
-        /// <summary>
-        ///The first character to be mapped.
-        /// </summary>
-
-		public virtual int						Source {
-			get => _Source;
-			set {_Source = value; __Source = true; }
-			}
-		bool								__Count = false;
-		private int						_Count;
-        /// <summary>
-        ///The number of characters to be mapped (default is 1).
-        /// </summary>
-
-		public virtual int						Count {
-			get => _Count;
-			set {_Count = value; __Count = true; }
-			}
+	public partial class MapChar : CharacterSpan {
 		bool								__Target = false;
 		private int						_Target;
         /// <summary>
-        ///The character the character Source is to be mapped to. If count is
-        ///greater than 1, the character Source+n is mapped to Target+n.
+        ///The character that First is mapped to.
         /// </summary>
 
 		public virtual int						Target {
@@ -839,13 +812,13 @@ namespace Goedel.Callsign.Log {
 		/// <summary>
         /// Tag identifying this class
         /// </summary>
-		public new const string __Tag = "Variant";
+		public new const string __Tag = "MapChar";
 
 		/// <summary>
         /// Factory method
         /// </summary>
         /// <returns>Object of this type</returns>
-		public static new JsonObject _Factory () => new Variant();
+		public static new JsonObject _Factory () => new MapChar();
 
 
         /// <summary>
@@ -873,16 +846,7 @@ namespace Goedel.Callsign.Log {
 			if (_wrap) {
 				_writer.WriteObjectStart ();
 				}
-			if (__Source){
-				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Source", 1);
-					_writer.WriteInteger32 (Source);
-				}
-			if (__Count){
-				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Count", 1);
-					_writer.WriteInteger32 (Count);
-				}
+			((CharacterSpan)this).SerializeX(_writer, false, ref _first);
 			if (__Target){
 				_writer.WriteObjectSeparator (ref _first);
 				_writer.WriteToken ("Target", 1);
@@ -899,15 +863,15 @@ namespace Goedel.Callsign.Log {
         /// <param name="jsonReader">The input stream</param>
 		/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
         /// <returns>The created object.</returns>		
-        public static new Variant FromJson (JsonReader jsonReader, bool tagged=true) {
+        public static new MapChar FromJson (JsonReader jsonReader, bool tagged=true) {
 			if (jsonReader == null) {
 				return null;
 				}
 			if (tagged) {
 				var Out = jsonReader.ReadTaggedObject (_TagDictionary);
-				return Out as Variant;
+				return Out as MapChar;
 				}
-		    var Result = new Variant ();
+		    var Result = new MapChar ();
 			Result.Deserialize (jsonReader);
 			Result.PostDecode();
 			return Result;
@@ -921,19 +885,121 @@ namespace Goedel.Callsign.Log {
 		public override void DeserializeToken (JsonReader jsonReader, string tag) {
 			
 			switch (tag) {
-				case "Source" : {
-					Source = jsonReader.ReadInteger32 ();
-					break;
-					}
-				case "Count" : {
-					Count = jsonReader.ReadInteger32 ();
-					break;
-					}
 				case "Target" : {
 					Target = jsonReader.ReadInteger32 ();
 					break;
 					}
 				default : {
+					base.DeserializeToken(jsonReader, tag);
+					break;
+					}
+				}
+			// check up that all the required elements are present
+			}
+
+
+		}
+
+	/// <summary>
+	///
+	/// Specifies a mapping of non canonical characters in the range specified by 
+	/// First..Last to the string Target.
+	/// </summary>
+	public partial class MapString : CharacterSpan {
+        /// <summary>
+        ///Specifies a character string that the Source character(s) are mapped to.
+        ///If count is greater than 1, all the characters map to the same string.
+        /// </summary>
+
+		public virtual string						Target  {get; set;}
+		
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public override string _Tag => __Tag;
+
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public new const string __Tag = "MapString";
+
+		/// <summary>
+        /// Factory method
+        /// </summary>
+        /// <returns>Object of this type</returns>
+		public static new JsonObject _Factory () => new MapString();
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// </summary>
+        /// <param name="writer">Output stream</param>
+        /// <param name="wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="first">If true, item is the first entry in a list.</param>
+		public override void Serialize (Writer writer, bool wrap, ref bool first) =>
+			SerializeX (writer, wrap, ref first);
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// Unlike the Serlialize() method, this method is not inherited from the
+        /// parent class allowing a specific version of the method to be called.
+        /// </summary>
+        /// <param name="_writer">Output stream</param>
+        /// <param name="_wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="_first">If true, item is the first entry in a list.</param>
+		public new void SerializeX (Writer _writer, bool _wrap, ref bool _first) {
+			PreEncode();
+			if (_wrap) {
+				_writer.WriteObjectStart ();
+				}
+			((CharacterSpan)this).SerializeX(_writer, false, ref _first);
+			if (Target != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Target", 1);
+					_writer.WriteString (Target);
+				}
+			if (_wrap) {
+				_writer.WriteObjectEnd ();
+				}
+			}
+
+        /// <summary>
+        /// Deserialize a tagged stream
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+		/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+        /// <returns>The created object.</returns>		
+        public static new MapString FromJson (JsonReader jsonReader, bool tagged=true) {
+			if (jsonReader == null) {
+				return null;
+				}
+			if (tagged) {
+				var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+				return Out as MapString;
+				}
+		    var Result = new MapString ();
+			Result.Deserialize (jsonReader);
+			Result.PostDecode();
+			return Result;
+			}
+
+        /// <summary>
+        /// Having read a tag, process the corresponding value data.
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+        /// <param name="tag">The tag</param>
+		public override void DeserializeToken (JsonReader jsonReader, string tag) {
+			
+			switch (tag) {
+				case "Target" : {
+					Target = jsonReader.ReadString ();
+					break;
+					}
+				default : {
+					base.DeserializeToken(jsonReader, tag);
 					break;
 					}
 				}
@@ -953,7 +1019,7 @@ namespace Goedel.Callsign.Log {
         ///The log entry in which the Notarization appears SHOULD be signed.
         /// </summary>
 
-		public virtual Enveloped<Witness>						Entries  {get; set;}
+		public virtual Enveloped<Witness>						Entry  {get; set;}
 		
 		/// <summary>
         /// Tag identifying this class
@@ -997,10 +1063,10 @@ namespace Goedel.Callsign.Log {
 			if (_wrap) {
 				_writer.WriteObjectStart ();
 				}
-			if (Entries != null) {
+			if (Entry != null) {
 				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Entries", 1);
-					Entries.Serialize (_writer, false);
+				_writer.WriteToken ("Entry", 1);
+					Entry.Serialize (_writer, false);
 				}
 			if (_wrap) {
 				_writer.WriteObjectEnd ();
@@ -1035,11 +1101,369 @@ namespace Goedel.Callsign.Log {
 		public override void DeserializeToken (JsonReader jsonReader, string tag) {
 			
 			switch (tag) {
-				case "Entries" : {
+				case "Entry" : {
 					// An untagged structure
-					Entries = new Enveloped<Witness> ();
-					Entries.Deserialize (jsonReader);
+					Entry = new Enveloped<Witness> ();
+					Entry.Deserialize (jsonReader);
  
+					break;
+					}
+				default : {
+					break;
+					}
+				}
+			// check up that all the required elements are present
+			}
+
+
+		}
+
+	/// <summary>
+	///
+	/// 
+	/// </summary>
+	public partial class ProfileDns : Profile {
+        /// <summary>
+        ///Specify TLS policies for use in the zone.
+        /// </summary>
+
+		public virtual List<SecurityPolicy>				SecurityPolicies  {get; set;}
+		
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public override string _Tag => __Tag;
+
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public new const string __Tag = "ProfileDns";
+
+		/// <summary>
+        /// Factory method
+        /// </summary>
+        /// <returns>Object of this type</returns>
+		public static new JsonObject _Factory () => new ProfileDns();
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// </summary>
+        /// <param name="writer">Output stream</param>
+        /// <param name="wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="first">If true, item is the first entry in a list.</param>
+		public override void Serialize (Writer writer, bool wrap, ref bool first) =>
+			SerializeX (writer, wrap, ref first);
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// Unlike the Serlialize() method, this method is not inherited from the
+        /// parent class allowing a specific version of the method to be called.
+        /// </summary>
+        /// <param name="_writer">Output stream</param>
+        /// <param name="_wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="_first">If true, item is the first entry in a list.</param>
+		public new void SerializeX (Writer _writer, bool _wrap, ref bool _first) {
+			PreEncode();
+			if (_wrap) {
+				_writer.WriteObjectStart ();
+				}
+			((Profile)this).SerializeX(_writer, false, ref _first);
+			if (SecurityPolicies != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("SecurityPolicies", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in SecurityPolicies) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					// This is an untagged structure. Cannot inherit.
+                    //_writer.WriteObjectStart();
+                    //_writer.WriteToken(_index._Tag, 1);
+					bool firstinner = true;
+					_index.Serialize (_writer, true, ref firstinner);
+                    //_writer.WriteObjectEnd();
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (_wrap) {
+				_writer.WriteObjectEnd ();
+				}
+			}
+
+        /// <summary>
+        /// Deserialize a tagged stream
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+		/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+        /// <returns>The created object.</returns>		
+        public static new ProfileDns FromJson (JsonReader jsonReader, bool tagged=true) {
+			if (jsonReader == null) {
+				return null;
+				}
+			if (tagged) {
+				var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+				return Out as ProfileDns;
+				}
+		    var Result = new ProfileDns ();
+			Result.Deserialize (jsonReader);
+			Result.PostDecode();
+			return Result;
+			}
+
+        /// <summary>
+        /// Having read a tag, process the corresponding value data.
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+        /// <param name="tag">The tag</param>
+		public override void DeserializeToken (JsonReader jsonReader, string tag) {
+			
+			switch (tag) {
+				case "SecurityPolicies" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					SecurityPolicies = new List <SecurityPolicy> ();
+					while (_Going) {
+						// an untagged structure.
+						var _Item = new  SecurityPolicy ();
+						_Item.Deserialize (jsonReader);
+						// var _Item = new SecurityPolicy (jsonReader);
+						SecurityPolicies.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
+					break;
+					}
+				default : {
+					base.DeserializeToken(jsonReader, tag);
+					break;
+					}
+				}
+			// check up that all the required elements are present
+			}
+
+
+		}
+
+	/// <summary>
+	/// </summary>
+	public partial class SecurityPolicy : CallsignEntry {
+        /// <summary>
+        ///The DNS zone(s) to which this policy applies.
+        /// </summary>
+
+		public virtual List<string>				CName  {get; set;}
+        /// <summary>
+        ///IANA protocol name, e.g. SMTP, SUBMIT, HTTP, HTTPS, etc.		
+        /// </summary>
+
+		public virtual List<string>				Protocol  {get; set;}
+        /// <summary>
+        ///Enhancements that are supported for the specified protocol. 
+        ///Allowed values include none/ tls1.2/ tls1.3/ http3/ dnssec
+        /// </summary>
+
+		public virtual List<string>				Enhancements  {get; set;}
+		bool								__Require = false;
+		private bool						_Require;
+        /// <summary>
+        ///If true, clients MUST use one of the supported enhancements.		
+        /// </summary>
+
+		public virtual bool						Require {
+			get => _Require;
+			set {_Require = value; __Require = true; }
+			}
+        /// <summary>
+        ///Keys specifying roots of trust for the specified protocol(s).
+        /// </summary>
+
+		public virtual List<KeyData>				Roots  {get; set;}
+		
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public override string _Tag => __Tag;
+
+		/// <summary>
+        /// Tag identifying this class
+        /// </summary>
+		public new const string __Tag = "SecurityPolicy";
+
+		/// <summary>
+        /// Factory method
+        /// </summary>
+        /// <returns>Object of this type</returns>
+		public static new JsonObject _Factory () => new SecurityPolicy();
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// </summary>
+        /// <param name="writer">Output stream</param>
+        /// <param name="wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="first">If true, item is the first entry in a list.</param>
+		public override void Serialize (Writer writer, bool wrap, ref bool first) =>
+			SerializeX (writer, wrap, ref first);
+
+
+        /// <summary>
+        /// Serialize this object to the specified output stream.
+        /// Unlike the Serlialize() method, this method is not inherited from the
+        /// parent class allowing a specific version of the method to be called.
+        /// </summary>
+        /// <param name="_writer">Output stream</param>
+        /// <param name="_wrap">If true, output is wrapped with object
+        /// start and end sequences '{ ... }'.</param>
+        /// <param name="_first">If true, item is the first entry in a list.</param>
+		public new void SerializeX (Writer _writer, bool _wrap, ref bool _first) {
+			PreEncode();
+			if (_wrap) {
+				_writer.WriteObjectStart ();
+				}
+			if (CName != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("CName", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in CName) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					_writer.WriteString (_index);
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (Protocol != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Protocol", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in Protocol) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					_writer.WriteString (_index);
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (Enhancements != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Enhancements", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in Enhancements) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					_writer.WriteString (_index);
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (__Require){
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Require", 1);
+					_writer.WriteBoolean (Require);
+				}
+			if (Roots != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Roots", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in Roots) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					// This is an untagged structure. Cannot inherit.
+                    //_writer.WriteObjectStart();
+                    //_writer.WriteToken(_index._Tag, 1);
+					bool firstinner = true;
+					_index.Serialize (_writer, true, ref firstinner);
+                    //_writer.WriteObjectEnd();
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (_wrap) {
+				_writer.WriteObjectEnd ();
+				}
+			}
+
+        /// <summary>
+        /// Deserialize a tagged stream
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+		/// <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
+        /// <returns>The created object.</returns>		
+        public static new SecurityPolicy FromJson (JsonReader jsonReader, bool tagged=true) {
+			if (jsonReader == null) {
+				return null;
+				}
+			if (tagged) {
+				var Out = jsonReader.ReadTaggedObject (_TagDictionary);
+				return Out as SecurityPolicy;
+				}
+		    var Result = new SecurityPolicy ();
+			Result.Deserialize (jsonReader);
+			Result.PostDecode();
+			return Result;
+			}
+
+        /// <summary>
+        /// Having read a tag, process the corresponding value data.
+        /// </summary>
+        /// <param name="jsonReader">The input stream</param>
+        /// <param name="tag">The tag</param>
+		public override void DeserializeToken (JsonReader jsonReader, string tag) {
+			
+			switch (tag) {
+				case "CName" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					CName = new List <string> ();
+					while (_Going) {
+						string _Item = jsonReader.ReadString ();
+						CName.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
+					break;
+					}
+				case "Protocol" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					Protocol = new List <string> ();
+					while (_Going) {
+						string _Item = jsonReader.ReadString ();
+						Protocol.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
+					break;
+					}
+				case "Enhancements" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					Enhancements = new List <string> ();
+					while (_Going) {
+						string _Item = jsonReader.ReadString ();
+						Enhancements.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
+					break;
+					}
+				case "Require" : {
+					Require = jsonReader.ReadBoolean ();
+					break;
+					}
+				case "Roots" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					Roots = new List <KeyData> ();
+					while (_Going) {
+						// an untagged structure.
+						var _Item = new  KeyData ();
+						_Item.Deserialize (jsonReader);
+						// var _Item = new KeyData (jsonReader);
+						Roots.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
 					break;
 					}
 				default : {

@@ -78,10 +78,10 @@ C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.IO.pdb
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.IO.xml
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\obj\Debug\net5.0\Goedel.Callsign.Registrar.csproj.CopyComplete
-C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.Log.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.Registry.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Mesh.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.Registry.pdb
-C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.Log.pdb
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Mesh.pdb
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Mesh.xml
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.dll
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registrar\bin\Debug\net5.0\Goedel.Callsign.pdb

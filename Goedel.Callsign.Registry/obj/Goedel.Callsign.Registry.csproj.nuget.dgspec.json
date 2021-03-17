@@ -4,12 +4,12 @@
     "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Registry\\Goedel.Callsign.Registry.csproj": {}
   },
   "projects": {
-    "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj": {
+    "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj",
-        "projectName": "Goedel.Callsign.Log",
-        "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj",
+        "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj",
+        "projectName": "Goedel.Callsign",
+        "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj",
         "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\obj\\",
         "projectStyle": "PackageReference",
@@ -112,8 +112,8 @@
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj": {
-                "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.Log.csproj"
+              "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj": {
+                "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj"
               },
               "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj": {
                 "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Core\\Goedel.Utilities\\Goedel.Utilities.csproj"

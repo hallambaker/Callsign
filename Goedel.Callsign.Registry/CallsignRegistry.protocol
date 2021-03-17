@@ -7,7 +7,7 @@
 
     Using Goedel.Cryptography.Jose
     Using Goedel.Cryptography.Dare
-	Using Goedel.Callsign.Log
+	Using Goedel.Callsign
 
 
 	Section 3 "Shared Classes"
@@ -58,7 +58,7 @@
 			Description
 				|Reason for creating a registration:
 				|Initial/ Update/ Voluntary/ Administrative/ Revoke
-		Struct Enveloped<Log.Callsign> EnvelopedCallsign
+		Struct Enveloped<Callsign> EnvelopedCallsign
 			Description
 				|The callsign request signed by the party to which the callsign is to
 				|be granted.

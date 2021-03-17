@@ -18,6 +18,7 @@
 #% RegisterAlice(Examples);
 #% UpdateAlice(Examples);
 #% IoTAlice(Examples);
+#% WriteNotarize(Examples);
 #end method
 
 #zfile Examples Colophon "Examples\\Colophon.md" Examples
@@ -130,5 +131,42 @@ directly. Thus preventing a downgrade attack to an insecure site.
 #end zfile
 
 
+
+
+#zfile Examples WriteNotarize "Examples\\WriteNotarize.md" Examples
+#% var Registrations = Examples.Registrations;
+
+The first time that the Mesh service provider #{Registrations.CallsignProvider1.Presentation} 
+requests Notarization by the Registry, it creates a witness token on its local log:
+
+~~~~
+#{Registrations.Notarization1.GetWitness()}
+~~~~
+
+The witness value is signed by #{Registrations.CallsignProvider1.Presentation} to create 
+a Notarization of the witness value:
+
+~~~~
+#{Registrations.Notarization1}
+~~~~
+
+The Notarization value is sent to the registry which enrolls the Notarization in its local
+log, creates a Witness value on the entry containing the provider Notarization, and returns
+its own Notarization token containing the Witness value it has most recently created.
+
+The next time that the service provider requests Notarization, it creates a Witness token as 
+before and includes a Proof path to the previous token:
+
+~~~~
+#{Registrations.Notarization2}
+~~~~
+
+#if (Registrations.Notarization2?.Proof?.Path == null)
+[NB, generation and verification of proof is not currently supported in the reference code]
+#% Examples.TestFail();
+#end if
+
+This time, the Registry verifies the proof path before entering the token.
+#end zfile
 
 #end xclass

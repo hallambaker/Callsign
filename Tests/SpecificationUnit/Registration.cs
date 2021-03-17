@@ -65,10 +65,13 @@ namespace Goedel.Callsign.Test {
         public RegistrarServer ProviderServer1;
         public RegistrarServer ProviderServer2;
 
-        List <Notarization> NotarizationsProvider1 = new List<Notarization>();
-        List<Notarization> NotarizationsProvider2 = new List<Notarization>();
+        public List<Notarization> NotarizationsProvider1 = new List<Notarization>();
+        public List<Notarization> NotarizationsProvider2 = new List<Notarization>();
         List<Notarization> NotarizationsQuartermaster = new List<Notarization>();
 
+
+        public Notarization Notarization1 => NotarizationsProvider1[0];
+        public Notarization Notarization2 => NotarizationsProvider1[1];
 
         /// <summary>
         /// Create the character page for digits for the documentation
@@ -84,7 +87,7 @@ namespace Goedel.Callsign.Test {
             udfP2 = UDF.TestKey(CryptoAlgorithmId.Ed448, CallsignConstants.CallsignProvider1);
             keyP2 = UDF.DeriveKey(udfP2, KeySecurity.Exportable);
 
-            CallsignQuartermaster = new Callsign(CallsignConstants.CallsignProvider0) {
+            CallsignQuartermaster = new Callsign(CallsignConstants.CallsignQuartermaster) {
                 Service = "@" + CallsignConstants.CallsignProvider0,
                 Dns = new List<string> { "10.1.1.1", "10.1.1.2", "2001:db8::0001" },
                 Holder = keyP1.KeyIdentifier
@@ -113,6 +116,9 @@ namespace Goedel.Callsign.Test {
             RegistryServer = new RegistryServer(CallsignQuartermaster, RegistrationQuartermaster, keyQ, create:true);
             ProviderServer1 = new RegistrarServer(CallsignProvider1, RegistrationProvider1, keyQ, create: true);
             ProviderServer2 = new RegistrarServer(CallsignProvider2, RegistrationProvider2, keyP2, create: true);
+
+            Notarize(RegistryServer, NotarizationsQuartermaster);
+
 
             Notarize(ProviderServer1, NotarizationsProvider1);
 
@@ -161,11 +167,14 @@ namespace Goedel.Callsign.Test {
 
 
         void Notarize(CallsignServer initiator, List<Notarization> trace) {
-            var notarization = initiator.CreateNotarization();
-            var response = RegistryServer.EnterNotarization(notarization);
+
+            var previous = trace.Count > 0 ? trace[^1] : null;
+
+            var notarization = initiator.CreateNotarization(previous);
+            RegistryServer.EnterNotarization(notarization);
 
             trace.Add(notarization);
-            NotarizationsQuartermaster.Add(response);
+
             }
 
         }

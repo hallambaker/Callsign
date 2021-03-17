@@ -26,6 +26,7 @@ namespace Goedel.Callsign.Specification {
 			 RegisterAlice(Examples);
 			 UpdateAlice(Examples);
 			 IoTAlice(Examples);
+			 WriteNotarize(Examples);
 			}
 		
 
@@ -191,6 +192,52 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("A Mesh aware browser can access the Web site directly and enforce the security policy\n{0}", _Indent);
 				_Output.Write ("directly. Thus preventing a downgrade attack to an insecure site.\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
+					}
+		
+
+		//
+		// WriteNotarize
+		//
+		public static void WriteNotarize(Examples Examples) { /* XFile  */
+				using var _Output = new StreamWriter("Examples\\WriteNotarize.md");
+			Examples._Output = _Output;
+			Examples._WriteNotarize(Examples);
+			}
+		public void _WriteNotarize(Examples Examples) {
+
+				 var Registrations = Examples.Registrations;
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("The first time that the Mesh service provider {1} \n{0}", _Indent, Registrations.CallsignProvider1.Presentation);
+				_Output.Write ("requests Notarization by the Registry, it creates a witness token on its local log:\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization1.GetWitness());
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("The witness value is signed by {1} to create \n{0}", _Indent, Registrations.CallsignProvider1.Presentation);
+				_Output.Write ("a Notarization of the witness value:\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization1);
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("The Notarization value is sent to the registry which enrolls the Notarization in its local\n{0}", _Indent);
+				_Output.Write ("log, creates a Witness value on the entry containing the provider Notarization, and returns\n{0}", _Indent);
+				_Output.Write ("its own Notarization token containing the Witness value it has most recently created.\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("The next time that the service provider requests Notarization, it creates a Witness token as \n{0}", _Indent);
+				_Output.Write ("before and includes a Proof path to the previous token:\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization2);
+				_Output.Write ("~~~~\n{0}", _Indent);
+				_Output.Write ("\n{0}", _Indent);
+				if (  (Registrations.Notarization2?.Proof?.Path == null) ) {
+					_Output.Write ("[NB, generation and verification of proof is not currently supported in the reference code]\n{0}", _Indent);
+					 Examples.TestFail();
+					}
+				_Output.Write ("\n{0}", _Indent);
+				_Output.Write ("This time, the Registry verifies the proof path before entering the token.\n{0}", _Indent);
 					}
 		}
 	}

@@ -87,7 +87,8 @@ namespace Goedel.Callsign {
             }
 
 
-        public Notarization CreateNotarization () {
+        public Notarization CreateNotarization (
+                    Notarization previous) {
             // Write out the callsign registration to the first item in the sequence.
 
 
@@ -99,23 +100,30 @@ namespace Goedel.Callsign {
                 };
             var envelopedWitness = Enveloped<Witness>.Envelope(witness, KeySign);
 
+
+
+
             var notarization = new Notarization() {
-                Entry = envelopedWitness
+                Entries = new List<Enveloped<Witness>> { envelopedWitness }
                 };
-            
+
+            if (previous != null) {
+                notarization.Proof = new Proof();
+                }
 
             return notarization;
             }
 
 
-        public Notarization EnterNotarization(Notarization notarization) {
+        public void EnterNotarization(
+                    Notarization notarization) {
 
-
+            
             var envelopedNotarization = Enveloped<Notarization>.Envelope(notarization, KeySign);
 
             Container.Append(envelopedNotarization);
 
-            return CreateNotarization();
+            //return CreateNotarization();
             }
 
 

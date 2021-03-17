@@ -130,14 +130,15 @@
 	Section 3 "Notarization"
 
 	Structure Notarization
-		Struct Enveloped<Witness> Entry
+		Struct Enveloped<Witness> Entries
+			Multiple
 			Description
 				|Enveloped witness value of a specific append only log.
+
+		Struct Proof Proof
 			Description
-				|Note that the need for n signatures could be avoided through Merkle Tree
-				|type techniques, but this is unnecessary.
-			Description
-				|The log entry in which the Notarization appears SHOULD be signed.
+				|Proof path validating the previous notary token that was entered in the
+				|log.
 
 	Section 3 "Trust Assertions"
 

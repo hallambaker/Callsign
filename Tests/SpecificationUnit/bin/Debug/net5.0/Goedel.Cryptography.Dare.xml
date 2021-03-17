@@ -2853,14 +2853,6 @@
             parameter is not null. If the value is less than 0, chunked encoding
             will be used for the payload data. </param>         
         </member>
-        <member name="M:Goedel.Cryptography.Dare.DareEnvelope.FromJson(Goedel.Protocol.JsonReader,System.Boolean)">
-            <summary>
-            Deserialize a tagged stream
-            </summary>
-            <param name="jsonReader">The input stream</param>
-            <param name="tagged">If true, the input is wrapped in a tag specifying the type</param>
-            <returns>The created object.</returns>		
-        </member>
         <member name="M:Goedel.Cryptography.Dare.DareEnvelope.DecodeJsonObject(Goedel.Cryptography.IKeyLocate)">
             <summary>
             Decode a tagged JSONObject using keys from <paramref name="keyCollection"/> to decrypt

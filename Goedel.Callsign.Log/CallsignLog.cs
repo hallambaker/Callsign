@@ -20,7 +20,7 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 3/17/2021 1:25:20 AM
+//  This file was automatically generated at 3/17/2021 1:39:46 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
@@ -1014,12 +1014,15 @@ namespace Goedel.Callsign {
 	public partial class Notarization : CallsignEntry {
         /// <summary>
         ///Enveloped witness value of a specific append only log.
-        ///Note that the need for n signatures could be avoided through Merkle Tree
-        ///type techniques, but this is unnecessary.
-        ///The log entry in which the Notarization appears SHOULD be signed.
         /// </summary>
 
-		public virtual Enveloped<Witness>						Entry  {get; set;}
+		public virtual List<Enveloped<Witness>>				Entries  {get; set;}
+        /// <summary>
+        ///Proof path validating the previous notary token that was entered in the
+        ///log.
+        /// </summary>
+
+		public virtual Proof						Proof  {get; set;}
 		
 		/// <summary>
         /// Tag identifying this class
@@ -1063,10 +1066,27 @@ namespace Goedel.Callsign {
 			if (_wrap) {
 				_writer.WriteObjectStart ();
 				}
-			if (Entry != null) {
+			if (Entries != null) {
 				_writer.WriteObjectSeparator (ref _first);
-				_writer.WriteToken ("Entry", 1);
-					Entry.Serialize (_writer, false);
+				_writer.WriteToken ("Entries", 1);
+				_writer.WriteArrayStart ();
+				bool _firstarray = true;
+				foreach (var _index in Entries) {
+					_writer.WriteArraySeparator (ref _firstarray);
+					// This is an untagged structure. Cannot inherit.
+                    //_writer.WriteObjectStart();
+                    //_writer.WriteToken(_index._Tag, 1);
+					bool firstinner = true;
+					_index.Serialize (_writer, true, ref firstinner);
+                    //_writer.WriteObjectEnd();
+					}
+				_writer.WriteArrayEnd ();
+				}
+
+			if (Proof != null) {
+				_writer.WriteObjectSeparator (ref _first);
+				_writer.WriteToken ("Proof", 1);
+					Proof.Serialize (_writer, false);
 				}
 			if (_wrap) {
 				_writer.WriteObjectEnd ();
@@ -1101,10 +1121,24 @@ namespace Goedel.Callsign {
 		public override void DeserializeToken (JsonReader jsonReader, string tag) {
 			
 			switch (tag) {
-				case "Entry" : {
+				case "Entries" : {
+					// Have a sequence of values
+					bool _Going = jsonReader.StartArray ();
+					Entries = new List <Enveloped<Witness>> ();
+					while (_Going) {
+						// an untagged structure.
+						var _Item = new  Enveloped<Witness> ();
+						_Item.Deserialize (jsonReader);
+						// var _Item = new Enveloped<Witness> (jsonReader);
+						Entries.Add (_Item);
+						_Going = jsonReader.NextArray ();
+						}
+					break;
+					}
+				case "Proof" : {
 					// An untagged structure
-					Entry = new Enveloped<Witness> ();
-					Entry.Deserialize (jsonReader);
+					Proof = new Proof ();
+					Proof.Deserialize (jsonReader);
  
 					break;
 					}

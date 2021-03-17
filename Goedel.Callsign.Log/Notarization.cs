@@ -18,15 +18,50 @@
 //  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 //  THE SOFTWARE.
 
-[assembly: System.Reflection.AssemblyKeyName("SigningKeyDeveloper")]
+using Goedel.Utilities;
 
-namespace Callsign {
-    /// <summary>
-    /// Mesh Callsign registry implementation.
-    /// </summary>
+using System;
+using System.Text;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+using Goedel.Cryptography.Dare;
 
-    [System.Runtime.CompilerServices.CompilerGenerated]
-    class NamespaceDoc {
+namespace Goedel.Callsign {
+
+
+    public partial class Notarization {
+        #region // Properties
+
+
+        #endregion
+        #region // Constructors
+
+
+
+        #endregion
+        #region // Implement Inteface $$$
+        #endregion
+        #region // Override Methods
+        #endregion
+        #region // Methods
+
+        public Witness GetWitness(int index = 0) {
+
+            var enveloped = Entries[index];
+
+
+
+            return enveloped.Decode();
+            }
+
+
+        #endregion
+
+
         }
+
+
 
     }

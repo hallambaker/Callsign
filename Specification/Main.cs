@@ -21,6 +21,7 @@
 using Goedel.Utilities;
 
 using System;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -66,18 +67,35 @@ namespace Goedel.Callsign.Specification {
 
         public void MakeDocuments() {
             // we need to delete the results of previous runs here!!!
+            var directory = new DirectoryInfo(".");
+            var files = directory.GetFiles("*.dares");
+            foreach (var file in files) {
+                Screen.WriteLine($"Delete {file.FullName}");
+                file.Delete();
+                }
 
 
             // check canonicalization works correctly
-            //CharacterPage.CheckCannonicalization();
+            CharacterPage.CheckCannonicalization();
+            TestSuccess();
 
             Registrations.RegistrationFromDraft();
+            TestSuccess();
+
             Policies.Thermostat();
+            TestSuccess();
 
             MakeAllExamples(this);
 
             }
 
+
+        public static void TestFail() {
+            ErrorCountTotal++;
+            TestSuccess();
+            }
+
+        public static void TestSuccess() => CountTotal++;
 
         #endregion
         }

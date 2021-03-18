@@ -64,7 +64,7 @@ namespace Goedel.Callsign.Specification {
 
 				 var CharacterPage = Examples.CharacterPage;
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Examples.CharacterPageDigits);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Examples.CharacterPageDigits));
 				_Output.Write ("~~~~\n{0}", _Indent);
 					}
 		
@@ -81,7 +81,7 @@ namespace Goedel.Callsign.Specification {
 
 				 var CharacterPage = Examples.CharacterPage;
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Examples.CharacterPageLatin);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Examples.CharacterPageLatin));
 				_Output.Write ("~~~~\n{0}", _Indent);
 					}
 		
@@ -102,7 +102,7 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("{1}.\n{0}", _Indent, Registrations.CallsignAlice.Id);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.CallsignAlice);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.CallsignAlice));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("The registrar receives the request and forwards it to the registry which creates a \n{0}", _Indent);
@@ -110,7 +110,7 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.RegistrationAlice);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.RegistrationAlice));
 				_Output.Write ("~~~~\n{0}", _Indent);
 					}
 		
@@ -134,14 +134,14 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("{1}.\n{0}", _Indent, Registrations.CallsignAlice2.Id);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.CallsignAlice2);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.CallsignAlice2));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("The registrar receives the request and forwards it to the registry which creates a \n{0}", _Indent);
 				_Output.Write ("registration record that is enrolled in the callsign log:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.RegistrationAlice2);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.RegistrationAlice2));
 				_Output.Write ("~~~~\n{0}", _Indent);
 					}
 		
@@ -167,7 +167,7 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("registration of her Mesh Service Provider:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.CallsignProvider2);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.CallsignProvider2));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("The authoritative DNS server publishes a link from which a Mesh DNS Profile specifying the\n{0}", _Indent);
@@ -181,7 +181,7 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("the thermostat supports TLS/1.2 transport layer security:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Policies.AliceZone);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Policies.AliceZone));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("A non Mesh-aware browser can access the Web site and establish a TLS connection to the \n{0}", _Indent);
@@ -211,14 +211,14 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("requests Notarization by the Registry, it creates a witness token on its local log:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization1.GetWitness());
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.Notarization1.GetWitness()));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("The witness value is signed by {1} to create \n{0}", _Indent, Registrations.CallsignProvider1.Presentation);
 				_Output.Write ("a Notarization of the witness value:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization1);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.Notarization1));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("The Notarization value is sent to the registry which enrolls the Notarization in its local\n{0}", _Indent);
@@ -229,7 +229,7 @@ namespace Goedel.Callsign.Specification {
 				_Output.Write ("before and includes a Proof path to the previous token:\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				_Output.Write ("~~~~\n{0}", _Indent);
-				_Output.Write ("{1}\n{0}", _Indent, Registrations.Notarization2);
+				_Output.Write ("{1}\n{0}", _Indent, JSONDebugWriter.Write(Registrations.Notarization2));
 				_Output.Write ("~~~~\n{0}", _Indent);
 				_Output.Write ("\n{0}", _Indent);
 				if (  (Registrations.Notarization2?.Proof?.Path == null) ) {

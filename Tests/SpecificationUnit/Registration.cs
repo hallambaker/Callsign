@@ -92,7 +92,7 @@ namespace Goedel.Callsign.Test {
                 Dns = new List<string> { "10.1.1.1", "10.1.1.2", "2001:db8::0001" },
                 Holder = keyP1.KeyIdentifier
                 };
-            Enveloped<Callsign>.Envelope(CallsignQuartermaster, keyQ);
+            Enveloped<CallsignEntry>.Envelope(CallsignQuartermaster, keyQ);
 
             CallsignProvider1 = new Callsign(CallsignConstants.CallsignProvider0) {
                 Service = "@" + CallsignConstants.CallsignProvider0,
@@ -100,7 +100,7 @@ namespace Goedel.Callsign.Test {
                 Holder = keyP1.KeyIdentifier
                 };
 
-            Enveloped<Callsign>.Envelope(CallsignProvider1, keyP1);
+            Enveloped<CallsignEntry>.Envelope(CallsignProvider1, keyP1);
 
             CallsignProvider2 = new Callsign(CallsignConstants.CallsignProvider1) {
                 Service = "@" + CallsignConstants.CallsignProvider1,
@@ -108,7 +108,7 @@ namespace Goedel.Callsign.Test {
                 Holder = keyP2.KeyIdentifier
                 };
 
-            Enveloped<Callsign>.Envelope(CallsignProvider2, keyP2);
+            Enveloped<CallsignEntry>.Envelope(CallsignProvider2, keyP2);
 
 
 
@@ -137,7 +137,7 @@ namespace Goedel.Callsign.Test {
                 Holder = keyA.KeyIdentifier
                 };
 
-            Enveloped<Callsign>.Envelope(CallsignAlice, keyA);
+            Enveloped<CallsignEntry>.Envelope(CallsignAlice, keyA);
             RegistrationAlice = new Registration(CallsignAlice);
 
             RegistryServer.Enter(RegistrationAlice);
@@ -151,13 +151,10 @@ namespace Goedel.Callsign.Test {
                 Holder = keyA.KeyIdentifier
                 };
 
-            Enveloped<Callsign>.Envelope(CallsignAlice2, keyA);
+            Enveloped<CallsignEntry>.Envelope(CallsignAlice2, keyA);
             RegistrationAlice2 = new Registration(CallsignAlice2);
 
-            RegistryServer.Enter(RegistrationAlice);
-
-
-            Enveloped<Registration>.Envelope(RegistrationAlice2, keyQ);
+            RegistryServer.Enter(RegistrationAlice2);
 
             Notarize(ProviderServer2, NotarizationsProvider2);
 

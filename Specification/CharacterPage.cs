@@ -137,12 +137,12 @@ namespace Goedel.Callsign.Specification {
             }
 
 
-        static CharacterSpan MakeRange(char c) => new CharacterSpan() {
+        static Canonical MakeRange(char c) => new Canonical() {
             First = (int) c,
             Last = (int)c
             };
 
-        static CharacterSpan MakeRange(char c1, char c2) => new CharacterSpan() {
+        static Canonical MakeRange(char c1, char c2) => new Canonical() {
             First = (int)c1,
             Last = (int)c2
             };

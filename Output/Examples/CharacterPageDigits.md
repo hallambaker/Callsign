@@ -1,16 +1,18 @@
 ~~~~
 {
-  "Id": "CharacterPageDigits",
-  "CharacterSpans": [{
-      "CharacterSpan": {
-        "First": 48,
-        "Last": 57}},
-    {
-      "MapString": {
-        "First": 32,
-        "Target": ""}},
-    {
-      "MapString": {
-        "First": 95,
-        "Target": ""}}]}
+  "Page":{
+    "Id":"CharacterPageDigits",
+    "CharacterSpans":[{
+        "Canonical":{
+          "First":48,
+          "Last":57}},
+      {
+        "MapString":{
+          "First":32,
+          "Target":""}},
+      {
+        "MapString":{
+          "First":95,
+          "Target":""}}
+      ]}}
 ~~~~

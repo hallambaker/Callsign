@@ -38,14 +38,14 @@ all passed.
 #zfile Examples WriteCharacterPageDigits "Examples\\CharacterPageDigits.md" Examples
 #% var CharacterPage = Examples.CharacterPage;
 ~~~~
-#{Examples.CharacterPageDigits}
+#{JSONDebugWriter.Write(Examples.CharacterPageDigits)}
 ~~~~
 #end zfile
 
 #zfile Examples WriteCharacterPageLatin "Examples\\CharacterPageLatin.md" Examples
 #% var CharacterPage = Examples.CharacterPage;
 ~~~~
-#{Examples.CharacterPageLatin}
+#{JSONDebugWriter.Write(Examples.CharacterPageLatin)}
 ~~~~
 #end zfile
 
@@ -57,7 +57,7 @@ Alice registers the callsign #{Registrations.CallsignAlice.Presentation} it has 
 #{Registrations.CallsignAlice.Id}.
 
 ~~~~
-#{Registrations.CallsignAlice}
+#{JSONDebugWriter.Write(Registrations.CallsignAlice)}
 ~~~~
 
 The registrar receives the request and forwards it to the registry which creates a 
@@ -65,7 +65,7 @@ registration record that is enrolled in the callsign log:
 
 
 ~~~~
-#{Registrations.RegistrationAlice}
+#{JSONDebugWriter.Write(Registrations.RegistrationAlice)}
 ~~~~
 #end zfile
 
@@ -80,14 +80,14 @@ require require a new callsign to be registered as this has tghe same canonical 
 #{Registrations.CallsignAlice2.Id}.
 
 ~~~~
-#{Registrations.CallsignAlice2}
+#{JSONDebugWriter.Write(Registrations.CallsignAlice2)}
 ~~~~
 
 The registrar receives the request and forwards it to the registry which creates a 
 registration record that is enrolled in the callsign log:
 
 ~~~~
-#{Registrations.RegistrationAlice2}
+#{JSONDebugWriter.Write(Registrations.RegistrationAlice2)}
 ~~~~
 #end zfile
 
@@ -103,7 +103,7 @@ DNS zone {Policies.AliceDns}. The IP addresses of this server are specified in t
 registration of her Mesh Service Provider:
 
 ~~~~
-#{Registrations.CallsignProvider2}
+#{JSONDebugWriter.Write(Registrations.CallsignProvider2)}
 ~~~~
 
 The authoritative DNS server publishes a link from which a Mesh DNS Profile specifying the
@@ -117,7 +117,7 @@ The security policy for the zone states that the DNS zone is signed using DNSSEC
 the thermostat supports TLS/1.2 transport layer security:
 
 ~~~~
-#{Policies.AliceZone}
+#{JSONDebugWriter.Write(Policies.AliceZone)}
 ~~~~
 
 A non Mesh-aware browser can access the Web site and establish a TLS connection to the 
@@ -140,14 +140,14 @@ The first time that the Mesh service provider #{Registrations.CallsignProvider1.
 requests Notarization by the Registry, it creates a witness token on its local log:
 
 ~~~~
-#{Registrations.Notarization1.GetWitness()}
+#{JSONDebugWriter.Write(Registrations.Notarization1.GetWitness())}
 ~~~~
 
 The witness value is signed by #{Registrations.CallsignProvider1.Presentation} to create 
 a Notarization of the witness value:
 
 ~~~~
-#{Registrations.Notarization1}
+#{JSONDebugWriter.Write(Registrations.Notarization1)}
 ~~~~
 
 The Notarization value is sent to the registry which enrolls the Notarization in its local
@@ -158,7 +158,7 @@ The next time that the service provider requests Notarization, it creates a Witn
 before and includes a Proof path to the previous token:
 
 ~~~~
-#{Registrations.Notarization2}
+#{JSONDebugWriter.Write(Registrations.Notarization2)}
 ~~~~
 
 #if (Registrations.Notarization2?.Proof?.Path == null)

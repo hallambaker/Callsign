@@ -1,0 +1,2162 @@
+<?xml version='1.0' encoding='utf-8'?>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-hallambaker-mesh-callsign-00" indexInclude="false" ipr="trust200902" prepTime="2021-03-18T01:58:23Z" scripts="Common,Latin" sortRefs="true" submissionType="independent" symRefs="true" tocDepth="3" tocInclude="true" version="3" xml:lang="en"><front>
+<title abbrev="Mesh Discovery Service">Mathematical Mesh 3.0 Part VII: Mesh Callsign Service</title>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-mesh-callsign" stream="independent"/>
+<author fullname="Phillip Hallam-Baker" initials="P. M." surname="Hallam-Baker"><organization>ThresholdSecrets.com</organization>
+<address>
+<email>phill@hallambaker.com</email>
+</address>
+</author>
+<date day="18" month="March" year="2021"/>
+<area/>
+<workgroup/>
+<keyword>Threshold Cryptography</keyword>
+<keyword>Elliptic Curve</keyword>
+<keyword>Threshold Encryption</keyword>
+<keyword>Threshold Key Generation</keyword>
+<keyword>Ceremony</keyword>
+<abstract>
+<t>The Mesh Callsign Registry is a name registry that provides a mapping from human-friendly callsigns to root of trusts and a service assigned by the callsign holder to service the account bound to that callsign. An append only sequence authenticated by means of a Merkle Tree and periodic third party notarizations provides ground truth for the integrity of the registry and for all the assertions enrolled in the sequence.</t>
+<t><eref target="http://whatever">https://mailarchive.ietf.org/arch/browse/mathmesh/</eref>Discussion of this draft should take place on the MathMesh mailing list (mathmesh@ietf.org), which is archived at .</t>
+</abstract>
+</front>
+<middle>
+<section title="Introduction" anchor="n-introduction"><t>The Mesh Callsign registry performs three principal functions:</t>
+<ul>
+<li>Provides ground truth for notarized records.</li>
+<li>Provides a quasi-permanent mapping from human-friendly callsigns to root of trusts.</li>
+<li>Provides a means of discovering the service currently servicing an account bound to a root of trust.</li>
+</ul>
+<t>For example, Alice registers the callsign @alice, binding the callsign to her Mesh account profile and her current Mesh service provider (@provisional). The callsign may now be used (subject to the relevant authorization criteria) to contact Alice through any Mesh messaging protocol or through any of the Internet protocols specified in the contact declaration(s) Alice has published to that account.</t>
+<t>Unlike traditional Internet account addresses, callsign registrations are the property of the holder, do not require any maintenance fees or rent and cannot be reassigned without the consent of the holder except in exceptional circumstances according to a well-defined dispute resolution process.</t>
+<t>Mesh accounts are likewise the property of the holder and not the service provider servicing them. Should Alice be dissatisfied with the service provided by @provisional, she can change to another provider at any time.</t>
+<t>As with the URIs that support the World Wide Web, Mesh callsigns are conceptually distinct from the Mesh itself. While the primary purpose of the callsign registry is to provide for Mesh 'account portability' similar to the 'number portability' required of telephone providers, the infrastructure established is general purpose and may be applied to obtain roots of trust for use with IPSEC, DNSEC, TLS, etc.</t>
+<section title="Wafer-Thin Registry Model" anchor="n-waferthin-registry-model"><t>Providing a permanent name assignment on the basis of a one-off fee requires close attention to be paid to the allocation of costs within the system. An architecture that requires a registry to perform ongoing services with respect to a registration cannot do so on the basis of a one time fee.</t>
+<t>In the DNS naming infrastructure overseen by ICANN, a distinction is made between a Registry responsible for the administration of a 'top level domain' and the Registrars responsible for servicing domain name holders as customers. While this 'thin registry' model offloads the cost of customer service to the registrars, the Registry is responsible for the difficult and expensive task of providing the authoritative DNS service for the zone.</t>
+<t>In the wafer-thin registry model, the task of providing the callsign query function is performed by the registrars and others from the append only logs published by the registry. This has the effect of assigning only the fixed one-time registration costs to the registry and placing the variable costs on the registrar (Figure xxx).</t>
+<figure>
+<name>
+Callsign Registry Principals and Communication Graph.</name>
+<!-- Include SVG File ../Images/RegistryParties.svg --><artwork type="svg">
+<svg width="432" height="249" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 24,0 L 168,0" fill="none" stroke="black" />
+  <path d="M 24,32 L 168,32" fill="none" stroke="black" />
+  <path d="M 24,96 L 168,96" fill="none" stroke="black" />
+  <path d="M 24,128 L 168,128" fill="none" stroke="black" />
+  <path d="M 24,192 L 168,192" fill="none" stroke="black" />
+  <path d="M 24,224 L 168,224" fill="none" stroke="black" />
+  <path d="M 96,48 L 96,80" fill="none" stroke="black" />
+  <path d="M 96,144 L 96,176" fill="none" stroke="black" />
+  <path d="M 96,40 L 96,48" fill="none" stroke="black" />
+  <polygon points="112.000000,48.000000 100.000000,42.400002 100.000000,53.599998" fill="black" transform="rotate(270.000000, 96.000000, 48.000000)" />
+  <path d="M 96,80 L 96,88" fill="none" stroke="black" />
+  <polygon points="112.000000,80.000000 100.000000,74.400002 100.000000,85.599998" fill="black" transform="rotate(90.000000, 96.000000, 80.000000)" />
+  <path d="M 96,136 L 96,144" fill="none" stroke="black" />
+  <polygon points="112.000000,144.000000 100.000000,138.399994 100.000000,149.600006" fill="black" transform="rotate(270.000000, 96.000000, 144.000000)" />
+  <path d="M 96,176 L 96,184" fill="none" stroke="black" />
+  <polygon points="112.000000,176.000000 100.000000,170.399994 100.000000,181.600006" fill="black" transform="rotate(90.000000, 96.000000, 176.000000)" />
+  <path d="M 24,0 A 16,16 0 0,0 8,16" fill="none" stroke="black" />
+  <path d="M 168,0 A 16,16 0 0,1 184,16" fill="none" stroke="black" />
+  <path d="M 8,16 A 16,16 0 0,0 24,32" fill="none" stroke="black" />
+  <path d="M 184,16 A 16,16 0 0,1 168,32" fill="none" stroke="black" />
+  <path d="M 24,96 A 16,16 0 0,0 8,112" fill="none" stroke="black" />
+  <path d="M 168,96 A 16,16 0 0,1 184,112" fill="none" stroke="black" />
+  <path d="M 8,112 A 16,16 0 0,0 24,128" fill="none" stroke="black" />
+  <path d="M 184,112 A 16,16 0 0,1 168,128" fill="none" stroke="black" />
+  <path d="M 24,192 A 16,16 0 0,0 8,208" fill="none" stroke="black" />
+  <path d="M 168,192 A 16,16 0 0,1 184,208" fill="none" stroke="black" />
+  <path d="M 8,208 A 16,16 0 0,0 24,224" fill="none" stroke="black" />
+  <path d="M 184,208 A 16,16 0 0,1 168,224" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="116">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="116">u</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="212">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="20">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="100">O</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="116">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="132">u</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="212">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="116">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="212">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="20">F</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="20">x</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="20">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="100">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="212">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="212">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="212">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="116">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="116">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="116">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="212">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="20">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="100">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="116">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="212">H</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="212">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="212">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="100">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="132">V</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="212">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="212">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="212">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="212">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="20">,</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="116">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="132">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="132">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="212">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="116">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="116">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="132">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="212">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="20">f</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="20">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="100">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="212">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="20">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="212">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="100">u</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="116">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="212">w</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="212">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="100">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="100">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="116">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="20">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="212">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="20">f</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="132">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="212">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="116">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="116">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="116">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="212">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="212">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="100">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="132">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="132">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="212">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="212">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="116">C</text>
+</g></svg>
+</artwork>
+</figure>
+<t>In the DNS thin registry model, the registry is a single point of failure and a successful denial of service attack against the registry would result in loss of service for every Internet user. Consequently, such registries must be over-built and over-provisioned to ensure such attacks cannot possibly succeed. In the wafer-thin registry model, the query service is distributed across multiple registrars, each of which services a specific community. The single point of failure is eliminated and the responsibility for query service placed with parties that are much better placed to distinguish legitimate query traffic from abuse.</t>
+</section>
+<section title="Transparency" anchor="n-transparency"><t>The technical implementation of the callsign registry is designed to provide transparency, that is the ability for any party to audit the actions of any other party using only publicly available information.</t>
+<t>The callsign registry is realized an append only sequence authenticated by means of a Merkle Tree. Each callsign registration or update is made by means of a signed assertion appended to the end of the sequence.</t>
+<t>The callsign registry periodically issues a signed witness token asserting that the apex value of the Merkle Tree has a particular value and incorporates witness tokens issued by others in its own log as a notarization event. Over time, these interactions between the Registry, the Registrars and their customers establishes a Mesh of Trus such that it is impossible for any party to defect undetected unless every other party colludes in the deception. For example, consider the following circumstance in which Alice, Bob, their providers and the registry perform the following series of cross notarization events:</t>
+<figure>
+<name>
+Mesh of Trust generated through Cross-Notarization.</name>
+<!-- Include SVG File ../Images/NotarizationWeb.svg --><artwork type="svg">
+<svg width="576" height="185" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 0,0 L 112,0" fill="none" stroke="black" />
+  <path d="M 112,0 L 224,0" fill="none" stroke="black" />
+  <path d="M 224,0 L 336,0" fill="none" stroke="black" />
+  <path d="M 336,0 L 448,0" fill="none" stroke="black" />
+  <path d="M 448,0 L 560,0" fill="none" stroke="black" />
+  <path d="M 0,32 L 56,32" fill="none" stroke="black" />
+  <path d="M 56,32 L 112,32" fill="none" stroke="black" />
+  <path d="M 112,32 L 168,32" fill="none" stroke="black" />
+  <path d="M 168,32 L 224,32" fill="none" stroke="black" />
+  <path d="M 224,32 L 280,32" fill="none" stroke="black" />
+  <path d="M 280,32 L 336,32" fill="none" stroke="black" />
+  <path d="M 336,32 L 392,32" fill="none" stroke="black" />
+  <path d="M 392,32 L 448,32" fill="none" stroke="black" />
+  <path d="M 448,32 L 504,32" fill="none" stroke="black" />
+  <path d="M 504,32 L 560,32" fill="none" stroke="black" />
+  <path d="M 400,64 L 504,64" fill="none" stroke="black" />
+  <path d="M 64,80 L 168,80" fill="none" stroke="black" />
+  <path d="M 168,80 L 272,80" fill="none" stroke="black" />
+  <path d="M 176,96 L 280,96" fill="none" stroke="black" />
+  <path d="M 280,96 L 384,96" fill="none" stroke="black" />
+  <path d="M 400,112 L 504,112" fill="none" stroke="black" />
+  <path d="M 56,128 L 160,128" fill="none" stroke="black" />
+  <path d="M 176,144 L 280,144" fill="none" stroke="black" />
+  <path d="M 280,144 L 384,144" fill="none" stroke="black" />
+  <path d="M 64,160 L 168,160" fill="none" stroke="black" />
+  <path d="M 168,160 L 272,160" fill="none" stroke="black" />
+  <path d="M 0,0 L 0,32" fill="none" stroke="black" />
+  <path d="M 56,32 L 56,128" fill="none" stroke="black" />
+  <path d="M 56,128 L 56,160" fill="none" stroke="black" />
+  <path d="M 112,0 L 112,32" fill="none" stroke="black" />
+  <path d="M 168,32 L 168,80" fill="none" stroke="black" />
+  <path d="M 168,80 L 168,160" fill="none" stroke="black" />
+  <path d="M 224,0 L 224,32" fill="none" stroke="black" />
+  <path d="M 280,32 L 280,96" fill="none" stroke="black" />
+  <path d="M 280,96 L 280,144" fill="none" stroke="black" />
+  <path d="M 280,144 L 280,160" fill="none" stroke="black" />
+  <path d="M 336,0 L 336,32" fill="none" stroke="black" />
+  <path d="M 392,32 L 392,160" fill="none" stroke="black" />
+  <path d="M 448,0 L 448,32" fill="none" stroke="black" />
+  <path d="M 504,32 L 504,64" fill="none" stroke="black" />
+  <path d="M 504,64 L 504,112" fill="none" stroke="black" />
+  <path d="M 504,112 L 504,160" fill="none" stroke="black" />
+  <path d="M 560,0 L 560,32" fill="none" stroke="black" />
+  <polygon points="72.000000,80.000000 60.000000,74.400002 60.000000,85.599998" fill="black" transform="rotate(180.000000, 64.000000, 80.000000)" />
+  <polygon points="72.000000,160.000000 60.000000,154.399994 60.000000,165.600006" fill="black" transform="rotate(180.000000, 64.000000, 160.000000)" />
+  <polygon points="168.000000,128.000000 156.000000,122.400002 156.000000,133.600006" fill="black" transform="rotate(0.000000, 160.000000, 128.000000)" />
+  <polygon points="184.000000,96.000000 172.000000,90.400002 172.000000,101.599998" fill="black" transform="rotate(180.000000, 176.000000, 96.000000)" />
+  <polygon points="184.000000,144.000000 172.000000,138.399994 172.000000,149.600006" fill="black" transform="rotate(180.000000, 176.000000, 144.000000)" />
+  <polygon points="280.000000,80.000000 268.000000,74.400002 268.000000,85.599998" fill="black" transform="rotate(0.000000, 272.000000, 80.000000)" />
+  <polygon points="280.000000,160.000000 268.000000,154.399994 268.000000,165.600006" fill="black" transform="rotate(0.000000, 272.000000, 160.000000)" />
+  <polygon points="392.000000,96.000000 380.000000,90.400002 380.000000,101.599998" fill="black" transform="rotate(0.000000, 384.000000, 96.000000)" />
+  <polygon points="392.000000,144.000000 380.000000,138.399994 380.000000,149.600006" fill="black" transform="rotate(0.000000, 384.000000, 144.000000)" />
+  <polygon points="408.000000,64.000000 396.000000,58.400002 396.000000,69.599998" fill="black" transform="rotate(180.000000, 400.000000, 64.000000)" />
+  <polygon points="408.000000,112.000000 396.000000,106.400002 396.000000,117.599998" fill="black" transform="rotate(180.000000, 400.000000, 112.000000)" />
+  <circle cx="56" cy="128" r="6" fill="none" stroke="black" />
+  <circle cx="168" cy="80" r="6" fill="none" stroke="black" />
+  <circle cx="168" cy="160" r="6" fill="none" stroke="black" />
+  <circle cx="280" cy="96" r="6" fill="none" stroke="black" />
+  <circle cx="280" cy="144" r="6" fill="none" stroke="black" />
+  <circle cx="504" cy="64" r="6" fill="none" stroke="black" />
+  <circle cx="504" cy="112" r="6" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="496" y="20">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="132">5</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="504" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="20">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="432" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="20">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="20">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="20">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="52">0</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="68">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="100">3</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="20">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="20">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="424" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="116">4</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="176" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="192" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="148">6</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="164">7</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="84">2</text>
+  <text text-anchor="middle" font-family="sans-serif" x="184" y="20">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="200" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="488" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="512" y="20">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">c</text>
+</g></svg>
+</artwork>
+</figure>
+<t>At the start of the process, the only party with proof of the integrity of Bob's sequence is Bob. Creation of a witness token that is enrolled in the provider @provisional increases the support structure by one, etc. </t>
+<figure>
+<name>
+Support structure for integrity of Bob's sequence at time 0.</name>
+<!-- Include SVG File ../Images/SupportStructure.svg --><artwork type="svg">
+<svg width="440" height="105" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="68">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="84">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="224" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="4">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="52">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="52">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="224" y="52">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="52">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="84">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="52">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="84">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="216" y="84">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="20">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="36">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="36">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="84">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="68">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="68">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="36">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="208" y="52">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="52">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="68">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="68">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="84">5</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="84">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="52">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="68">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="84">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="36">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="52">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="68">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="176" y="68">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="68">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="52">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="52">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="52">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="52">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="68">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="192" y="84">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="84">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="36">2</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="52">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="84">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="84">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="84">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="52">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="68">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="68">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="84">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="424" y="84">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="84">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="84">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="84">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="36">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="176" y="52">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="68">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="84">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="20">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="36">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="68">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="52">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="52">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="84">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="84">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="36">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="52">3</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="52">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="52">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="52">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="68">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="68">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="176" y="84">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="36">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="68">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="68">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="4">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="52">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="68">4</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="84">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="4">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="20">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="192" y="52">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="68">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="84">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="208" y="84">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="84">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="68">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="68">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="68">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="0" y="4">0</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="36">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="36">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="52">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="68">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="84">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="84">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="84">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="84">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="36">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="36">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="216" y="52">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="52">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="68">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="84">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="36">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="68">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="68">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="84">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="216" y="68">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="84">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="36">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="68">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="52">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="84">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="36">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="52">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="52">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="52">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="52">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="68">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="36">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="192" y="68">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="84">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="84">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="200" y="84">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="20">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="20">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="52">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="68">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="84">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="4">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="36">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="224" y="68">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="52">&amp;</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="52">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="68">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="208" y="68">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="68">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="200" y="68">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="68">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="52">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="200" y="52">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="52">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="84">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="84">t</text>
+</g></svg>
+</artwork>
+</figure>
+<t>After a short series of interactions, the trust mesh is complete and each of the participants can validate Bob's sequence according to themselves as the ultimate root of trust. Thus Alice can validate Bob's claim that a document was created by a certain date relying on herself as the root of trust:</t>
+<figure>
+<name>
+Notarization Trust Relationships.</name>
+<!-- Include SVG File ../Images/NotarizationTrust.svg --><artwork type="svg">
+<svg width="176" height="377" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 16,0 L 144,0" fill="none" stroke="black" />
+  <path d="M 16,32 L 144,32" fill="none" stroke="black" />
+  <path d="M 16,80 L 144,80" fill="none" stroke="black" />
+  <path d="M 16,112 L 144,112" fill="none" stroke="black" />
+  <path d="M 16,160 L 144,160" fill="none" stroke="black" />
+  <path d="M 16,192 L 144,192" fill="none" stroke="black" />
+  <path d="M 16,240 L 144,240" fill="none" stroke="black" />
+  <path d="M 16,272 L 144,272" fill="none" stroke="black" />
+  <path d="M 16,320 L 144,320" fill="none" stroke="black" />
+  <path d="M 16,352 L 144,352" fill="none" stroke="black" />
+  <path d="M 80,48 L 80,64" fill="none" stroke="black" />
+  <path d="M 80,128 L 80,144" fill="none" stroke="black" />
+  <path d="M 80,208 L 80,224" fill="none" stroke="black" />
+  <path d="M 80,288 L 80,304" fill="none" stroke="black" />
+  <path d="M 80,40 L 80,48" fill="none" stroke="black" />
+  <path d="M 80,120 L 80,128" fill="none" stroke="black" />
+  <path d="M 80,200 L 80,208" fill="none" stroke="black" />
+  <path d="M 80,280 L 80,288" fill="none" stroke="black" />
+  <path d="M 80,64 L 80,72" fill="none" stroke="black" />
+  <polygon points="96.000000,64.000000 84.000000,58.400002 84.000000,69.599998" fill="black" transform="rotate(90.000000, 80.000000, 64.000000)" />
+  <path d="M 80,144 L 80,152" fill="none" stroke="black" />
+  <polygon points="96.000000,144.000000 84.000000,138.399994 84.000000,149.600006" fill="black" transform="rotate(90.000000, 80.000000, 144.000000)" />
+  <path d="M 80,224 L 80,232" fill="none" stroke="black" />
+  <polygon points="96.000000,224.000000 84.000000,218.399994 84.000000,229.600006" fill="black" transform="rotate(90.000000, 80.000000, 224.000000)" />
+  <path d="M 80,304 L 80,312" fill="none" stroke="black" />
+  <polygon points="96.000000,304.000000 84.000000,298.399994 84.000000,309.600006" fill="black" transform="rotate(90.000000, 80.000000, 304.000000)" />
+  <path d="M 16,0 A 16,16 0 0,0 0,16" fill="none" stroke="black" />
+  <path d="M 144,0 A 16,16 0 0,1 160,16" fill="none" stroke="black" />
+  <path d="M 0,16 A 16,16 0 0,0 16,32" fill="none" stroke="black" />
+  <path d="M 160,16 A 16,16 0 0,1 144,32" fill="none" stroke="black" />
+  <path d="M 16,80 A 16,16 0 0,0 0,96" fill="none" stroke="black" />
+  <path d="M 144,80 A 16,16 0 0,1 160,96" fill="none" stroke="black" />
+  <path d="M 0,96 A 16,16 0 0,0 16,112" fill="none" stroke="black" />
+  <path d="M 160,96 A 16,16 0 0,1 144,112" fill="none" stroke="black" />
+  <path d="M 16,160 A 16,16 0 0,0 0,176" fill="none" stroke="black" />
+  <path d="M 144,160 A 16,16 0 0,1 160,176" fill="none" stroke="black" />
+  <path d="M 0,176 A 16,16 0 0,0 16,192" fill="none" stroke="black" />
+  <path d="M 160,176 A 16,16 0 0,1 144,192" fill="none" stroke="black" />
+  <path d="M 16,240 A 16,16 0 0,0 0,256" fill="none" stroke="black" />
+  <path d="M 144,240 A 16,16 0 0,1 160,256" fill="none" stroke="black" />
+  <path d="M 0,256 A 16,16 0 0,0 16,272" fill="none" stroke="black" />
+  <path d="M 160,256 A 16,16 0 0,1 144,272" fill="none" stroke="black" />
+  <path d="M 16,320 A 16,16 0 0,0 0,336" fill="none" stroke="black" />
+  <path d="M 144,320 A 16,16 0 0,1 160,336" fill="none" stroke="black" />
+  <path d="M 0,336 A 16,16 0 0,0 16,352" fill="none" stroke="black" />
+  <path d="M 160,336 A 16,16 0 0,1 144,352" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="20">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="100">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="180">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="180">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="260">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="340">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="180">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="260">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="260">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="260">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="100">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="180">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="260">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="260">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="340">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="100">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="180">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="260">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="260">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="340">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="100">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="180">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="260">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="340">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="260">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="180">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="180">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="180">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="260">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="260">o</text>
+</g></svg>
+</artwork>
+</figure>
+</section>
+<section title="Dispute Resolution" anchor="n-dispute-resolution"><t>Except in exceptional circumstances, callsign registrations cannot be transferred without the express permission of the holder as evidenced by a digital assertion signed under a key authorized by the callsign registration.</t>
+<t>One such exceptional circumstance is the case in which an intellectual property claim is made against the use of the callsign. A set of principles for resolving such disputes and a dispute resolution process for deciding them is therefore required. Such questions are outside the scope of this document, the provision of technical infrastructure to support them is not.</t>
+<t>While there are many jurisdictions that might assert sovereignty with respect to intellectual property claims, it is in practice only necessary to consider those capable of enforcing their decisions. Fortunately, this very fact has resulted in international treaties such as the Madrid protocol.</t>
+</section>
+<section title="Name resolution" anchor="n-name-resolution"><t>The WebPKI provides a means of authenticating organizations by reducing the validation criteria to the determination that a specific process was used to validate certificate requests. This approach has been successful largely because organizations and in particular corporations are entities that come into being by the specific act of registration by a government entity. </t>
+<t>Natural persons do not come into being through government action. Consequently, attempts to apply this approach to identification of natural persons have met with limited success at best. The problem of establishing a PKI for identification of natural persons has long been recognized as one of the hardest challenges in the security field.</t>
+<t>Callsigns provide a solution to this by establishing a name space in which the registration of a name is coextensive with the registration of the root of trust in which the name is to be interpreted. Since this is a completely new name space with no pre-existing commitments, we are free to design the namespace to meet the needs of the PKI rather than having to adapt the PKI to the vagaries of the namespace.</t>
+<t>While introducing a new namespace solves the problem of establishing a PKI for natural persons, it leaves us with the problem of how to make use of the new infrastructure on devices and protocols that only understand the legacy namespaces. While Alice does not respond to HTTP requests, she owns many devices that do and these should be accessible through the trust and naming contexts established by Alice's callsign registration.</t>
+<t>These requirements are addressed by mapping the names established by the callsign registry to an unused portion of DNS. Devices bound to Alice's callsign '@alice' being accessible through the DNS pseudo-domain alice.mesh.</t>
+<t>For example, is Alice buys a thermostat and binds it to her Mesh profile, the device is assigned the sub-callsign hvac@alice and the DNS name hvac.alice.mesh. The device may then be provisioned with all the credentials and discovery services required to provide Alice with seamless thermostat service within her home: </t>
+<figure>
+<name>
+Thermostat connected to Alice's Mesh.</name>
+<!-- Include SVG File ../Images/IotBinding.svg --><artwork type="svg">
+<svg width="464" height="249" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 16,0 L 176,0" fill="none" stroke="black" />
+  <path d="M 296,0 L 392,0" fill="none" stroke="black" />
+  <path d="M 200,16 L 272,16" fill="none" stroke="black" />
+  <path d="M 16,32 L 176,32" fill="none" stroke="black" />
+  <path d="M 16,64 L 176,64" fill="none" stroke="black" />
+  <path d="M 200,80 L 272,80" fill="none" stroke="black" />
+  <path d="M 16,96 L 176,96" fill="none" stroke="black" />
+  <path d="M 16,128 L 176,128" fill="none" stroke="black" />
+  <path d="M 200,144 L 272,144" fill="none" stroke="black" />
+  <path d="M 16,160 L 176,160" fill="none" stroke="black" />
+  <path d="M 16,192 L 176,192" fill="none" stroke="black" />
+  <path d="M 200,208 L 272,208" fill="none" stroke="black" />
+  <path d="M 16,224 L 176,224" fill="none" stroke="black" />
+  <path d="M 296,224 L 392,224" fill="none" stroke="black" />
+  <path d="M 280,16 L 280,208" fill="none" stroke="black" />
+  <path d="M 408,16 L 408,208" fill="none" stroke="black" />
+  <polygon points="280.000000,16.000000 268.000000,10.400000 268.000000,21.600000" fill="black" transform="rotate(0.000000, 272.000000, 16.000000)" />
+  <polygon points="280.000000,80.000000 268.000000,74.400002 268.000000,85.599998" fill="black" transform="rotate(0.000000, 272.000000, 80.000000)" />
+  <polygon points="280.000000,144.000000 268.000000,138.399994 268.000000,149.600006" fill="black" transform="rotate(0.000000, 272.000000, 144.000000)" />
+  <polygon points="280.000000,208.000000 268.000000,202.399994 268.000000,213.600006" fill="black" transform="rotate(0.000000, 272.000000, 208.000000)" />
+  <path d="M 16,0 A 16,16 0 0,0 0,16" fill="none" stroke="black" />
+  <path d="M 176,0 A 16,16 0 0,1 192,16" fill="none" stroke="black" />
+  <path d="M 296,0 A 16,16 0 0,0 280,16" fill="none" stroke="black" />
+  <path d="M 392,0 A 16,16 0 0,1 408,16" fill="none" stroke="black" />
+  <path d="M 0,16 A 16,16 0 0,0 16,32" fill="none" stroke="black" />
+  <path d="M 192,16 A 16,16 0 0,1 176,32" fill="none" stroke="black" />
+  <path d="M 16,64 A 16,16 0 0,0 0,80" fill="none" stroke="black" />
+  <path d="M 176,64 A 16,16 0 0,1 192,80" fill="none" stroke="black" />
+  <path d="M 0,80 A 16,16 0 0,0 16,96" fill="none" stroke="black" />
+  <path d="M 192,80 A 16,16 0 0,1 176,96" fill="none" stroke="black" />
+  <path d="M 16,128 A 16,16 0 0,0 0,144" fill="none" stroke="black" />
+  <path d="M 176,128 A 16,16 0 0,1 192,144" fill="none" stroke="black" />
+  <path d="M 0,144 A 16,16 0 0,0 16,160" fill="none" stroke="black" />
+  <path d="M 192,144 A 16,16 0 0,1 176,160" fill="none" stroke="black" />
+  <path d="M 16,192 A 16,16 0 0,0 0,208" fill="none" stroke="black" />
+  <path d="M 176,192 A 16,16 0 0,1 192,208" fill="none" stroke="black" />
+  <path d="M 0,208 A 16,16 0 0,0 16,224" fill="none" stroke="black" />
+  <path d="M 192,208 A 16,16 0 0,1 176,224" fill="none" stroke="black" />
+  <path d="M 280,208 A 16,16 0 0,0 296,224" fill="none" stroke="black" />
+  <path d="M 408,208 A 16,16 0 0,1 392,224" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="212">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="84">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="148">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="148">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="212">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="212">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="84">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="84">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="148">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="84">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="84">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="148">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="148">F</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="20">D</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="84">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="84">L</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="84">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="148">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="148">F</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="212">A</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="212">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="84">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="116">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="84">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="116">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="84">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="148">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="20">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="20">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="84">T</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="84">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="84">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="148">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="148">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="212">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="20">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="212">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="148">D</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="212">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="20">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="84">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="116">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="212">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="212">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="20">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="84">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="84">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="116">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="116">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="16" y="148">W</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="212">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="20">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="212">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="116">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="148">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="148">=</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="212">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="212">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="212">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="84">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="84">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="20">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="212">u</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="116">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="212">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="116">T</text>
+</g></svg>
+</artwork>
+</figure>
+</section>
+<section title="Trusted Third Parties" anchor="n-trusted-third-parties"><t>The Mesh Trust architecture is based on the principle that every person has the right to be their own root of trust. This principle is realized in the application of cross notarization through which the ultimate authority for Alice on entries in Bob's personal catalogs is Alice herself.</t>
+<t>But trust management is a difficult and time-consuming task and just as it likely that Alice outsources the trusted task of guarding her money to her bank, it is likely that Alice will delegate at least some trust management decisions to trusted third parties of her choosing.</t>
+<t>In the WebPKI, Trusted Third Parties (CAs) enable Internet commerce by establishing accountability. The fact that a Web site is owned by a registered business in a particular jurisdiction does not in itself guarantee that the Web site owner is trustworthy. But the fact that they are registered in that jurisdiction means that they are accountable to it should they breach the terms of a contract or attempt to perpetrate some fraud. </t>
+<t>Trusted Third Parties provide additional information to parties relying on a callsign through accreditations. An accreditation is a trust assertion that states that the holder of a callsign has been determined to meet some criteria according to a specific set of practices meeting a given policy. For example:</t>
+<ul>
+<li>The holder is a registered business.</li>
+<li>The holder is approved by some business accreditation service.</li>
+<li>The holder is the registered holder of a specific trademark.</li>
+</ul>
+<t>The ability to bind registered trademarks to a callsign holder is of particular interest when Mesh Messaging is being used for a transaction requiring a particular degree of trust. </t>
+<t>For example, Alice might opt to use her Internet connected watch as a second factor authentication device connected to her brokerage account. When Alice attempts to perform a high value transaction purchasing a large number of penny stocks, she receives a confirmation message on her watch. The accredited trademark of the brokerage is used to authenticate the message to Alice before she reads and responds to it.</t>
+</section>
+</section>
+<section title="Definitions" anchor="n-definitions"><t>This section presents the related specifications and standards....</t>
+<section title="Related Specifications" anchor="n-related-specifications"><t>The Mesh Callsign registry is a component part of the Mathematical Mesh <xref target="draft-hallambaker-mesh-architecture"></xref> and makes use of the data formats and service formats described therein. In particular:</t>
+<dl>
+<dt>Uniform Data Fingerprint <xref target="draft-hallambaker-mesh-udf"></xref>.</dt>
+<dd>
+<t>Describes the UDF format used to represent cryptographic nonces, keys and content digests in the Mesh and the use of Encrypted Authenticated Resource Locators (EARLs) and Strong Internet Names (SINs) that build on the UDF platform.</t>
+</dd>
+<dt>Data at Rest Encryption <xref target="draft-hallambaker-mesh-dare"></xref>.</dt>
+<dd>
+<t>Describes the cryptographic message and append-only sequence formats used in Mesh applications and the Mesh Service protocol.</t>
+</dd>
+<dt>JSON-BCD Encoding <xref target="draft-hallambaker-jsonbcd"></xref>.</dt>
+<dd>
+<t>Describes extensions to the JSON serialization format to allow direct encoding of binary data (JSON-B), compressed encoding (JSON-C) and extended binary data encoding (JSON-D). Each of these encodings is a superset of the previous one so that JSON-B is a superset of JSON, JSON-C is a superset of JSON-B and JSON-D is a superset of JSON-C.</t>
+</dd>
+</dl>
+</section>
+<section title="Defined Terms" anchor="n-defined-terms"><t>This document makes use of the terms defined in <xref target="draft-hallambaker-mesh-architecture"></xref>.</t>
+</section>
+<section title="Requirements Language" anchor="n-requirements-language"><t>The key words "<bcp14>MUST</bcp14>", "<bcp14>MUST NOT</bcp14>", "<bcp14>REQUIRED</bcp14>", "<bcp14>SHALL</bcp14>", "<bcp14>SHALL NOT</bcp14>", "<bcp14>SHOULD</bcp14>", "<bcp14>SHOULD NOT</bcp14>", "<bcp14>RECOMMENDED</bcp14>", "<bcp14>MAY</bcp14>", and "<bcp14>OPTIONAL</bcp14>" in this document are to be interpreted as described in RFC 2119 <xref target="RFC2119"></xref>.</t>
+</section>
+<section title="Implementation Status" anchor="n-implementation-status"><t>The implementation status of the reference code base is described in the companion document <xref target="draft-hallambaker-mesh-developer"></xref>.</t>
+<t></include></t>
+</section>
+<section title="Reserved Callsigns" anchor="n-reserved-callsigns"><t>The following callsigns are reserved identifiers in the callsign registry. When used in this document, these callsigns refer to the following parties:</t>
+<dl>
+<dt>@alice, @bob, @carol, @doug</dt>
+<dd>
+<t>The generic end users, Alice, Bob, Carol and Doug.</t>
+</dd>
+<dt>@callsign, @callsign1, @callsign2</dt>
+<dd>
+<t>Generic callsigns</t>
+</dd>
+<dt>@corporation, @customer, @competitor</dt>
+<dd>
+<t>A generic corporation and its customer and competitor.</t>
+</dd>
+<dt>@eve</dt>
+<dd>
+<t>An eavesdropper</t>
+</dd>
+<dt>@grace</dt>
+<dd>
+<t>A government representative</t>
+</dd>
+<dt>@heidi</dt>
+<dd>
+<t>A malicious designer for cryptographic standards</t>
+</dd>
+<dt>@judy</dt>
+<dd>
+<t>A judge who may be called upon to resolve a potential dispute between participants.</t>
+</dd>
+<dt>@mallet </dt>
+<dd>
+<t>A malicious party engaged in an active attack</t>
+</dd>
+<dt>@provider, @provisional</dt>
+<dd>
+<t>Mesh Service Providers</t>
+</dd>
+<dt>@quartermaster</dt>
+<dd>
+<t>The callsign of the registry quartermaster.</t>
+</dd>
+<dt>@sybil, @sybil0, @sybil-1, @sybil-n</dt>
+<dd>
+<t>A pseudonymous attacker, who usually uses a large number of identities. </t>
+</dd>
+<dt>@ted</dt>
+<dd>
+<t>A trusted arbitrator, who acts as a neutral third party.</t>
+</dd>
+<dt>@wendy</dt>
+<dd>
+<t>A whistleblower, who is an insider with privileged access capable of divulging information.</t>
+</dd>
+<dt>@Firstname_Lastname</dt>
+<dd>
+<t>A generic user whose name is 'Firstname Lastname'</t>
+</dd>
+</dl>
+</section>
+</section>
+<section title="Callsign Syntax" anchor="n-callsign-syntax"><t>A canonical Callsign consists of one or more canonical Unicode characters that are specified in a single character page as defined by a Registry character page registration.</t>
+<t>A presentation form of a callsign consists of the symbol '@' followed by a string of one or more Unicode characters which has the canonical form of the callsign as defined by a Registry character page registration.</t>
+<t>This approach responds to lessons learned from the experience of internationalized DNS names, in particular the threat of a homograph attack in which similar or identical looking characters from different character sets are combined to create a domain name that looks like a name that has already been registered.</t>
+<t>Specifications for two character pages are proposed in this document:</t>
+<dl>
+<dt>CharacterPageDigits</dt>
+<dd>
+<t>The digits [0-9] are canonical.</t>
+<t>The spacing characters ' ' and '_' are non-canonical and map to the empty string.</t>
+</dd>
+<dt>CharacterPageLatin</dt>
+<dd>
+<t>Includes the CharacterPageDigits page by reference</t>
+<t>The characters [a-z] are canonical.</t>
+<t>The characters [A-Z] and accented Latin characters are non-canonical and map to the characters [a-z] according to usage.</t>
+</dd>
+</dl>
+<t>Each callsign has a single, unique canonical form that is determined by replacing each non-canonical character with the replacement specified in the character page registration.</t>
+<t>For example, Alice may register her callsign as @alice, @Alice, @Alic?, etc. All of which have the same canonical form 'alice'. </t>
+<t>Bob can send a message to Alice by entering any callsign presentation that maps to the same canonical form as the callsign registered by Alice. But when Bob receives a message from Alice, her callsign <bcp14>SHOULD</bcp14> be presented in the registered presentation if this is known.</t>
+<t>Character page definitions are published through the registry. This allows new code pages to be added at any time without the need to update existing clients (unless the client lacks the fonts required to present the callsign).</t>
+<t>Character page definitions  <bcp14>MAY</bcp14> be extended by adding additional variants. A variant consists of a mapping of a single variant character to a group of one or more canonical characters. A variant character mapping <bcp14>MUST NOT</bcp14> specify any character that is canonical in that code page as its source.</t>
+<t>It is of course inevitable that the process of canonicalization will result in two or more words that have distinct and different meanings mapping to the same callsign just as it is inevitable that any technological infrastructure that attempts to span diverse cultural practices arising from centuries of use will not be able to satisfy everyone.</t>
+<section title="Reserved Characters" anchor="n-reserved-characters"><t>The following characters are reserved and <bcp14>MUST NOT</bcp14> be used in a callsign </t>
+<dl>
+<dt>@</dt>
+<dd>
+<t>Reserved to prevent confusion and to enable use in transitive naming.</t>
+</dd>
+<dt>.</dt>
+<dd>
+<t>Reserved to enable interoperability with DNS names.</t>
+</dd>
+<dt>:</dt>
+<dd>
+<t>Reserved to avoid ambiguity when used in URIs</t>
+</dd>
+<dt>#</dt>
+<dd>
+<t>Reserved to avoid ambiguity with URI fragment identifier syntax.</t>
+</dd>
+<dt>%</dt>
+<dd>
+<t>Reserved for future use to allow URI percent-encoding of callsigns to be specified.</t>
+</dd>
+</dl>
+</section>
+<section title="Additional character pages" anchor="n-additional-character-pages"><t>Additional character pages will be added after a proof-of-concept deployment has been achieved for the Latin character page. Character pages to be considered include:</t>
+<dl>
+<dt>Emoji character page</dt>
+<dd>
+<t>Why not? Will map to a specific set of symbols via some escape sequence.</t>
+</dd>
+<dt> Arabic, Chinese, Cyrillic, Devanagari, Hebrew, etc.</dt>
+<dd>
+<t>Just need to have a domain expert specify how to do these.</t>
+</dd>
+</dl>
+</section>
+<section title="Callsign Delegation" anchor="n-callsign-delegation"><t>The form delegate@callsign <bcp14>MAY</bcp14> be used to create a subordinate callsign.</t>
+<ul>
+<li>Provide names for IoT devices</li>
+<li>Roles within an organization</li>
+</ul>
+<t>For example, Alice might assign the callsign hvac@alice to the thermostat controlling her home heating and ventilation system. </t>
+<t>If Alice works for @corporation, she might be assigned the subordinate callsign alice@corporation for the duration of her employment. This allows for a smooth transfer of responsibilities when Alice eventually leaves. It is clear to anyone who interacts with Alice through the callsign alice@corporation, that the 'end' of the communication and the trust relationship in this case is @corporation and not Alice.</t>
+<t>In circumstances in which Mesh callsigns are used in combinaton with RFC822 email addresses, the DNS pseudo domain .mesh <bcp14>MAY</bcp14> be used for disambiguation. Thus @alice <bcp14>MAY</bcp14> be written as @alice.mesh and alice@corporation <bcp14>MAY</bcp14> be written as alice@corporation.mesh.</t>
+</section>
+<section title="Transitive Callsign" anchor="n-transitive-callsign"><t>The form callsign1@@callsign2 <bcp14>MAY</bcp14> be used to specify the party that the party holding callsign2 knows as callsign1.</t>
+<t>This format <bcp14>MAY</bcp14> be used to support SPKI/SDSI forms of transitive naming. This may be of use in constructing identifiers to refer to elements of Notarization proof chains. 'registry@@provider' being an identifier for a Witness token generated by @registry and enrolled by @provider.</t>
+</section>
+<section title="Mapping to DNS Names" anchor="n-mapping-to-dns-names"><t>The DNS pseudo domain .mesh is used to provide a reserved space to which Mesh callsigns <bcp14>MAY</bcp14> be mapped through assertions specified in Registry entries. The .mesh domain is conceptually distinct from those currently offered by ICANN. Instead of the zone being maintained as a DNS zone delegated from the DNS root, the zone entries are determined from the entries in the callsign registry:</t>
+<t>For example: To resolve the domain hvac.alice.mesh, a Mesh aware application requests callsign resolution on @alice. </t>
+<figure>
+<name>
+DNS resolution of hvac.alice.mesh.</name>
+<!-- Include SVG File ../Images/DnsResolution2.svg --><artwork type="svg">
+<svg width="560" height="361" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 16,0 L 176,0" fill="none" stroke="black" />
+  <path d="M 16,32 L 176,32" fill="none" stroke="black" />
+  <path d="M 16,80 L 176,80" fill="none" stroke="black" />
+  <path d="M 16,128 L 176,128" fill="none" stroke="black" />
+  <path d="M 16,176 L 176,176" fill="none" stroke="black" />
+  <path d="M 16,224 L 176,224" fill="none" stroke="black" />
+  <path d="M 16,272 L 176,272" fill="none" stroke="black" />
+  <path d="M 16,336 L 176,336" fill="none" stroke="black" />
+  <path d="M 0,96 L 0,112" fill="none" stroke="black" />
+  <path d="M 0,192 L 0,208" fill="none" stroke="black" />
+  <path d="M 0,288 L 0,320" fill="none" stroke="black" />
+  <path d="M 88,48 L 88,64" fill="none" stroke="black" />
+  <path d="M 88,144 L 88,160" fill="none" stroke="black" />
+  <path d="M 88,240 L 88,256" fill="none" stroke="black" />
+  <path d="M 192,96 L 192,112" fill="none" stroke="black" />
+  <path d="M 192,192 L 192,208" fill="none" stroke="black" />
+  <path d="M 192,288 L 192,320" fill="none" stroke="black" />
+  <path d="M 88,40 L 88,48" fill="none" stroke="black" />
+  <path d="M 88,136 L 88,144" fill="none" stroke="black" />
+  <path d="M 88,232 L 88,240" fill="none" stroke="black" />
+  <path d="M 88,64 L 88,72" fill="none" stroke="black" />
+  <polygon points="104.000000,64.000000 92.000000,58.400002 92.000000,69.599998" fill="black" transform="rotate(90.000000, 88.000000, 64.000000)" />
+  <path d="M 88,160 L 88,168" fill="none" stroke="black" />
+  <polygon points="104.000000,160.000000 92.000000,154.399994 92.000000,165.600006" fill="black" transform="rotate(90.000000, 88.000000, 160.000000)" />
+  <path d="M 88,256 L 88,264" fill="none" stroke="black" />
+  <polygon points="104.000000,256.000000 92.000000,250.399994 92.000000,261.600006" fill="black" transform="rotate(90.000000, 88.000000, 256.000000)" />
+  <path d="M 16,0 A 16,16 0 0,0 0,16" fill="none" stroke="black" />
+  <path d="M 176,0 A 16,16 0 0,1 192,16" fill="none" stroke="black" />
+  <path d="M 0,16 A 16,16 0 0,0 16,32" fill="none" stroke="black" />
+  <path d="M 192,16 A 16,16 0 0,1 176,32" fill="none" stroke="black" />
+  <path d="M 16,80 A 16,16 0 0,0 0,96" fill="none" stroke="black" />
+  <path d="M 176,80 A 16,16 0 0,1 192,96" fill="none" stroke="black" />
+  <path d="M 0,112 A 16,16 0 0,0 16,128" fill="none" stroke="black" />
+  <path d="M 192,112 A 16,16 0 0,1 176,128" fill="none" stroke="black" />
+  <path d="M 16,176 A 16,16 0 0,0 0,192" fill="none" stroke="black" />
+  <path d="M 176,176 A 16,16 0 0,1 192,192" fill="none" stroke="black" />
+  <path d="M 0,208 A 16,16 0 0,0 16,224" fill="none" stroke="black" />
+  <path d="M 192,208 A 16,16 0 0,1 176,224" fill="none" stroke="black" />
+  <path d="M 16,272 A 16,16 0 0,0 0,288" fill="none" stroke="black" />
+  <path d="M 176,272 A 16,16 0 0,1 192,288" fill="none" stroke="black" />
+  <path d="M 0,320 A 16,16 0 0,0 16,336" fill="none" stroke="black" />
+  <path d="M 192,320 A 16,16 0 0,1 176,336" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="292">A</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="308">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="100">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="196">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="292">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="308">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="324">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="116">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="196">f</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="292">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="424" y="292">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="324">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="324">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="196">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="196">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="400" y="292">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="324">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="308">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="324">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="448" y="196">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="292">0</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="432" y="100">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="480" y="196">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="292">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="324">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="324">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="292">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="324">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="324">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="100">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="196">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="196">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="488" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="324">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="212">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="212">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="512" y="292">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="324">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="100">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="212">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="324">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="324">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="432" y="324">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="20">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="100">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="196">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="544" y="292">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="324">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="20">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="308">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="324">A</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="324">0</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="324">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="440" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="196">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="292">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="464" y="292">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="196">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="324">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="456" y="100">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="116">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="196">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="196">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="100">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="456" y="196">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="528" y="292">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="308">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="292">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="308">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="100">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="384" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="196">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="536" y="292">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="116">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="432" y="196">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="100">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="196">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="488" y="292">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="212">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="324">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="324">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="504" y="292">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="20">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="116">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="464" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="292">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="292">D</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="292">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="308">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="324">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="100">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="196">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="212">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="292">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="308">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="324">8</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="324">f</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="292">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="308">G</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="324">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="116">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="212">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="292">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="292">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="324">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="20">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="116">P</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="292">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="292">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="324">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="196">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="472" y="196">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="464" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="324">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="116">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="196">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="432" y="292">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="496" y="292">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="196">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="100">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="196">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="196">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="196">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="212">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="196">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="116">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="136" y="196">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="360" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="100">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="292">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="100">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="116">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="292">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="416" y="100">f</text>
+  <text text-anchor="middle" font-family="sans-serif" x="440" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="292">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="472" y="292">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="20">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="20">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="100">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="472" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="424" y="324">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="196">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="308">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="324">A</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="324">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="352" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="392" y="292">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="440" y="324">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="324">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="292">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="324">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="20">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="292">v</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="100">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="116">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="440" y="292">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">c</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="292">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="292">1</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="20">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="196">:</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="292">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="20">b</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="116">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="116">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="308">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="292">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="292">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="324">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="376" y="20">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="100">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="196">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="196">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="196">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="212">D</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="324">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="100">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="308">$</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="100">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="292">u</text>
+  <text text-anchor="middle" font-family="sans-serif" x="24" y="100">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="116">p</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="212">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="308">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="308">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="368" y="100">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="196">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="212">0</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="292">2</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="308">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="324">8</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="196">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="128" y="212">2</text>
+  <text text-anchor="middle" font-family="sans-serif" x="152" y="212">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="292">P</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="116">@</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="324">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="292">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="308">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="168" y="324">8</text>
+  <text text-anchor="middle" font-family="sans-serif" x="144" y="20">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="308">O</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="196">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="448" y="292">d</text>
+  <text text-anchor="middle" font-family="sans-serif" x="520" y="292">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="408" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="196">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="160" y="324">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="20">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="448" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="196">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="196">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="308">e</text>
+</g></svg>
+</artwork>
+</figure>
+<t>The callsign entry for @alice does not specify a DNS field but it does specify that the callsign is serviced by @provider. The callsign entry for @provider specifies a DNS entry for an authoritative name server for all the DNS zones being serviced by the provider. This includes service for the zone alice.mesh which contains an IP address for hvac.alice.mesh.</t>
+<t>A provider of DNS resolution service <bcp14>MAY</bcp14> provide delegation service for the complete .mesh domain by determining the corresponding delegation entries from the callsign registry as they are entered:</t>
+<figure>
+<name>
+DNS resolution of Callsign Pseudo-Domain.</name>
+<!-- Include SVG File ../Images/DnsResolution.svg --><artwork type="svg">
+<svg width="384" height="201" xmlns="http://www.w3.org/2000/svg" >
+<g transform="translate(8,16)">
+  <path d="M 16,0 L 144,0" fill="none" stroke="black" />
+  <path d="M 216,0 L 344,0" fill="none" stroke="black" />
+  <path d="M 16,32 L 144,32" fill="none" stroke="black" />
+  <path d="M 216,32 L 344,32" fill="none" stroke="black" />
+  <path d="M 16,80 L 144,80" fill="none" stroke="black" />
+  <path d="M 216,80 L 344,80" fill="none" stroke="black" />
+  <path d="M 168,96 L 192,96" fill="none" stroke="black" />
+  <path d="M 16,112 L 144,112" fill="none" stroke="black" />
+  <path d="M 216,112 L 344,112" fill="none" stroke="black" />
+  <path d="M 80,48 L 80,64" fill="none" stroke="black" />
+  <path d="M 280,48 L 280,64" fill="none" stroke="black" />
+  <path d="M 80,40 L 80,48" fill="none" stroke="black" />
+  <path d="M 280,40 L 280,48" fill="none" stroke="black" />
+  <path d="M 80,64 L 80,72" fill="none" stroke="black" />
+  <polygon points="96.000000,64.000000 84.000000,58.400002 84.000000,69.599998" fill="black" transform="rotate(90.000000, 80.000000, 64.000000)" />
+  <polygon points="176.000000,96.000000 164.000000,90.400002 164.000000,101.599998" fill="black" transform="rotate(180.000000, 168.000000, 96.000000)" />
+  <path d="M 280,64 L 280,72" fill="none" stroke="black" />
+  <polygon points="296.000000,64.000000 284.000000,58.400002 284.000000,69.599998" fill="black" transform="rotate(90.000000, 280.000000, 64.000000)" />
+  <path d="M 16,0 A 16,16 0 0,0 0,16" fill="none" stroke="black" />
+  <path d="M 144,0 A 16,16 0 0,1 160,16" fill="none" stroke="black" />
+  <path d="M 216,0 A 16,16 0 0,0 200,16" fill="none" stroke="black" />
+  <path d="M 344,0 A 16,16 0 0,1 360,16" fill="none" stroke="black" />
+  <path d="M 0,16 A 16,16 0 0,0 16,32" fill="none" stroke="black" />
+  <path d="M 160,16 A 16,16 0 0,1 144,32" fill="none" stroke="black" />
+  <path d="M 200,16 A 16,16 0 0,0 216,32" fill="none" stroke="black" />
+  <path d="M 360,16 A 16,16 0 0,1 344,32" fill="none" stroke="black" />
+  <path d="M 16,80 A 16,16 0 0,0 0,96" fill="none" stroke="black" />
+  <path d="M 144,80 A 16,16 0 0,1 160,96" fill="none" stroke="black" />
+  <path d="M 216,80 A 16,16 0 0,0 200,96" fill="none" stroke="black" />
+  <path d="M 344,80 A 16,16 0 0,1 360,96" fill="none" stroke="black" />
+  <path d="M 0,96 A 16,16 0 0,0 16,112" fill="none" stroke="black" />
+  <path d="M 160,96 A 16,16 0 0,1 144,112" fill="none" stroke="black" />
+  <path d="M 200,96 A 16,16 0 0,0 216,112" fill="none" stroke="black" />
+  <path d="M 360,96 A 16,16 0 0,1 344,112" fill="none" stroke="black" />
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="20">I</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="20">O</text>
+  <text text-anchor="middle" font-family="sans-serif" x="248" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="100">S</text>
+  <text text-anchor="middle" font-family="sans-serif" x="96" y="100">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="100">m</text>
+  <text text-anchor="middle" font-family="sans-serif" x="216" y="20">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="100">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="32" y="100">D</text>
+  <text text-anchor="middle" font-family="sans-serif" x="224" y="20">a</text>
+  <text text-anchor="middle" font-family="sans-serif" x="272" y="20">n</text>
+  <text text-anchor="middle" font-family="sans-serif" x="312" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="328" y="20">t</text>
+  <text text-anchor="middle" font-family="sans-serif" x="336" y="20">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="280" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="100">h</text>
+  <text text-anchor="middle" font-family="sans-serif" x="320" y="20">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="100">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="120" y="100">r</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="100">.</text>
+  <text text-anchor="middle" font-family="sans-serif" x="48" y="20">C</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="20">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="232" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="240" y="20">l</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="20">R</text>
+  <text text-anchor="middle" font-family="sans-serif" x="296" y="20">e</text>
+  <text text-anchor="middle" font-family="sans-serif" x="304" y="20">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="344" y="20">y</text>
+  <text text-anchor="middle" font-family="sans-serif" x="80" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="56" y="20">A</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="20">O</text>
+  <text text-anchor="middle" font-family="sans-serif" x="112" y="20">T</text>
+  <text text-anchor="middle" font-family="sans-serif" x="256" y="20">i</text>
+  <text text-anchor="middle" font-family="sans-serif" x="288" y="100">s</text>
+  <text text-anchor="middle" font-family="sans-serif" x="64" y="20">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="72" y="20">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="264" y="20">g</text>
+  <text text-anchor="middle" font-family="sans-serif" x="40" y="100">N</text>
+  <text text-anchor="middle" font-family="sans-serif" x="88" y="100">o</text>
+  <text text-anchor="middle" font-family="sans-serif" x="104" y="100">v</text>
+</g></svg>
+</artwork>
+</figure>
+<section title="DNS record validations" anchor="n-dns-record-validations"><t>Delegations in the DNS pseudo domain .mesh are authenticated by means of the signatures on the Mesh callsign registrations and notarization of the registry sequence through witness entries. While this does not provide a DNSSEC validation path, the path provided does not require the constant maintenance of resigning the zone required in DNSSEC.</t>
+<t>The delegated domains (e.g. alice.mesh) <bcp14>MAY</bcp14> be DNSSEC signed. The signing key for the domain being authenticated by means of a security policy.</t>
+</section>
+</section>
+</section>
+<section title="Registry Sequence" anchor="n-registry-sequence"><t>The Registry Append Only Sequence is a DARE Sequence of type Merkle Tree. The following entry types are defined:</t>
+<dl>
+<dt>Registration</dt>
+<dd>
+<t>Registration of a callsign, accreditation or challenge.</t>
+</dd>
+<dt>Page</dt>
+<dd>
+<t>Specification of a character page specifying characters allowed in a callsign.</t>
+</dd>
+<dt>Notarization</dt>
+<dd>
+<t>Entry of a signed witness token from another sequence (e.g. a sequence maintained by a registrar).</t>
+</dd>
+</dl>
+<section title="Callsign Assignment" anchor="n-callsign-assignment"><t>Callsigns are registered by means of a Registration entry containing an enveloped callsign signed by the callsign holder.</t>
+<t>The callsign entry contains all the information necessary to audit future requests to update or transfer the callsign registration. </t>
+<section title="Aliases" anchor="n-aliases"><t>A callsign registration <bcp14>MAY</bcp14> contain an alias entry directing resolution requests to another callsign. </t>
+<t>One very important difference between callsigns and DNS names is that a callsign resolver has access to the entire callsign registry. Consequently, it is not necessary to place limits on the length of path resolution for aliases etc. since these can be calculated during processing of the sequence. Detection of indirection loops is still required of course.</t>
+</section>
+<section title="Initial Registration" anchor="n-initial-registration"><t>Initial registration records have the reason field 'Initial'.</t>
+<t>Alice registers the callsign alice it has the canonical form alice. </t>
+<sourcecode>{
+  "Callsign":{
+    "Id":"alice",
+    "Presentation":"alice",
+    "Holder":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+    "Service":"provisional"}}</sourcecode>
+<t>The registrar receives the request and forwards it to the registry which creates a  registration record that is enrolled in the callsign log: </t>
+<sourcecode>{
+  "Registration":{
+    "Id":"NATN-IJI4-IAVS-Z646-CBHQ-MAOI-CWPS",
+    "Entry":[{
+        "dig":"S512"},
+      "ewogICJDYWxsc2lnbiI6IHsKICAgICJJZCI6ICJhbGljZSIsCiAgICAiUH
+  Jlc2VudGF0aW9uIjogImFsaWNlIiwKICAgICJIb2xkZXIiOiAiTUJIUy1FS05BLTd
+  FSlotVk1VUS1ISTVVLTRGSDMtUlYzVCIsCiAgICAiU2VydmljZSI6ICJwcm92aXNp
+  b25hbCJ9fQ",
+      {
+        "signatures":[{
+            "alg":"S512",
+            "kid":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+            "signature":"EeTMZx7MAVskcP87n7bj3yz9ukgGs22etareDWrf
+  jBSmtcbv3p6zYuamKlVrgO3LdHpC7TDNLcuAEBc2OMj2ycTj_blGkAX9sw1RuUREy
+  M4S3HV0g-PUwSzDFkBItBKMpE0nVKq35d8SehWdA9CSCDMA"}
+          ],
+        "PayloadDigest":"IKtQPyuBxPdM81GeFEMCsTK1WG4xyp_xsI3yUjyu
+  URfIIAGgYVh0JVd5M59V742SHthSC5abV30gCu3W4q6_FA"}
+      ],
+    "Submitted":"2021-03-18T01:58:11Z",
+    "Reason":"Initial"}}</sourcecode>
+</section>
+<section title="Update" anchor="n-update"><t>A callsign holder <bcp14>MAY</bcp14> update their callsign registration at any time.</t>
+<ul>
+<li>To change the presentation form of their callsign.</li>
+<li>To specify an alias to which attempts at resolving the callsign should be mapped.</li>
+<li>To change their service provider.</li>
+<li>To make changes to their Profile or DNS entries.</li>
+</ul>
+<t>Callsign updates <bcp14>MUST NOT</bcp14> change the canonical form of a callsign. Such changes are by definition a registration of a different callsign.</t>
+<t></include></t>
+</section>
+<section title="Voluntary Transfer" anchor="n-voluntary-transfer"><t>A callsign holder <bcp14>MAY</bcp14> transfer their holdership of the callsign to another party in the same mannaer as making an update but specifying the Reason 'Transfer' instead of 'Update'. This tells relying parties that ownership of the callsign has been transferred and that messages sent to that callsign will be received by a different party.</t>
+</section>
+<section title="Administrative Transfer" anchor="n-administrative-transfer"><t>The reason 'administrative' is used to inform relying parties that the callsign was transferred without the permission of the callsign holder and that the signature on the callsign record is that of the administrative entity that authorized the transfer.</t>
+<t>The administrative criteria and processes under which administrative transfers occur are outside the scope of this document. Such processes <bcp14>MAY</bcp14> require registration of a Challenge assertion to put the callsign holder on notice that their holdership has been challenged. Mesh Service Providers acting on behalf of their users <bcp14>SHOULD</bcp14> alert callsign holders when their callsign is challenged.</t>
+</section>
+</section>
+<section title="Character Page Description" anchor="n-character-page-description"><t>Character page descriptions specify a set of characters which <bcp14>MAY</bcp14> be used within a following callsign registration. The Page record specifies the range of characters that are canonical and the mapping of variant characters to canonical form.   </t>
+<t>For example, the CharacterPageDigits Page specifies ten canonical characters, the digits, 0,1,2,...,9 and two variant characters which <bcp14>MAY</bcp14> be used to space letters when presenting a callsign. Both variants map to the empty string meaning that they are simply discarded when compiling the canonical form.</t>
+<sourcecode>{
+  "Page":{
+    "Id":"CharacterPageDigits",
+    "CharacterSpans":[{
+        "Canonical":{
+          "First":48,
+          "Last":57}},
+      {
+        "MapString":{
+          "First":32,
+          "Target":""}},
+      {
+        "MapString":{
+          "First":95,
+          "Target":""}}
+      ]}}</sourcecode>
+<t>Page records <bcp14>MAY</bcp14> incorporate other Page records by reference provided that they have been defined earlier in the sequence.</t>
+</section>
+<section title="Notarization" anchor="n-notarization"><t>The registry produces DARE Witness tokens at periodic intervals as determined by policy. For example, policy might dictate that a Witness token be produced every day or every hour or that the interval between witness token generation be determined by the rate at which entries are added to the sequence.</t>
+<t>Registrars <bcp14>MAY</bcp14> also produce DARE Witness tokens and request that they be enrolled in the log as notarization entries. A notarization entry is not signed directly but is instead authenticated by the Merkle Tree authenticating the sequence as a whole.</t>
+<t>The first time that the Mesh service provider provisional  requests Notarization by the Registry, it creates a witness token on its local log: </t>
+<sourcecode>{
+  "Witness":{
+    "Id":"provisional",
+    "Issuer":"provisional",
+    "Apex":"z4PhNX7vuL3xVChQ1m2AB9Yg5AULVxXcg_SpIdNs6c5H0NE8XYXys
+  P-DGNKHfuwvY7kxvUdBeoGlODJ6-SfaPg"}}</sourcecode>
+<t>The witness value is signed by provisional to create  a Notarization of the witness value: </t>
+<sourcecode>{
+  "Notarization":{
+    "Entries":[[{
+          "dig":"S512"},
+        "ewogICJXaXRuZXNzIjogewogICAgIklkIjogInByb3Zpc2lvbmFsIiwK
+  ICAgICJJc3N1ZXIiOiAicHJvdmlzaW9uYWwiLAogICAgIkFwZXgiOiAiejRQaE5YN
+  3Z1TDN4VkNoUTFtMkFCOVlnNUFVTFZ4WGNnX1NwSWROczZjNUgwTkU4WFlYeXNQCi
+  AgLURHTktIZnV3dlk3a3h2VWRCZW9HbE9ESjYtU2ZhUGcifX0",
+        {
+          "signatures":[{
+              "alg":"S512",
+              "kid":"MAG2-SFGU-YIE3-YY56-CFQQ-XE52-XOWA",
+              "signature":"uGmMvEKz73JsGPP91MktmumFeOgx_plUqtvn5P
+  4Xf396XVuBRl7gdmJsdOq4_UUFo8jM222XNcUA4HlzN0OZU9jcOKi7svesib__jnM
+  2mjuiLrx2dQImPKquw7_VLOlxeNsfwttixS3iRKbZQrpswxkA"}
+            ],
+          "PayloadDigest":"J9_gKXKo_Q7JWwc2IvoNt23Sb6oF3HWYpCQosA
+  WflDcCSrsfMxIsSNmpkQmIpRsFGoItTK-5TDhXIEV3MTCN6w"}
+        ]
+      ]}}</sourcecode>
+<t>The Notarization value is sent to the registry which enrolls the Notarization in its local log, creates a Witness value on the entry containing the provider Notarization, and returns its own Notarization token containing the Witness value it has most recently created. </t>
+<t>The next time that the service provider requests Notarization, it creates a Witness token as  before and includes a Proof path to the previous token: </t>
+<sourcecode>{
+  "Notarization":{
+    "Entries":[[{
+          "dig":"S512"},
+        "ewogICJXaXRuZXNzIjogewogICAgIklkIjogInByb3Zpc2lvbmFsIiwK
+  ICAgICJJc3N1ZXIiOiAicHJvdmlzaW9uYWwiLAogICAgIkFwZXgiOiAiejRQaE5YN
+  3Z1TDN4VkNoUTFtMkFCOVlnNUFVTFZ4WGNnX1NwSWROczZjNUgwTkU4WFlYeXNQCi
+  AgLURHTktIZnV3dlk3a3h2VWRCZW9HbE9ESjYtU2ZhUGcifX0",
+        {
+          "signatures":[{
+              "alg":"S512",
+              "kid":"MAG2-SFGU-YIE3-YY56-CFQQ-XE52-XOWA",
+              "signature":"uGmMvEKz73JsGPP91MktmumFeOgx_plUqtvn5P
+  4Xf396XVuBRl7gdmJsdOq4_UUFo8jM222XNcUA4HlzN0OZU9jcOKi7svesib__jnM
+  2mjuiLrx2dQImPKquw7_VLOlxeNsfwttixS3iRKbZQrpswxkA"}
+            ],
+          "PayloadDigest":"J9_gKXKo_Q7JWwc2IvoNt23Sb6oF3HWYpCQosA
+  WflDcCSrsfMxIsSNmpkQmIpRsFGoItTK-5TDhXIEV3MTCN6w"}
+        ]
+      ],
+    "Proof":{}}}</sourcecode>
+<t>[NB, generation and verification of proof is not currently supported in the reference code] </t>
+<t>This time, the Registry verifies the proof path before entering the token. </t>
+</section>
+<section title="Accreditation" anchor="n-accreditation"><t>Issue and use of third party accreditations is outside the scope of this document.</t>
+</section>
+</section>
+<section title="Callsign Resolution" anchor="n-callsign-resolution"><t>Alice adds an Internet connected Thermostat to her home. The thermostat has a built in Web server to allow the settings to be set by a Web browser. During the onboarding process, the thermostat is assigned a domain name {Policies.ThermostatDns} </t>
+<t>Alice's Mesh Service Provider maintains an authoritative DNS server for Alice's Callsign DNS zone {Policies.AliceDns}. The IP addresses of this server are specified in the callsign registration of her Mesh Service Provider: </t>
+<sourcecode>{
+  "Callsign":{
+    "Id":"provider",
+    "Presentation":"provider",
+    "Holder":"MC33-EPHG-GILF-YB7P-RQF4-DPWZ-TRYY",
+    "Service":"@provider",
+    "Dns":["10.2.1.1",
+      "10.2.1.2",
+      "2001:db8::1001"
+      ]}}</sourcecode>
+<t>The authoritative DNS server publishes a link from which a Mesh DNS Profile specifying the security policy for the zone MAY be obtained: </t>
+<sourcecode>[This is probably a prefixed TXT record of some sort.]</sourcecode>
+<t>The security policy for the zone states that the DNS zone is signed using DNSSEC and  the thermostat supports TLS/1.2 transport layer security: </t>
+<sourcecode>{
+  "ProfileDns":{
+    "SecurityPolicies":[{
+        "CName":["alice.mesh"
+          ],
+        "Protocol":["dns"
+          ],
+        "Enhancements":["dnssec"
+          ],
+        "Roots":[{
+            "Udf":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+            "PublicParameters":{
+              "PublicKeyECDH":{
+                "crv":"Ed448",
+                "Public":"p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIE
+  zdCGDzAo9ytlAgDwQ_0UT6uF3jBWSnqmJtxMA"}}}
+          ]},
+      {
+        "CName":["hvac.alice.mesh"
+          ],
+        "Protocol":["http",
+          "https"
+          ],
+        "Enhancements":["tls1.2"
+          ],
+        "Require":true,
+        "Roots":[{
+            "Udf":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+            "PublicParameters":{
+              "PublicKeyECDH":{
+                "crv":"Ed448",
+                "Public":"p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIE
+  zdCGDzAo9ytlAgDwQ_0UT6uF3jBWSnqmJtxMA"}}}
+          ]}
+      ]}}</sourcecode>
+<t>A non Mesh-aware browser can access the Web site and establish a TLS connection to the  thermostat provided that 1) the browser uses a DNS service that supports use of Mesh callsign zones and 2) the device provides a certificate set that allows the browser to build a  valid path to a root it trusts. </t>
+<t>A Mesh aware browser can access the Web site directly and enforce the security policy directly. Thus preventing a downgrade attack to an insecure site. </t>
+</section>
+<section title="Schemas" anchor="n-schemas"><section title="Callsign log entries" anchor="n-callsign-log-entries-"><section title="Callsign registration and transfer" anchor="n-callsign-registration-and-transfer-"><t>The following classes are used as common elements in Mesh profile specifications. </t>
+</section>
+<section title="Structure: Callsign" anchor="n-structure-callsign-"><t>A callsign entry </t>
+<dl>
+<dt>Id: String (Optional) </dt>
+<dd>
+<t>The callsign identifier in canonical form used for query. </t>
+</dd>
+<dt>Presentation: String (Optional) </dt>
+<dd>
+<t>The callsign identifier in the prefered presentation form. </t>
+</dd>
+<dt>Holder: String (Optional) </dt>
+<dd>
+<t>The UDF of the holder's root of trust </t>
+</dd>
+<dt>Alias: String (Optional) </dt>
+<dd>
+<t>This callsign is an alias for another registered callsign. </t>
+</dd>
+<dt>Service: String (Optional) </dt>
+<dd>
+<t>The callsign or DNS address of the service provider </t>
+</dd>
+<dt>Dns: String [0..Many] </dt>
+<dd>
+<t>Address(es) of a DNS service that resolves the authoritative domain  'id.mesh'. </t>
+</dd>
+<dt>Account: ProfileAccount (Optional) </dt>
+<dd>
+<t>The Mesh Account profile to which the callsign belongs.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: Registration" anchor="n-structure-registration-"><t>A callsign or Notarization registration </t>
+<dl>
+<dt>Id: String (Optional) </dt>
+<dd>
+<t>Unique registration identifier </t>
+</dd>
+<dt>Entry: Enveloped (Optional) </dt>
+<dd>
+<t>Envelope containing the item that has been registered. </t>
+</dd>
+<dt>Submitted: DateTime (Optional) </dt>
+<dd>
+<t>The UTC time instant that the claim was submitted. </t>
+</dd>
+<dt>Registrar: String (Optional) </dt>
+<dd>
+<t>Callsign of the registrar that made the registration request </t>
+</dd>
+<dt>PriorId: String (Optional) </dt>
+<dd>
+<t>If present, specifies a previous registration with the same identifier. </t>
+</dd>
+<dt>Reason: String (Optional) </dt>
+<dd>
+<t>Reason for creating a registration: Initial/ Update/ Voluntary/ Administrative/ Revoke  </t>
+</dd>
+</dl>
+</section>
+<section title="Character page definition" anchor="n-character-page-definition-"></section>
+<section title="Structure: Page" anchor="n-structure-page-"><dl>
+<dt>Id: String (Optional) </dt>
+<dd>
+<t>Character page identifier </t>
+</dd>
+<dt>Allow: String [0..Many] </dt>
+<dd>
+<t>Additional allowed pages.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: CharacterSpan" anchor="n-structure-characterspan-"><dl>
+<dt>First: Integer (Optional) </dt>
+<dd>
+<t>The first character in the range (inclusive) </t>
+</dd>
+<dt>Last: Integer (Optional) </dt>
+<dd>
+<t>The last character in the range (inclusive), if ommitted or equal to zero, this is the same as Last.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: Canonical" anchor="n-structure-canonical-"><dl>
+<dt>Inherits: CharacterSpan  </dt>
+<dd>
+</dd>
+</dl>
+<t>Canonical character span. </t>
+<t>[No fields] </t>
+</section>
+<section title="Structure: MapChar" anchor="n-structure-mapchar-"><dl>
+<dt>Inherits: CharacterSpan  </dt>
+<dd>
+</dd>
+</dl>
+<t>Specifies a variant mapping the range of characters First..First+n to a range of characters Target..Target+n. Where n = Last - First+1 </t>
+<dl>
+<dt>Target: Integer (Optional) </dt>
+<dd>
+<t>The character that First is mapped to.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: MapString" anchor="n-structure-mapstring-"><dl>
+<dt>Inherits: CharacterSpan  </dt>
+<dd>
+</dd>
+</dl>
+<t>Specifies a mapping of non canonical characters in the range specified by  First..Last to the string Target. </t>
+<dl>
+<dt>Target: String (Optional) </dt>
+<dd>
+<t>Specifies a character string that the Source character(s) are mapped to. If count is greater than 1, all the characters map to the same string.  </t>
+</dd>
+</dl>
+</section>
+<section title="Notarization" anchor="n-notarization-"></section>
+<section title="Structure: Notarization" anchor="n-structure-notarization-"><dl>
+<dt>Entries: Enveloped [0..Many] </dt>
+<dd>
+<t>Enveloped witness value of a specific append only log. </t>
+</dd>
+<dt>Proof: Proof (Optional) </dt>
+<dd>
+<t>Proof path validating the previous notary token that was entered in the log.  </t>
+</dd>
+</dl>
+</section>
+<section title="Trust Assertions" anchor="n-trust-assertions-"></section>
+<section title="Structure: ProfileDns" anchor="n-structure-profiledns-"><dl>
+<dt>SecurityPolicies: SecurityPolicy [0..Many] </dt>
+<dd>
+<t>Specify TLS policies for use in the zone.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: SecurityPolicy" anchor="n-structure-securitypolicy-"><dl>
+<dt>CName: String [0..Many] </dt>
+<dd>
+<t>The DNS zone(s) to which this policy applies. </t>
+</dd>
+<dt>Protocol: String [0..Many] </dt>
+<dd>
+<t>IANA protocol name, e.g. SMTP, SUBMIT, HTTP, HTTPS, etc.	 </t>
+</dd>
+<dt>Enhancements: String [0..Many] </dt>
+<dd>
+<t>Enhancements that are supported for the specified protocol.  Allowed values include none/ tls1.2/ tls1.3/ http3/ dnssec </t>
+</dd>
+<dt>Require: Boolean (Optional) </dt>
+<dd>
+<t>If true, clients MUST use one of the supported enhancements.	 </t>
+</dd>
+<dt>Roots: KeyData [0..Many] </dt>
+<dd>
+<t>Keys specifying roots of trust for the specified protocol(s).  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: Accreditation" anchor="n-structure-accreditation-"><t>Registration of a trusted third party accreditation </t>
+<dl>
+<dt>Callsign: String (Optional) </dt>
+<dd>
+<t>The callsigns to which the accreditation applies </t>
+</dd>
+<dt>SubjectNames: String [0..Many] </dt>
+<dd>
+<t>The validated names of the subject </t>
+</dd>
+<dt>SubjectLogos: String [0..Many] </dt>
+<dd>
+<t>Mesh strong URIs from which a validated logo belonging to the  subject MAY be retreived and validated. </t>
+</dd>
+<dt>Issued: DateTime (Optional) </dt>
+<dd>
+<t>The time the assertion was issued. </t>
+</dd>
+<dt>Expires: DateTime (Optional) </dt>
+<dd>
+<t>The time the assertion is due to expire </t>
+</dd>
+<dt>Policy: String (Optional) </dt>
+<dd>
+<t>The issuing policy under which the validation was performed. </t>
+</dd>
+<dt>Practice: String (Optional) </dt>
+<dd>
+<t>The issuing practices under which the validation was performed.  </t>
+</dd>
+</dl>
+</section>
+<section title="Structure: Challenge" anchor="n-structure-challenge-"><t>Registers a challenge to one or more callsigns that have been registered. </t>
+<dl>
+<dt>Subjects: String [0..Many] </dt>
+<dd>
+<t>The callsigns subject to challenge </t>
+</dd>
+<dt>Basis: String [0..Many] </dt>
+<dd>
+<t>The basis for the challenge  </t>
+</dd>
+</dl>
+</section>
+</section>
+<section title="Registry service" anchor="n-registry-service-"><section title="Shared Classes" anchor="n-shared-classes-"><dl>
+<dt>HTTP Well Known Service Prefix: /.well-known/tbs2 </dt>
+<dd>
+</dd>
+</dl>
+</section>
+<section title="Message: CallsignRequest" anchor="n-message-callsignrequest-"><t>Base class for all requests made to a registrar </t>
+<t>[No fields] </t>
+</section>
+<section title="Message: CallsignResponse" anchor="n-message-callsignresponse-"><t>Base class for all response messages. Contains only the status code and status description fields. </t>
+<t>[No fields] </t>
+</section>
+<section title="Transactions" anchor="n-transactions-"></section>
+</section>
+<section title="Transaction: Register" anchor="n-transaction-register-"><dl>
+<dt>Request: RegisterRequest </dt>
+<dd>
+</dd>
+<dt>Response: RegisterResponse  </dt>
+<dd>
+</dd>
+</dl>
+<t>Request registration of a callsign. </t>
+<section title="Message: RegisterRequest" anchor="n-message-registerrequest-"><t>Request registration of a callsign. </t>
+<dl>
+<dt>Inherits: CallsignRequest  </dt>
+<dd>
+</dd>
+<dt>PriorId: String (Optional) </dt>
+<dd>
+<t>If present, specifies a previous registration with the same identifier. </t>
+</dd>
+<dt>Reason: String (Optional) </dt>
+<dd>
+<t>Reason for creating a registration: Initial/ Update/ Voluntary/ Administrative/ Revoke </t>
+</dd>
+<dt>EnvelopedCallsign: Enveloped (Optional) </dt>
+<dd>
+<t>The callsign request signed by the party to which the callsign is to be granted.  </t>
+</dd>
+</dl>
+</section>
+<section title="Message: RegisterResponse" anchor="n-message-registerresponse-"><dl>
+<dt>Inherits: CallsignResponse  </dt>
+<dd>
+</dd>
+</dl>
+<t>Reports the success or failure of a registration. </t>
+<dl>
+<dt>Result: Enveloped (Optional) </dt>
+<dd>
+<t>The registration (if created).  </t>
+</dd>
+</dl>
+</section>
+</section>
+<section title="Transaction: Notarize" anchor="n-transaction-notarize-"><dl>
+<dt>Request: NotarizeRequest </dt>
+<dd>
+</dd>
+<dt>Response: NotarizeResponse  </dt>
+<dd>
+</dd>
+</dl>
+<t>Request inclusion of a signed witness value in the chain. </t>
+<section title="Message: NotarizeRequest" anchor="n-message-notarizerequest-"><t>Request registration of a callsign. </t>
+<dl>
+<dt>Inherits: CallsignRequest  </dt>
+<dd>
+</dd>
+<dt>Witness: Enveloped (Optional) </dt>
+<dd>
+<t>The notary token to be included.  </t>
+</dd>
+</dl>
+</section>
+<section title="Message: NotarizeResponse" anchor="n-message-notarizeresponse-"><dl>
+<dt>Inherits: CallsignResponse  </dt>
+<dd>
+</dd>
+</dl>
+<t>Reports the success or failure of a registration. </t>
+<dl>
+<dt>Witness: Enveloped (Optional) </dt>
+<dd>
+<t>The most recent witness value created by the service. </t>
+</dd>
+<dt>Notarization: Enveloped (Optional) </dt>
+<dd>
+<t>A notarization entry that includes the witness value specified in the request.  </t>
+</dd>
+</dl>
+</section>
+</section>
+<section title="Registrar service" anchor="n-registrar-service-"><section title="Shared Classes" anchor="n-shared-classes--0"><dl>
+<dt>HTTP Well Known Service Prefix: /.well-known/tbs1 </dt>
+<dd>
+</dd>
+</dl>
+</section>
+<section title="Transactions" anchor="n-transactions--0"></section>
+</section>
+<section title="Transaction: Query" anchor="n-transaction-query-"><dl>
+<dt>Request: QueryRequest </dt>
+<dd>
+</dd>
+<dt>Response: QueryResponse  </dt>
+<dd>
+</dd>
+</dl>
+<t>Request resolution of a profile bound to a callsign or registration identifier. Returns an envelope containing the signed registration (if found). </t>
+<section title="Message: QueryRequest" anchor="n-message-queryrequest-"><t>Request resolution of a profile bound to a callsign or registration identifier.  </t>
+<dl>
+<dt>CallSign: String (Optional) </dt>
+<dd>
+<t>The callsign being requested in canonical form. </t>
+</dd>
+<dt>RegistrationId: String (Optional) </dt>
+<dd>
+<t>The registration identifier of a registration in the log. </t>
+</dd>
+<dt>LogId: String (Optional) </dt>
+<dd>
+<t>The unique identifier of an append only log whose signed Notarization entry is requested.  </t>
+</dd>
+</dl>
+</section>
+<section title="Message: QueryResponse" anchor="n-message-queryresponse-"><t>Return the result of a QueryRequest </t>
+<dl>
+<dt>Result: Enveloped (Optional) </dt>
+<dd>
+<t>The registration specified in the result (if found).	 </t>
+</dd>
+<dt>Notarization: Enveloped (Optional) </dt>
+<dd>
+<t>The latest notarization entry corresponding to the specified log.  </t>
+</dd>
+</dl>
+</section>
+</section>
+</section>
+<section title="Security Considerations" anchor="n-security-considerations"><section title="Names" anchor="n-names"><section title="Impersonation" anchor="n-impersonation"></section>
+<section title="Homograph attack" anchor="n-homograph-attack"></section>
+<section title="Malicious Intellectual Property Claim" anchor="n-malicious-intellectual-property-claim"></section>
+</section>
+<section title="Credential Loss" anchor="n-credential-loss"><section title="Loss" anchor="n-loss"></section>
+<section title="Disclosure" anchor="n-disclosure"></section>
+</section>
+<section title="Breach of Faith" anchor="n-breach-of-faith"><section title="Registrar" anchor="n-registrar"></section>
+<section title="Registry" anchor="n-registry"></section>
+</section>
+<section title="Quantum Cryptanalysis" anchor="n-quantum-cryptanalysis"></section>
+</section>
+<section title="IANA Considerations" anchor="n-iana-considerations"><t>This document requires no IANA actions.</t>
+</section>
+<section title="Acknowledgements" anchor="n-acknowledgements"><t></t>
+</section>
+<section title="Appendix A: Latin Character Page" anchor="n-appendix-a-latin-character-page"><sourcecode>{
+  "Page":{
+    "Id":"CharacterPageLatin",
+    "Allow":["CharacterPageDigits"
+      ],
+    "CharacterSpans":[{
+        "Canonical":{
+          "First":97,
+          "Last":122}},
+      {
+        "MapChar":{
+          "First":65,
+          "Last":90,
+          "Target":97}},
+      {
+        "MapString":{
+          "First":192,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":193,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":194,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":195,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":196,
+          "Target":"ae"}},
+      {
+        "MapString":{
+          "First":197,
+          "Target":"aa"}},
+      {
+        "MapString":{
+          "First":198,
+          "Target":"ae"}},
+      {
+        "MapString":{
+          "First":199,
+          "Target":"c"}},
+      {
+        "MapString":{
+          "First":200,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":201,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":202,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":203,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":204,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":205,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":206,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":207,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":208,
+          "Target":"d"}},
+      {
+        "MapString":{
+          "First":209,
+          "Target":"n"}},
+      {
+        "MapString":{
+          "First":210,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":211,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":212,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":213,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":214,
+          "Target":"oe"}},
+      {
+        "MapString":{
+          "First":215,
+          "Target":"x"}},
+      {
+        "MapString":{
+          "First":217,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":218,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":219,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":220,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":221,
+          "Target":"y"}},
+      {
+        "MapString":{
+          "First":223,
+          "Target":"ss"}},
+      {
+        "MapString":{
+          "First":224,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":225,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":226,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":227,
+          "Target":"a"}},
+      {
+        "MapString":{
+          "First":228,
+          "Target":"ae"}},
+      {
+        "MapString":{
+          "First":229,
+          "Target":"aa"}},
+      {
+        "MapString":{
+          "First":230,
+          "Target":"ae"}},
+      {
+        "MapString":{
+          "First":231,
+          "Target":"c"}},
+      {
+        "MapString":{
+          "First":232,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":233,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":234,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":235,
+          "Target":"e"}},
+      {
+        "MapString":{
+          "First":236,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":237,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":238,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":239,
+          "Target":"i"}},
+      {
+        "MapString":{
+          "First":240,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":241,
+          "Target":"n"}},
+      {
+        "MapString":{
+          "First":242,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":243,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":244,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":245,
+          "Target":"o"}},
+      {
+        "MapString":{
+          "First":246,
+          "Target":"oe"}},
+      {
+        "MapString":{
+          "First":247,
+          "Target":"-"}},
+      {
+        "MapString":{
+          "First":249,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":250,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":251,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":252,
+          "Target":"u"}},
+      {
+        "MapString":{
+          "First":253,
+          "Target":"y"}}
+      ]}}</sourcecode>
+</section>
+</middle>
+<back>
+<references title="Normative References"><reference anchor="RFC2119"><front>
+<title>Key words for use in RFCs to Indicate Requirement Levels</title>
+<author fullname="S. Bradner" initials="S." surname="Bradner"><organization/>
+<address>
+</address>
+</author>
+<date month="March" year="1997"/>
+</front>
+<seriesInfo name="BCP" value="14"/>
+<seriesInfo name="RFC" value="2119"/>
+<seriesInfo name="DOI" value="10.17487/RFC2119"/>
+</reference>
+<reference anchor="draft-hallambaker-mesh-architecture"><front>
+<title>Mathematical Mesh 3.0 Part I: Architecture Guide</title>
+<author fullname="Phillip Hallam-Baker" initials="P" surname="Hallam-Baker"><organization/>
+<address>
+</address>
+</author>
+<date day="13" month="January" year="2021"/>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-mesh-architecture-16"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-hallambaker-mesh-architecture-16.txt"/>
+</reference>
+<reference anchor="draft-hallambaker-mesh-udf"><front>
+<title>Mathematical Mesh 3.0 Part II: Uniform Data Fingerprint.</title>
+<author fullname="Phillip Hallam-Baker" initials="P" surname="Hallam-Baker"><organization/>
+<address>
+</address>
+</author>
+<date day="13" month="January" year="2021"/>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-mesh-udf-12"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-hallambaker-mesh-udf-12.txt"/>
+</reference>
+<reference anchor="draft-hallambaker-mesh-dare"><front>
+<title>Mathematical Mesh 3.0 Part III : Data At Rest Encryption (DARE)</title>
+<author fullname="Phillip Hallam-Baker" initials="P" surname="Hallam-Baker"><organization/>
+<address>
+</address>
+</author>
+<date day="13" month="January" year="2021"/>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-mesh-dare-11"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-hallambaker-mesh-dare-11.txt"/>
+</reference>
+<reference anchor="draft-hallambaker-jsonbcd"><front>
+<title>Binary Encodings for JavaScript Object Notation: JSON-B, JSON-C, JSON-D</title>
+<author fullname="Phillip Hallam-Baker" initials="P" surname="Hallam-Baker"><organization/>
+<address>
+</address>
+</author>
+<date day="13" month="January" year="2021"/>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-jsonbcd-20"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-hallambaker-jsonbcd-20.txt"/>
+</reference>
+</references>
+<references title="Informative References"><reference anchor="draft-hallambaker-mesh-developer"><front>
+<title>Mathematical Mesh: Reference Implementation</title>
+<author fullname="Phillip Hallam-Baker" initials="P" surname="Hallam-Baker"><organization/>
+<address>
+</address>
+</author>
+<date day="27" month="July" year="2020"/>
+</front>
+<seriesInfo name="Internet-Draft" value="draft-hallambaker-mesh-developer-10"/>
+<format type="TXT" target="http://www.ietf.org/internet-drafts/draft-hallambaker-mesh-developer-10.txt"/>
+</reference>
+</references>
+</back>
+</rfc>

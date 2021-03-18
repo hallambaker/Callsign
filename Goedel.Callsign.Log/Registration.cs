@@ -53,7 +53,7 @@ namespace Goedel.Callsign {
                 Registration registration=null, 
                 RegistrationReason registrationReason= RegistrationReason.Update) {
             Id = UDF.Nonce();
-            SignedCallsign = callsign.EnvelopedData as Enveloped<Callsign>;
+            Entry = callsign.EnvelopedData as Enveloped<CallsignEntry>;
             Submitted = DateTime.Now;
 
             if (registration is null) {

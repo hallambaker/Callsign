@@ -53,17 +53,16 @@
 
 	Structure Registration
 		Description		
-			|A callsign registration
+			|A callsign or Notarization registration
 
 		String Id
 			Description
 				|Unique registration identifier
 
 
-		Struct Enveloped<Callsign> SignedCallsign
+		Struct Enveloped<CallsignEntry> Entry
 			Description
-				|Envelope containing the requested callsign signed by a key authorized under
-				|the registered profile.
+				|Envelope containing the item that has been registered.
 
 
 		DateTime Submitted
@@ -106,6 +105,10 @@
 			Description
 				|The last character in the range (inclusive), if ommitted or
 				|equal to zero, this is the same as Last.
+	Structure Canonical
+		Inherits CharacterSpan
+		Description
+			|Canonical character span.
 
 	Structure MapChar
 		Inherits CharacterSpan
@@ -175,3 +178,49 @@
 			Multiple
 			Description
 				|Keys specifying roots of trust for the specified protocol(s).
+
+
+	Structure Accreditation
+		External Assertion
+		Description
+			|Registration of a trusted third party accreditation
+		String Callsign
+			Description
+				|The callsigns to which the accreditation applies
+		String SubjectNames
+			Multiple
+			Description
+				|The validated names of the subject
+		String SubjectLogos
+			Multiple
+			Description
+				|Mesh strong URIs from which a validated logo belonging to the 
+				|subject MAY be retreived and validated.
+		DateTime Issued
+			Description
+				|The time the assertion was issued.
+		DateTime Expires
+			Description
+				|The time the assertion is due to expire
+		String Policy
+			Description
+				|The issuing policy under which the validation was performed.
+		String Practice
+			Description
+				|The issuing practices under which the validation was performed.
+
+
+	Structure Challenge
+		External Assertion
+		Description
+			|Registers a challenge to one or more callsigns that have been registered.
+		String Subjects
+			Multiple
+			Description
+				|The callsigns subject to challenge
+		String Basis
+			Multiple
+			Description
+				|The basis for the challenge
+				
+

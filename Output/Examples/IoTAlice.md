@@ -9,13 +9,15 @@ registration of her Mesh Service Provider:
 
 ~~~~
 {
-  "Id": "provider",
-  "Presentation": "provider",
-  "Holder": "MC33-EPHG-GILF-YB7P-RQF4-DPWZ-TRYY",
-  "Service": "@provider",
-  "Dns": ["10.2.1.1",
-    "10.2.1.2",
-    "2001:db8::1001"]}
+  "Callsign":{
+    "Id":"provider",
+    "Presentation":"provider",
+    "Holder":"MC33-EPHG-GILF-YB7P-RQF4-DPWZ-TRYY",
+    "Service":"@provider",
+    "Dns":["10.2.1.1",
+      "10.2.1.2",
+      "2001:db8::1001"
+      ]}}
 ~~~~
 
 The authoritative DNS server publishes a link from which a Mesh DNS Profile specifying the
@@ -30,30 +32,40 @@ the thermostat supports TLS/1.2 transport layer security:
 
 ~~~~
 {
-  "SecurityPolicies": [{
-      "CName": ["alice.mesh"],
-      "Protocol": ["dns"],
-      "Enhancements": ["dnssec"],
-      "Roots": [{
-          "Udf": "MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
-          "PublicParameters": {
-            "PublicKeyECDH": {
-              "crv": "Ed448",
-              "Public": "p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIEzdCGDzAo9ytlA
-  gDwQ_0UT6uF3jBWSnqmJtxMA"}}}]},
-    {
-      "CName": ["hvac.alice.mesh"],
-      "Protocol": ["http",
-        "https"],
-      "Enhancements": ["tls1.2"],
-      "Require": true,
-      "Roots": [{
-          "Udf": "MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
-          "PublicParameters": {
-            "PublicKeyECDH": {
-              "crv": "Ed448",
-              "Public": "p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIEzdCGDzAo9ytlA
-  gDwQ_0UT6uF3jBWSnqmJtxMA"}}}]}]}
+  "ProfileDns":{
+    "SecurityPolicies":[{
+        "CName":["alice.mesh"
+          ],
+        "Protocol":["dns"
+          ],
+        "Enhancements":["dnssec"
+          ],
+        "Roots":[{
+            "Udf":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+            "PublicParameters":{
+              "PublicKeyECDH":{
+                "crv":"Ed448",
+                "Public":"p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIE
+  zdCGDzAo9ytlAgDwQ_0UT6uF3jBWSnqmJtxMA"}}}
+          ]},
+      {
+        "CName":["hvac.alice.mesh"
+          ],
+        "Protocol":["http",
+          "https"
+          ],
+        "Enhancements":["tls1.2"
+          ],
+        "Require":true,
+        "Roots":[{
+            "Udf":"MBHS-EKNA-7EJZ-VMUQ-HI5U-4FH3-RV3T",
+            "PublicParameters":{
+              "PublicKeyECDH":{
+                "crv":"Ed448",
+                "Public":"p0H30Oh6fm2HxxcYTqhWNJGLUHD7SQgBHjtRUIE
+  zdCGDzAo9ytlAgDwQ_0UT6uF3jBWSnqmJtxMA"}}}
+          ]}
+      ]}}
 ~~~~
 
 A non Mesh-aware browser can access the Web site and establish a TLS connection to the 

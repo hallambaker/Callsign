@@ -103,6 +103,7 @@
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
           "Goedel.Cryptography.Dare": "1.0.0",
+          "Goedel.Protocol.Presentation": "1.0.0",
           "Goedel.Utilities": "1.0.0"
         },
         "compile": {
@@ -126,6 +127,22 @@
         },
         "runtime": {
           "bin/placeholder/Goedel.Protocol.dll": {}
+        }
+      },
+      "Goedel.Protocol.Presentation/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Goedel.Cryptography": "1.0.0",
+          "Goedel.Cryptography.Dare": "1.0.0",
+          "Goedel.Cryptography.Jose": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Goedel.Protocol.Presentation.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Goedel.Protocol.Presentation.dll": {}
         }
       },
       "Goedel.Utilities/1.0.0": {
@@ -185,6 +202,11 @@
       "type": "project",
       "path": "../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj",
       "msbuildProject": "../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj"
+    },
+    "Goedel.Protocol.Presentation/1.0.0": {
+      "type": "project",
+      "path": "../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj",
+      "msbuildProject": "../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj"
     },
     "Goedel.Utilities/1.0.0": {
       "type": "project",
@@ -280,7 +302,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

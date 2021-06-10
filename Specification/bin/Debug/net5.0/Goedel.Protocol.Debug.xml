@@ -34,14 +34,6 @@
             <param name="requestObject">The abstract request object (for debugging).</param>
             <returns>StreamBuffer object containing JSON encoded response.</returns>
         </member>
-        <member name="M:Goedel.Protocol.Debug.DebugLocalSession.Post(System.String,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post a request and retrieve the response.
-            </summary>
-            <param name="tag">Command</param>
-            <param name="request">JSON encoded request.</param>
-            <returns>JSON encoded response.</returns>
-        </member>
         <member name="T:Goedel.Protocol.Debug.NamespaceDoc">
             <summary>
             Debugging extensions for PROTOGEN Web Services

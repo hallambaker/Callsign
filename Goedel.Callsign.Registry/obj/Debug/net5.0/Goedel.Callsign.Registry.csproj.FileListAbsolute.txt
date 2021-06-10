@@ -83,3 +83,6 @@ C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.M
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Mesh.xml
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Callsign.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Callsign.pdb
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Protocol.Presentation.dll
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Protocol.Presentation.pdb
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Registry\bin\Debug\net5.0\Goedel.Protocol.Presentation.xml

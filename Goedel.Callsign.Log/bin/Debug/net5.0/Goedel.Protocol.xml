@@ -1053,6 +1053,23 @@
             An ICharacterBufferedStream is an ICharacterStream that is also an IBufferedStream
             </summary>
         </member>
+        <member name="T:Goedel.Protocol.IJpcSession">
+            <summary>
+            Jpc Session interface.
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.IJpcSession.VerifiedAccount">
+            <summary>The verified account bound to this session (used for inbound sessions
+            only.)</summary> 
+        </member>
+        <member name="M:Goedel.Protocol.IJpcSession.Post(System.String,Goedel.Protocol.JsonObject)">
+            <summary>
+            Post the request <paramref name="request"/> 
+            </summary>
+            <param name="tag">The transaction identifier.</param>
+            <param name="request">The transaction request.</param>
+            <returns>The transaction response</returns>
+        </member>
         <member name="T:Goedel.Protocol.JpcInterface">
             <summary>
             Base class for all JPC server classes.
@@ -1071,7 +1088,7 @@
             The WellKnown service name for HTTP and DNS prefix use.
             </summary>
         </member>
-        <member name="M:Goedel.Protocol.JpcInterface.Dispatch(Goedel.Protocol.JpcSession,Goedel.Protocol.JsonReader)">
+        <member name="M:Goedel.Protocol.JpcInterface.Dispatch(Goedel.Protocol.IJpcSession,Goedel.Protocol.JsonReader)">
             <summary>
             Dispatch Class. Reads input from the provided reader and attempts to
             dispatch a method in response. Note that the calling routine may throw 
@@ -1081,7 +1098,7 @@
             <param name="JSONReader">The input stream to be read</param>
             <returns>The response to the request.</returns>
         </member>
-        <member name="M:Goedel.Protocol.JpcInterface.GetDirect(Goedel.Protocol.JpcSession)">
+        <member name="M:Goedel.Protocol.JpcInterface.GetDirect(Goedel.Protocol.IJpcSession)">
             <summary>
             Return a client tapping the service API directly without serialization bound to
             the session <paramref name="jpcSession"/>. This is intended for use in testing etc.
@@ -1251,23 +1268,7 @@
             </summary>
             <param name="accountAddress">The account name</param>
         </member>
-        <member name="M:Goedel.Protocol.JpcRemoteSession.Post(System.IO.MemoryStream,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post the specified data to the remote service.
-            </summary>
-            <param name="data">Input data</param>
-            <param name="request">The request</param>
-            <returns>The response data</returns>
-        </member>
         <member name="M:Goedel.Protocol.JpcRemoteSession.Post(System.String,Goedel.Protocol.JsonObject)">
-            <summary>
-            Construct a Post string.
-            </summary>
-            <param name="tag">Operation to perform.</param>
-            <param name="request">Request data.</param>
-            <returns>string returned in response.</returns>
-        </member>
-        <member name="M:Goedel.Protocol.JpcRemoteSession.Post(System.String,System.String,Goedel.Protocol.JsonObject)">
             <summary>
             Post a transaction of type <paramref name="tag"/> with request data 
             <paramref name="request"/> to the service expecting a response of type
@@ -1307,48 +1308,16 @@
             <param name="requestObject">The request object.</param>
             <returns>StreamBuffer object containing JSON encoded response.</returns>
         </member>
-        <member name="T:Goedel.Protocol.JpcSessionHTTP">
+        <member name="M:Goedel.Protocol.JpcSessionSerialized.Post(System.String,Goedel.Protocol.JsonObject)">
             <summary>
-            Session of type HTTP.
+            Post a transaction of type <paramref name="tag"/> with request data 
+            <paramref name="request"/> to the service expecting a response of type
+            <paramref name="tagResponse"/>
             </summary>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionHTTP.Disposing">
-            <inheritdoc/>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionHTTP.#ctor(System.String,System.String)">
-            <summary>
-            Return a session  bound to the account <paramref name="account"/>.
-            </summary>
-            <param name="account">The account address</param>
-            <param name="instance">The remote instance identifier.</param>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionHTTP.Post(System.IO.MemoryStream,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post the specified data to the remote service.
-            </summary>
-            <param name="data">Input data</param>
-            <param name="request">The request</param>
-            <returns>The response data</returns>
-        </member>
-        <member name="T:Goedel.Protocol.JpcSessionTicketed">
-            <summary>
-            Ticketed session.
-            </summary>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionTicketed.#ctor(Goedel.Protocol.JpcTicket,System.String)">
-            <summary>
-            Return a session  bound to the account <paramref name="account"/>.
-            </summary>
-            <param name="account">The account address</param>
-            <param name="ticket">The ticket data</param>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionTicketed.Post(System.IO.MemoryStream,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post the specified data to the remote service.
-            </summary>
-            <param name="Data">Input data</param>
-            <param name="request">The request</param>
-            <returns>The response data</returns>
+            <param name="tag">The transaction tag.</param>
+            <param name="tagResponse">The response type tag.</param>
+            <param name="request">The request data.</param>
+            <returns>The response data.</returns>
         </member>
         <member name="T:Goedel.Protocol.JSONAWriter">
             <summary>
@@ -1614,24 +1583,11 @@
             values without loss of precision.
             </summary>
         </member>
-        <member name="M:Goedel.Protocol.JsonBWriter.#ctor">
-            <summary>
-            Create a new JSON Writer.
-            </summary>
-        </member>
-        <member name="M:Goedel.Protocol.JsonBWriter.#ctor(System.IO.MemoryStream)">
-            <summary>
-            Create a new JSON Writer using the specified output buffer. If the buffer has
-            an output stream defined, text will be written to the stream.
-            </summary>
-            <param name="Output">Output buffer</param> 
-        </member>
         <member name="M:Goedel.Protocol.JsonBWriter.#ctor(System.IO.Stream)">
             <summary>
-            Create a new JSON Writer using the specified output buffer. If the buffer has
-            an output stream defined, text will be written to the stream. Note that
-            the property GetBytes will return null unless the specified stream is a 
-            memory stream.
+            Create a new writer instance with the output <paramref name="Output"/>. 
+            If <paramref name="Output"/> is null, a memory stream is created and
+            used as the output.
             </summary>
             <param name="Output">Output buffer</param> 
         </member>
@@ -2159,7 +2115,15 @@
             Convert object to byte sequence in JSON form.
             </summary>
             <param name="tag">If true, serialization is tagged with the object type.</param>
+            <param name="objectEncoding">The object encoding to use for serialization.</param>
             <returns>Data as byte sequence.</returns>
+        </member>
+        <member name="M:Goedel.Protocol.JsonObject.GetJsonWriter(Goedel.Protocol.ObjectEncoding)">
+            <summary>
+            Return a JsonWriter for the encoding <paramref name="objectEncoding"/>.
+            </summary>
+            <param name="objectEncoding">The object encoding to use for serialization.</param>
+            <returns>The JsonWriter.</returns>
         </member>
         <member name="M:Goedel.Protocol.JsonObject.Serialize(Goedel.Protocol.Writer,System.Boolean)">
             <summary>
@@ -2670,17 +2634,13 @@
             </summary>
             <returns>Current buffered contents as string</returns>
         </member>
-        <member name="M:Goedel.Protocol.JsonWriter.#ctor">
-            <summary>
-            Create a new JSON Writer.
-            </summary>
-        </member>
         <member name="M:Goedel.Protocol.JsonWriter.#ctor(System.IO.Stream)">
             <summary>
-            Create a new JSON Writer using the specified output buffer. If the buffer has
-            an output stream defined, text will be written to the stream.
+            Create a new writer instance with the output <paramref name="Output"/>. 
+            If <paramref name="Output"/> is null, a memory stream is created and
+            used as the output.
             </summary>
-            <param name="Output">The output stream.</param>
+            <param name="Output">Output buffer</param> 
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.JSONWriterFactory">
             <summary>
@@ -3358,29 +3318,6 @@
             <summary>Write out the Date Time as a string in RFC3339 Format</summary>
             <param name="Output">The stream to write the output to</param>
             <param name="Data">Data to write</param>
-        </member>
-        <member name="T:Goedel.Protocol.WebRemoteSession">
-            <summary>
-            Manage JPC session to a remote Web Service.
-            </summary>
-        </member>
-        <member name="M:Goedel.Protocol.WebRemoteSession.#ctor(System.String,System.String,System.String,System.String)">
-            <summary>
-            Create a remote session with authentication under the
-            specified credential.
-            </summary>
-            <param name="domain">Domain</param>
-            <param name="service">The IANA Well Known service identifier</param>
-            <param name="accountAddress">Account name</param>
-            <param name="udf">Fingerprint of authentication key.</param>
-        </member>
-        <member name="M:Goedel.Protocol.WebRemoteSession.Post(System.IO.MemoryStream,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post a request and retrieve the response.
-            </summary>
-            <param name="Content">StreamBuffer object containing JSON encoded request.</param>
-            <param name="requestObject">Request object (for debugging)</param>
-            <returns>StreamBuffer object containing JSON encoded response.</returns>
         </member>
         <member name="T:Goedel.Protocol.WrapWriter">
             <summary>

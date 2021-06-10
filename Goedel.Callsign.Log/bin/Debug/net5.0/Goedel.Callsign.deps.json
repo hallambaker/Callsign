@@ -82,6 +82,7 @@
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
           "Goedel.Cryptography.Dare": "1.0.0",
+          "Goedel.Protocol.Presentation": "1.0.0",
           "Goedel.Utilities": "1.0.0"
         },
         "runtime": {
@@ -97,6 +98,17 @@
         },
         "runtime": {
           "Goedel.Protocol.dll": {}
+        }
+      },
+      "Goedel.Protocol.Presentation/1.0.0": {
+        "dependencies": {
+          "Goedel.Cryptography": "1.0.0",
+          "Goedel.Cryptography.Dare": "1.0.0",
+          "Goedel.Cryptography.Jose": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
+        },
+        "runtime": {
+          "Goedel.Protocol.Presentation.dll": {}
         }
       },
       "Goedel.Utilities/1.0.0": {
@@ -153,6 +165,11 @@
       "sha512": ""
     },
     "Goedel.Protocol/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Goedel.Protocol.Presentation/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

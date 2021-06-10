@@ -41,3 +41,6 @@ C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\obj\Debug\net5.0\Goedel.Callsi
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\obj\Debug\net5.0\Goedel.Callsign.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\obj\Debug\net5.0\ref\Goedel.Callsign.dll
 C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\obj\Debug\net5.0\Goedel.Callsign.pdb
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\bin\Debug\net5.0\Goedel.Protocol.Presentation.dll
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\bin\Debug\net5.0\Goedel.Protocol.Presentation.pdb
+C:\Users\hallam\Work\Callsign\Goedel.Callsign.Log\bin\Debug\net5.0\Goedel.Protocol.Presentation.xml

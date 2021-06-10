@@ -20,11 +20,11 @@
 //  THE SOFTWARE.
 //  
 //  
-//  This file was automatically generated at 3/18/2021 1:57:50 AM
+//  This file was automatically generated at 4/3/2021 2:43:05 PM
 //   
 //  Changes to this file may be overwritten without warning
 //  
-//  Generator:  protogen version 3.0.0.566
+//  Generator:  protogen version 3.0.0.594
 //      Goedel Script Version : 0.1   Generated 
 //      Goedel Schema Version : 0.1   Generated
 //  
@@ -131,7 +131,7 @@ namespace Goedel.Callsign.Registrar {
         /// <param name="session">The client context.</param>
         /// <param name="jsonReader">Reader for data object.</param>
         /// <returns>The response object returned by the corresponding dispatch.</returns>
-		public override Goedel.Protocol.JsonObject Dispatch(JpcSession  session,  
+		public override Goedel.Protocol.JsonObject Dispatch(IJpcSession  session,  
 								Goedel.Protocol.JsonReader jsonReader) {
 
 			jsonReader.StartObject ();
@@ -159,7 +159,7 @@ namespace Goedel.Callsign.Registrar {
         /// </summary>
         /// <param name="jpcSession">Session to which requests are to be bound.</param>
         /// <returns>The direct client instance.</returns>
-		public override Goedel.Protocol.JpcClientInterface GetDirect (JpcSession jpcSession) =>
+		public override Goedel.Protocol.JpcClientInterface GetDirect (IJpcSession jpcSession) =>
 				new MeshServiceDirect () {
 						JpcSession = jpcSession,
 						Service = this
@@ -173,7 +173,7 @@ namespace Goedel.Callsign.Registrar {
 		/// <param name="session">The request context.</param>
 		/// <returns>The response object from the service</returns>
         public abstract QueryResponse Query (
-                QueryRequest request, JpcSession session);
+                QueryRequest request, IJpcSession session);
 
         }
 
@@ -210,7 +210,7 @@ namespace Goedel.Callsign.Registrar {
         /// <param name="request">The request object.</param>
 		/// <returns>The response object</returns>
         public virtual QueryResponse Query (QueryRequest request) =>
-				JpcRemoteSession.Post("Query", "QueryResponse", request) as QueryResponse;
+				JpcSession.Post("Query", request) as QueryResponse;
 
 
 		}
@@ -224,12 +224,6 @@ namespace Goedel.Callsign.Registrar {
 		/// Interface object to dispatch requests to.
 		/// </summary>	
 		public MeshService Service {get; set;}
-
-        /// <summary>
-        /// The active JpcSession.
-        /// </summary>		
-		public override JpcSession JpcSession {get; set;}
-
 
 
         /// <summary>
@@ -262,7 +256,7 @@ namespace Goedel.Callsign.Registrar {
         /// <param name="session">The client context.</param>
         /// <param name="jsonReader">Reader for data object.</param>
         /// <returns>The response object returned by the corresponding dispatch.</returns>
-		public override Goedel.Protocol.JsonObject Dispatch(JpcSession  session,  
+		public override Goedel.Protocol.JsonObject Dispatch(IJpcSession  session,  
 								Goedel.Protocol.JsonReader jsonReader) {
 
 			jsonReader.StartObject ();

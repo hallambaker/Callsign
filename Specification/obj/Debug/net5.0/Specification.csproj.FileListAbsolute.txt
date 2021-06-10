@@ -153,3 +153,6 @@ C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Cryptography
 C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Test.dll
 C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Cryptography.Core.pdb
 C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Test.pdb
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Protocol.Presentation.dll
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Protocol.Presentation.pdb
+C:\Users\hallam\Work\Callsign\Specification\bin\Debug\net5.0\Goedel.Protocol.Presentation.xml

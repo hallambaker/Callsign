@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("© 2021")]
 [assembly: System.Reflection.AssemblyDescriptionAttribute("Callsign Registry Service Library.")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+build20210318055746")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+build20210530230410")]
 [assembly: System.Reflection.AssemblyProductAttribute("CallsignRegistry")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goedel.Callsign.Registry")]
 

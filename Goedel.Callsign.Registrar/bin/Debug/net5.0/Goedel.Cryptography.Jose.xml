@@ -479,7 +479,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Jose.InternalError.Templates">
+        <member name="P:Goedel.Cryptography.Jose.InternalError.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Jose.InternalError.#ctor(System.String,System.Exception,System.Object[])">
@@ -497,7 +497,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Jose.InternalError.Throw">
+        <member name="P:Goedel.Cryptography.Jose.InternalError.Throw">
             <summary>
             The public fatory delegate
             </summary>

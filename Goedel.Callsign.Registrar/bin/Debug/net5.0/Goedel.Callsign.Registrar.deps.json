@@ -74,7 +74,8 @@
       "Goedel.Cryptography.Jose/1.0.0": {
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
-          "Goedel.Protocol": "1.0.0"
+          "Goedel.Protocol": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
         },
         "runtime": {
           "Goedel.Cryptography.Jose.dll": {}
@@ -98,6 +99,9 @@
         }
       },
       "Goedel.IO/1.0.0": {
+        "dependencies": {
+          "Goedel.Utilities": "1.0.0"
+        },
         "runtime": {
           "Goedel.IO.dll": {}
         }

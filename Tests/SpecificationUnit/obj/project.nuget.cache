@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "6EBx1TZstwpqFiG8uZz1M+c9MIND/KiJs7cvE5smyVQKi90hvFNVO44Cl1SbhgChRy/Jh3AlrTgY3e+P8oB3nw==",
+  "dgSpecHash": "g8gJ2qMyTh9aZb3w3EKVRDNEJv5tdZJJdH4xnNGjluiVd+CWVMcbNBcyGv4fS+EJQfkZeGTyn2Bgfwh/AWLlYg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hallam\\Work\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
+  "projectFilePath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hallam\\.nuget\\packages\\coverlet.collector\\1.3.0\\coverlet.collector.1.3.0.nupkg.sha512",
     "C:\\Users\\hallam\\.nuget\\packages\\microsoft.codecoverage\\16.7.1\\microsoft.codecoverage.16.7.1.nupkg.sha512",

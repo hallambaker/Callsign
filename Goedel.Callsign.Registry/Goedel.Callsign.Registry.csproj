@@ -15,10 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\mmm\Libraries\Core\Goedel.Utilities\Goedel.Utilities.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
     <ProjectReference Include="..\Goedel.Callsign.Log\Goedel.Callsign.csproj" />
   </ItemGroup>
 

@@ -1734,7 +1734,8 @@
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
           "Goedel.Cryptography.Dare": "1.0.0",
-          "Goedel.Cryptography.Jose": "1.0.0"
+          "Goedel.Cryptography.Jose": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Goedel.Cryptography.Core.dll": {}
@@ -1764,7 +1765,8 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
-          "Goedel.Protocol": "1.0.0"
+          "Goedel.Protocol": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Goedel.Cryptography.Jose.dll": {}
@@ -1803,6 +1805,9 @@
       "Goedel.IO/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v5.0",
+        "dependencies": {
+          "Goedel.Utilities": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/Goedel.IO.dll": {}
         },
@@ -1878,7 +1883,7 @@
       },
       "Goedel.Utilities/1.0.0": {
         "type": "project",
-        "framework": ".NETCoreApp,Version=v3.1",
+        "framework": ".NETCoreApp,Version=v5.0",
         "compile": {
           "bin/placeholder/Goedel.Utilities.dll": {}
         },
@@ -5775,8 +5780,8 @@
     },
     "Goedel.ASN/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Core/Goedel.ASN/Goedel.ASN.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Core/Goedel.ASN/Goedel.ASN.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.ASN/Goedel.ASN.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.ASN/Goedel.ASN.csproj"
     },
     "Goedel.Callsign/1.0.0": {
       "type": "project",
@@ -5795,63 +5800,63 @@
     },
     "Goedel.Cryptography/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Cryptography/Goedel.Cryptography.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Cryptography/Goedel.Cryptography.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Cryptography/Goedel.Cryptography.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Cryptography/Goedel.Cryptography.csproj"
     },
     "Goedel.Cryptography.Core/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Cryptography.Core/Goedel.Cryptography.Core.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Cryptography.Core/Goedel.Cryptography.Core.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Cryptography.Core/Goedel.Cryptography.Core.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Cryptography.Core/Goedel.Cryptography.Core.csproj"
     },
     "Goedel.Cryptography.Dare/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Cryptography.Dare/Goedel.Cryptography.Dare.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Cryptography.Dare/Goedel.Cryptography.Dare.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Cryptography.Dare/Goedel.Cryptography.Dare.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Cryptography.Dare/Goedel.Cryptography.Dare.csproj"
     },
     "Goedel.Cryptography.Jose/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Cryptography.Jose/Goedel.Cryptography.Jose.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Cryptography.Jose/Goedel.Cryptography.Jose.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Cryptography.Jose/Goedel.Cryptography.Jose.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Cryptography.Jose/Goedel.Cryptography.Jose.csproj"
     },
     "Goedel.Discovery/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Core/Goedel.Discovery/Goedel.Discovery.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Core/Goedel.Discovery/Goedel.Discovery.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Discovery/Goedel.Discovery.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Discovery/Goedel.Discovery.csproj"
     },
     "Goedel.FSR/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Core/Goedel.FSR/Goedel.FSR.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Core/Goedel.FSR/Goedel.FSR.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.FSR/Goedel.FSR.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.FSR/Goedel.FSR.csproj"
     },
     "Goedel.IO/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Core/Goedel.IO/Goedel.IO.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Core/Goedel.IO/Goedel.IO.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.IO/Goedel.IO.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.IO/Goedel.IO.csproj"
     },
     "Goedel.Mesh/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Mesh/Goedel.Mesh/Goedel.Mesh.csproj",
-      "msbuildProject": "../../../mmm/Mesh/Goedel.Mesh/Goedel.Mesh.csproj"
+      "path": "../../../../mmm/Mesh/Goedel.Mesh/Goedel.Mesh.csproj",
+      "msbuildProject": "../../../../mmm/Mesh/Goedel.Mesh/Goedel.Mesh.csproj"
     },
     "Goedel.Protocol/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Protocol/Goedel.Protocol.csproj"
     },
     "Goedel.Protocol.Presentation/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Protocol.Presentation/Goedel.Protocol.Presentation.csproj"
     },
     "Goedel.Test/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Goedel.Test/Goedel.Test.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Goedel.Test/Goedel.Test.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Test/Goedel.Test.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Test/Goedel.Test.csproj"
     },
     "Goedel.Utilities/1.0.0": {
       "type": "project",
-      "path": "../../../mmm/Libraries/Core/Goedel.Utilities/Goedel.Utilities.csproj",
-      "msbuildProject": "../../../mmm/Libraries/Core/Goedel.Utilities/Goedel.Utilities.csproj"
+      "path": "../../../../mmm/Libraries/Goedel.Utilities/Goedel.Utilities.csproj",
+      "msbuildProject": "../../../../mmm/Libraries/Goedel.Utilities/Goedel.Utilities.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -5875,11 +5880,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\hallam\\Work\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
+      "projectUniqueName": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
       "projectName": "SpecificationUnit",
-      "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
+      "projectPath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Tests\\SpecificationUnit\\SpecificationUnit.csproj",
       "packagesPath": "C:\\Users\\hallam\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\hallam\\Work\\Callsign\\Tests\\SpecificationUnit\\obj\\",
+      "outputPath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Tests\\SpecificationUnit\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
@@ -5903,14 +5908,14 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj": {
-              "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj"
+            "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj": {
+              "projectPath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Log\\Goedel.Callsign.csproj"
             },
-            "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Registrar\\Goedel.Callsign.Registrar.csproj": {
-              "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Registrar\\Goedel.Callsign.Registrar.csproj"
+            "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Registrar\\Goedel.Callsign.Registrar.csproj": {
+              "projectPath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Registrar\\Goedel.Callsign.Registrar.csproj"
             },
-            "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Registry\\Goedel.Callsign.Registry.csproj": {
-              "projectPath": "C:\\Users\\hallam\\Work\\Callsign\\Goedel.Callsign.Registry\\Goedel.Callsign.Registry.csproj"
+            "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Registry\\Goedel.Callsign.Registry.csproj": {
+              "projectPath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Goedel.Callsign.Registry\\Goedel.Callsign.Registry.csproj"
             },
             "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Test\\Goedel.Test.csproj": {
               "projectPath": "C:\\Users\\hallam\\Work\\mmm\\Libraries\\Goedel.Test\\Goedel.Test.csproj"
@@ -5964,7 +5969,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.301\\RuntimeIdentifierGraph.json"
       }
     }
   }

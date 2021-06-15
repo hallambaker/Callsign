@@ -11,11 +11,7 @@
           "Goedel.Callsign": "1.0.0",
           "Goedel.Callsign.Registrar": "1.0.0",
           "Goedel.Callsign.Registry": "1.0.0",
-          "Goedel.Command": "1.0.0",
-          "Goedel.Cryptography.Core": "1.0.0",
-          "Goedel.Protocol": "1.0.0",
-          "Goedel.Protocol.Debug": "1.0.0",
-          "Goedel.Utilities": "1.0.0",
+          "Goedel.Registry": "1.0.0",
           "SpecificationUnit": "1.0.0"
         },
         "runtime": {
@@ -1134,16 +1130,6 @@
           "Goedel.Callsign.Registry.dll": {}
         }
       },
-      "Goedel.Command/1.0.0": {
-        "dependencies": {
-          "Goedel.FSR": "1.0.0",
-          "Goedel.Registry": "1.0.0",
-          "Goedel.Utilities": "1.0.0"
-        },
-        "runtime": {
-          "Goedel.Command.dll": {}
-        }
-      },
       "Goedel.Cryptography/1.0.0": {
         "dependencies": {
           "Goedel.ASN": "1.0.0",
@@ -1158,7 +1144,8 @@
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
           "Goedel.Cryptography.Dare": "1.0.0",
-          "Goedel.Cryptography.Jose": "1.0.0"
+          "Goedel.Cryptography.Jose": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
         },
         "runtime": {
           "Goedel.Cryptography.Core.dll": {}
@@ -1178,7 +1165,8 @@
       "Goedel.Cryptography.Jose/1.0.0": {
         "dependencies": {
           "Goedel.Cryptography": "1.0.0",
-          "Goedel.Protocol": "1.0.0"
+          "Goedel.Protocol": "1.0.0",
+          "Goedel.Utilities": "1.0.0"
         },
         "runtime": {
           "Goedel.Cryptography.Jose.dll": {}
@@ -1202,6 +1190,9 @@
         }
       },
       "Goedel.IO/1.0.0": {
+        "dependencies": {
+          "Goedel.Utilities": "1.0.0"
+        },
         "runtime": {
           "Goedel.IO.dll": {}
         }
@@ -1226,14 +1217,6 @@
         },
         "runtime": {
           "Goedel.Protocol.dll": {}
-        }
-      },
-      "Goedel.Protocol.Debug/1.0.0": {
-        "dependencies": {
-          "Goedel.Protocol": "1.0.0"
-        },
-        "runtime": {
-          "Goedel.Protocol.Debug.dll": {}
         }
       },
       "Goedel.Protocol.Presentation/1.0.0": {
@@ -1937,11 +1920,6 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Goedel.Command/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
     "Goedel.Cryptography/1.0.0": {
       "type": "project",
       "serviceable": false,
@@ -1983,11 +1961,6 @@
       "sha512": ""
     },
     "Goedel.Protocol/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Goedel.Protocol.Debug/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

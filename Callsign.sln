@@ -5,39 +5,39 @@ VisualStudioVersion = 16.0.31019.35
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Callsign", "Goedel.Callsign.Log\Goedel.Callsign.csproj", "{9910C28C-1F54-4165-BF28-178B3F6DCAB0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Utilities", "..\mmm\Libraries\Core\Goedel.Utilities\Goedel.Utilities.csproj", "{6358D7E2-2F29-4FD9-8FA5-7DF01BF40F77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Utilities", "..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj", "{6358D7E2-2F29-4FD9-8FA5-7DF01BF40F77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Library", "Library", "{33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Command", "..\mmm\Libraries\Core\Goedel.Command\Goedel.Command.csproj", "{016CED9F-487D-4014-B90B-1394F29B43AD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Command", "..\..\mmm\Libraries\Goedel.Command\Goedel.Command.csproj", "{016CED9F-487D-4014-B90B-1394F29B43AD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol", "..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj", "{F341E96C-85BF-44D2-896B-56F8BFB9C6E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol", "..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj", "{F341E96C-85BF-44D2-896B-56F8BFB9C6E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol.Presentation", "..\mmm\Libraries\Goedel.Protocol.Presentation\Goedel.Protocol.Presentation.csproj", "{9DCE5BF1-CD7C-42AF-8716-ECD74AAA3061}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol.Presentation", "..\..\mmm\Libraries\Goedel.Protocol.Presentation\Goedel.Protocol.Presentation.csproj", "{9DCE5BF1-CD7C-42AF-8716-ECD74AAA3061}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol.Debug", "..\mmm\Libraries\Goedel.Protocol.Debug\Goedel.Protocol.Debug.csproj", "{52319EDA-6A4A-40C8-81A7-F664D52A1EAE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Protocol.Debug", "..\..\mmm\Libraries\Goedel.Protocol.Debug\Goedel.Protocol.Debug.csproj", "{52319EDA-6A4A-40C8-81A7-F664D52A1EAE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Test", "..\mmm\Libraries\Goedel.Test\Goedel.Test.csproj", "{6B8124D6-A07F-4C0B-AFF4-5644F2FE735A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Test", "..\..\mmm\Libraries\Goedel.Test\Goedel.Test.csproj", "{6B8124D6-A07F-4C0B-AFF4-5644F2FE735A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Discovery", "..\mmm\Libraries\Core\Goedel.Discovery\Goedel.Discovery.csproj", "{C42DAAC0-88E6-4C44-BCAD-49ED41BD9445}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Discovery", "..\..\mmm\Libraries\Goedel.Discovery\Goedel.Discovery.csproj", "{C42DAAC0-88E6-4C44-BCAD-49ED41BD9445}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.ASN", "..\mmm\Libraries\Core\Goedel.ASN\Goedel.ASN.csproj", "{645AC1B9-30FB-4D4E-9F39-FE4D6EB3C433}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.ASN", "..\..\mmm\Libraries\Goedel.ASN\Goedel.ASN.csproj", "{645AC1B9-30FB-4D4E-9F39-FE4D6EB3C433}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.FSR", "..\mmm\Libraries\Core\Goedel.FSR\Goedel.FSR.csproj", "{E2F7004D-E4F8-45F2-905D-C3D54F1E6FCE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.FSR", "..\..\mmm\Libraries\Goedel.FSR\Goedel.FSR.csproj", "{E2F7004D-E4F8-45F2-905D-C3D54F1E6FCE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.IO", "..\mmm\Libraries\Core\Goedel.IO\Goedel.IO.csproj", "{E9893ED7-1FF1-4B5B-BFA0-200C54328777}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.IO", "..\..\mmm\Libraries\Goedel.IO\Goedel.IO.csproj", "{E9893ED7-1FF1-4B5B-BFA0-200C54328777}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Registry", "..\mmm\Libraries\Core\Goedel.Registry\Goedel.Registry.csproj", "{BBF00FC9-9B35-4B35-8165-FEBA895EB4CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Registry", "..\..\mmm\Libraries\Goedel.Registry\Goedel.Registry.csproj", "{BBF00FC9-9B35-4B35-8165-FEBA895EB4CD}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Dare", "..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj", "{39A839F2-EA66-41F2-BCA1-D588523CD535}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Dare", "..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj", "{39A839F2-EA66-41F2-BCA1-D588523CD535}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography", "..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj", "{9020F7CB-B61F-4C87-BCD9-032B4879E86E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography", "..\..\mmm\Libraries\Goedel.Cryptography\Goedel.Cryptography.csproj", "{9020F7CB-B61F-4C87-BCD9-032B4879E86E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Core", "..\mmm\Libraries\Goedel.Cryptography.Core\Goedel.Cryptography.Core.csproj", "{E4711763-7CDB-4B27-A8FA-5FC1C89A958B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Core", "..\..\mmm\Libraries\Goedel.Cryptography.Core\Goedel.Cryptography.Core.csproj", "{E4711763-7CDB-4B27-A8FA-5FC1C89A958B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Jose", "..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj", "{ACAA57CA-55BD-40B2-B57B-0EC3CBB85E6B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Cryptography.Jose", "..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj", "{ACAA57CA-55BD-40B2-B57B-0EC3CBB85E6B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Mesh", "..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj", "{04DA10B1-CC44-48D1-9F91-838A532A5A77}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Mesh", "..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj", "{04DA10B1-CC44-48D1-9F91-838A532A5A77}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Specification", "Specification\Specification.csproj", "{43FAE384-3B9D-4A31-8B96-2EC930455A33}"
 EndProject
@@ -67,6 +67,20 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Output", "Output\", "{E9F02
 		VWDPort = "62298"
 		SlnRelativePath = "Output\"
 	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Applications", "Applications", "{9451888A-FFE3-40F5-AD98-933AFDB56A8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "cslookup", "Applications\cslookup\cslookup.csproj", "{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "registryhost", "Applications\registryhost\registryhost.csproj", "{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "resolverhost", "Applications\resolverhost\resolverhost.csproj", "{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Mesh.ServiceAdmin", "..\..\mmm\Mesh\Goedel.Mesh.ServiceAdmin\Goedel.Mesh.ServiceAdmin.csproj", "{54D47947-C777-4671-87E4-B93EB9FE6CD0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Mesh.Shell.Host", "..\..\mmm\Mesh\Goedel.Mesh.Shell.Host\Goedel.Mesh.Shell.Host.csproj", "{34645C88-3503-4F6E-8E9F-33DFEE888BF1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Goedel.Mesh.Management", "..\..\mmm\Mesh\Goedel.Mesh.Management\Goedel.Mesh.Management.csproj", "{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -297,6 +311,66 @@ Global
 		{E9F02490-5F55-4DD1-8098-B79EABB48EBD}.Windows|Any CPU.Build.0 = Debug|Any CPU
 		{E9F02490-5F55-4DD1-8098-B79EABB48EBD}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9F02490-5F55-4DD1-8098-B79EABB48EBD}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Windows|Any CPU.Build.0 = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Windows|Any CPU.Build.0 = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Windows|Any CPU.Build.0 = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Windows|Any CPU.ActiveCfg = Windows|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Windows|Any CPU.Build.0 = Windows|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Windows|Any CPU.ActiveCfg = Windows|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Windows|Any CPU.Build.0 = Windows|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Focus|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Focus|Any CPU.Build.0 = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Windows|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Windows|Any CPU.Build.0 = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Yaschema|Any CPU.ActiveCfg = Debug|Any CPU
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF}.Yaschema|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -318,6 +392,12 @@ Global
 		{E4711763-7CDB-4B27-A8FA-5FC1C89A958B} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
 		{ACAA57CA-55BD-40B2-B57B-0EC3CBB85E6B} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
 		{04DA10B1-CC44-48D1-9F91-838A532A5A77} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
+		{8992C3F5-10DE-4689-BAE6-9564DFB72C2C} = {9451888A-FFE3-40F5-AD98-933AFDB56A8C}
+		{1649F0C4-A8F4-4835-8D8F-44B07F02BFD6} = {9451888A-FFE3-40F5-AD98-933AFDB56A8C}
+		{2F9EBFF5-0B6F-4F0B-AF17-5ED3A88156EF} = {9451888A-FFE3-40F5-AD98-933AFDB56A8C}
+		{54D47947-C777-4671-87E4-B93EB9FE6CD0} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
+		{34645C88-3503-4F6E-8E9F-33DFEE888BF1} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
+		{01AB57D9-3A15-41CB-92E8-77E6628A3FBF} = {33AF4E3D-CDCB-44E3-B093-8A5C1D1868DC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {50528DAB-483B-4474-A83F-B8EC45EC1CDA}

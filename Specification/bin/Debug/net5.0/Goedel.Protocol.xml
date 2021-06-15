@@ -397,6 +397,60 @@
             <param name="Stream">The stream to read from</param>
             <returns>The decoded data</returns>
         </member>
+        <member name="T:Goedel.Protocol.CountedUtf8StreamReader">
+            <summary>
+            Returns stream reader that tracks line and column numbers.
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.Line">
+            <summary>The line number.</summary> 
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.Column">
+            <summary>The column number taking into account UTF8 encoding.</summary> 
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.CanRead">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.CanSeek">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.CanWrite">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.Length">
+            <inheritdoc/>
+        </member>
+        <member name="P:Goedel.Protocol.CountedUtf8StreamReader.Position">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.#ctor(System.IO.Stream)">
+            <summary>
+            Return a counter wrapper for <paramref name="stream"/>.
+            </summary>
+            <param name="stream">The stream to wrap.</param>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.Count(System.Byte)">
+            <summary>
+            The counter method, increment the line and colum counters according to the UTF8 status of 
+            <paramref name="b"/>.
+            </summary>
+            <param name="b">The byte read.</param>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.Read(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.Flush">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.Seek(System.Int64,System.IO.SeekOrigin)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.SetLength(System.Int64)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Goedel.Protocol.CountedUtf8StreamReader.Write(System.Byte[],System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
         <member name="T:Goedel.Protocol.Dechunk">
             <summary>
             Read and buffer data chunks from a stream. This could be made a lot
@@ -455,7 +509,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.Dechunking.Templates">
+        <member name="P:Goedel.Protocol.Dechunking.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.Dechunking.#ctor(System.String,System.Exception,System.Object[])">
@@ -473,7 +527,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.Dechunking.Throw">
+        <member name="P:Goedel.Protocol.Dechunking.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -487,7 +541,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.UnknownOperation.Templates">
+        <member name="P:Goedel.Protocol.UnknownOperation.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.UnknownOperation.#ctor(System.String,System.Exception,System.Object[])">
@@ -505,7 +559,7 @@
             </summary>
             public static new global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.UnknownOperation.Throw">
+        <member name="P:Goedel.Protocol.UnknownOperation.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -519,7 +573,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.MessageTooBig.Templates">
+        <member name="P:Goedel.Protocol.MessageTooBig.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.MessageTooBig.#ctor(System.String,System.Exception,System.Object[])">
@@ -537,7 +591,7 @@
             </summary>
             public static new global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.MessageTooBig.Throw">
+        <member name="P:Goedel.Protocol.MessageTooBig.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -551,7 +605,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.ConnectionFail.Templates">
+        <member name="P:Goedel.Protocol.ConnectionFail.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.ConnectionFail.#ctor(System.String,System.Exception,System.Object[])">
@@ -569,7 +623,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.ConnectionFail.Throw">
+        <member name="P:Goedel.Protocol.ConnectionFail.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -583,7 +637,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.CannotCreateAbstract.Templates">
+        <member name="P:Goedel.Protocol.CannotCreateAbstract.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.CannotCreateAbstract.#ctor(System.String,System.Exception,System.Object[])">
@@ -601,7 +655,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.CannotCreateAbstract.Throw">
+        <member name="P:Goedel.Protocol.CannotCreateAbstract.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -615,7 +669,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.UnknownTag.Templates">
+        <member name="P:Goedel.Protocol.UnknownTag.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.UnknownTag.#ctor(System.String,System.Exception,System.Object[])">
@@ -633,7 +687,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.UnknownTag.Throw">
+        <member name="P:Goedel.Protocol.UnknownTag.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -647,7 +701,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.TagRequired.Templates">
+        <member name="P:Goedel.Protocol.TagRequired.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.TagRequired.#ctor(System.String,System.Exception,System.Object[])">
@@ -665,7 +719,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.TagRequired.Throw">
+        <member name="P:Goedel.Protocol.TagRequired.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -679,7 +733,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.InvalidInput.Templates">
+        <member name="P:Goedel.Protocol.InvalidInput.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.InvalidInput.#ctor(System.String,System.Exception,System.Object[])">
@@ -697,7 +751,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.InvalidInput.Throw">
+        <member name="P:Goedel.Protocol.InvalidInput.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -711,7 +765,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.BadPartLength.Templates">
+        <member name="P:Goedel.Protocol.BadPartLength.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.BadPartLength.#ctor(System.String,System.Exception,System.Object[])">
@@ -729,7 +783,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.BadPartLength.Throw">
+        <member name="P:Goedel.Protocol.BadPartLength.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -743,7 +797,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.StreamMarkerError.Templates">
+        <member name="P:Goedel.Protocol.StreamMarkerError.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.StreamMarkerError.#ctor(System.String,System.Exception,System.Object[])">
@@ -761,7 +815,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.StreamMarkerError.Throw">
+        <member name="P:Goedel.Protocol.StreamMarkerError.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -774,7 +828,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Protocol.DictionaryInitialization.Templates">
+        <member name="P:Goedel.Protocol.DictionaryInitialization.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Protocol.DictionaryInitialization.#ctor(System.String,System.Exception,System.Object[])">
@@ -792,7 +846,39 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Protocol.DictionaryInitialization.Throw">
+        <member name="P:Goedel.Protocol.DictionaryInitialization.Throw">
+            <summary>
+            The public fatory delegate
+            </summary>
+        </member>
+        <member name="T:Goedel.Protocol.ParseError">
+            <summary>
+            Attempt to deserialize untagged data to unknown type.
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.ParseError.ExceptionFormatDelegate">
+            <summary>The exception formatting delegate. May be overriden 
+            locally or globally to implement different exception formatting.</summary>
+        </member>
+        <member name="P:Goedel.Protocol.ParseError.Templates">
+            <summary>Templates for formatting response messages.</summary>
+        </member>
+        <member name="M:Goedel.Protocol.ParseError.#ctor(System.String,System.Exception,System.Object[])">
+            <summary>
+            Construct instance for exception
+            </summary>		
+            <param name="description">Description of the error, may be used to override the 
+            generated message.</param>	
+            <param name="inner">Inner Exception</param>	
+            <param name="args">Optional list of parameterized arguments.</param>
+        </member>
+        <member name="M:Goedel.Protocol.ParseError._Throw(System.Object)">
+            <summary>
+            The public fatory delegate
+            </summary>
+            public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
+        </member>
+        <member name="P:Goedel.Protocol.ParseError.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -1058,7 +1144,7 @@
             Jpc Session interface.
             </summary>
         </member>
-        <member name="P:Goedel.Protocol.IJpcSession.VerifiedAccount">
+        <member name="P:Goedel.Protocol.IJpcSession.Credential">
             <summary>The verified account bound to this session (used for inbound sessions
             only.)</summary> 
         </member>
@@ -1069,6 +1155,13 @@
             <param name="tag">The transaction identifier.</param>
             <param name="request">The transaction request.</param>
             <returns>The transaction response</returns>
+        </member>
+        <member name="M:Goedel.Protocol.IJpcSession.Rebind(Goedel.Protocol.ICredential)">
+             <summary>
+            Bind new credential to the session to create a new one.
+             </summary>
+             <param name="credential">Credential to bind.</param>
+             <returns>The new session.</returns>
         </member>
         <member name="T:Goedel.Protocol.JpcInterface">
             <summary>
@@ -1106,12 +1199,6 @@
             <param name="jpcSession">Session to which requests are to be bound.</param>
             <returns>The direct client instance.</returns>
         </member>
-        <member name="M:Goedel.Protocol.JpcInterface.GetSession">
-            <summary>
-            Return a JpcSession for the service.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="T:Goedel.Protocol.JpcClientInterface">
             <summary>
             Base class for all JPC client classes.
@@ -1132,8 +1219,8 @@
             The active JpcSession.
             </summary>		
         </member>
-        <member name="P:Goedel.Protocol.JpcClientInterface.JpcRemoteSession">
-            <summary>The active JpcSession as a remote session.</summary> 
+        <member name="M:Goedel.Protocol.JpcClientInterface.Rebind(Goedel.Protocol.ICredential)">
+            <inheritdoc cref="T:Goedel.Protocol.IJpcSession"/>
         </member>
         <member name="T:Goedel.Protocol.JpcTicket">
             <summary>
@@ -1159,6 +1246,40 @@
         </member>
         <member name="F:Goedel.Protocol.JpcTicket.WebServiceEndpoint">
             <summary>Web Service Endpoint to which the ticket is bound</summary> 
+        </member>
+        <member name="T:Goedel.Protocol.CredentialValidation">
+            <summary>
+            Describe the validation of the credential
+            </summary>
+        </member>
+        <member name="F:Goedel.Protocol.CredentialValidation.None">
+            <summary>Validation not attempted.</summary> 
+        </member>
+        <member name="F:Goedel.Protocol.CredentialValidation.Failed">
+            <summary>Validation failed.</summary> 
+        </member>
+        <member name="F:Goedel.Protocol.CredentialValidation.Device">
+            <summary>The authentication key is valid under the device credential pressented.</summary> 
+        </member>
+        <member name="F:Goedel.Protocol.CredentialValidation.Account">
+            <summary>The authentication key is valid under the account credential pressented.</summary> 
+        </member>
+        <member name="T:Goedel.Protocol.ICredential">
+            <summary>
+            Credential interface
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.ICredential.Account">
+            <summary>The account name claimed under the credential</summary> 
+        </member>
+        <member name="P:Goedel.Protocol.ICredential.Provider">
+            <summary>The provider servicing the account claimed under the credential</summary> 
+        </member>
+        <member name="P:Goedel.Protocol.ICredential.AuthenticationKeyId">
+            <summary>The authentication key used to authenticate the device.</summary> 
+        </member>
+        <member name="P:Goedel.Protocol.ICredential.CredentialValidation">
+            <summary>Validation status of <see cref="P:Goedel.Protocol.ICredential.AuthenticationKeyId"/> with respect to the credential data.</summary> 
         </member>
         <member name="T:Goedel.Protocol.JpcConnection">
             <summary>
@@ -1186,24 +1307,8 @@
             The session class describes the caller of a method.
             </summary>
         </member>
-        <member name="F:Goedel.Protocol.JpcSession.AccountAddress">
-            <summary>The service identifier (Account@Domain)</summary>
-        </member>
-        <member name="F:Goedel.Protocol.JpcSession.Account">
-            <summary>The account portion of <see cref="F:Goedel.Protocol.JpcSession.AccountAddress"/></summary>
-        </member>
-        <member name="F:Goedel.Protocol.JpcSession.Domain">
-            <summary>The domain portion of <see cref="F:Goedel.Protocol.JpcSession.AccountAddress"/></summary>
-        </member>
-        <member name="F:Goedel.Protocol.JpcSession.UDF">
-            <summary>
-            Fingerprint of authentication key
-            </summary>
-        </member>
-        <member name="F:Goedel.Protocol.JpcSession.Authenticated">
-            <summary>
-            If true we have an authentication structure.
-            </summary>
+        <member name="P:Goedel.Protocol.JpcSession.Credential">
+            <summary>The credential to which the session is bound.</summary> 
         </member>
         <member name="F:Goedel.Protocol.JpcSession.JpcClientInterface">
             <summary>The client interface.</summary> 
@@ -1218,12 +1323,11 @@
             Default constructor.
             </summary>
         </member>
-        <member name="M:Goedel.Protocol.JpcSession.#ctor(System.String)">
+        <member name="M:Goedel.Protocol.JpcSession.#ctor(Goedel.Protocol.ICredential)">
             <summary>
-            Constructor for a session with service <paramref name="accountAddress"/>.
+            Constructor for a session with credential <paramref name="credential"/>.
             </summary>
-            <param name="accountAddress">The name of the service (e.g. example.com) or an account 
-            at the service (e.g. alice@example.com).</param>
+            <param name="credential">The credential to be used.</param>
         </member>
         <member name="M:Goedel.Protocol.JpcSession.GetWebClient``1">
             <summary>
@@ -1236,25 +1340,16 @@
             <typeparam name="T">Type of the instance to return.</typeparam>
             <returns></returns>
         </member>
-        <member name="T:Goedel.Protocol.JpcSessionDirect">
+        <member name="M:Goedel.Protocol.JpcSession.Post(System.String,Goedel.Protocol.JsonObject)">
             <summary>
-            Direct connection between client and service host. Useful for debugging
-            and for direct access to a service on the same machine.
+            Post a transaction request and return the resulting object.
             </summary>
+            <param name="tag">The transaction identifier.</param>
+            <param name="request">The request data.</param>
+            <returns>The transaction result.</returns>
         </member>
-        <member name="M:Goedel.Protocol.JpcSessionDirect.#ctor(Goedel.Protocol.JpcInterface,System.String)">
-            <summary>
-            Create a direct session for the specified account.
-            </summary>
-            <param name="accountAddress">The account name</param>
-            <param name="jpcInterface">The interfact to which the direct session is bound</param>
-        </member>
-        <member name="M:Goedel.Protocol.JpcSessionDirect.GetWebClient``1">
-            <summary>
-            Return a client bound to the interface using the session.
-            </summary>
-            <typeparam name="T">The client type</typeparam>
-            <returns>The client</returns>
+        <member name="M:Goedel.Protocol.JpcSession.Rebind(Goedel.Protocol.ICredential)">
+            <inheritdoc cref="T:Goedel.Protocol.IJpcSession"/>
         </member>
         <member name="T:Goedel.Protocol.JpcRemoteSession">
             <summary>
@@ -1262,22 +1357,14 @@
             and for direct access to a service on the same machine.
             </summary>
         </member>
-        <member name="M:Goedel.Protocol.JpcRemoteSession.#ctor(System.String)">
+        <member name="M:Goedel.Protocol.JpcRemoteSession.#ctor(Goedel.Protocol.ICredential)">
             <summary>
-            Create a direct session for the specified account.
+            Create a direct session  with credential <paramref name="credential"/>.
             </summary>
-            <param name="accountAddress">The account name</param>
+            <param name="credential">The credential to be used.</param>
         </member>
-        <member name="M:Goedel.Protocol.JpcRemoteSession.Post(System.String,Goedel.Protocol.JsonObject)">
-            <summary>
-            Post a transaction of type <paramref name="tag"/> with request data 
-            <paramref name="request"/> to the service expecting a response of type
-            <paramref name="tagResponse"/>
-            </summary>
-            <param name="tag">The transaction tag.</param>
-            <param name="tagResponse">The response type tag.</param>
-            <param name="request">The request data.</param>
-            <returns>The response data.</returns>
+        <member name="M:Goedel.Protocol.JpcRemoteSession.Rebind(Goedel.Protocol.ICredential)">
+            <inheritdoc/>
         </member>
         <member name="T:Goedel.Protocol.JpcSessionSerialized">
             <summary>
@@ -1292,13 +1379,13 @@
             The provider.
             </summary>
         </member>
-        <member name="M:Goedel.Protocol.JpcSessionSerialized.#ctor(Goedel.Protocol.JpcInterface,System.String)">
+        <member name="M:Goedel.Protocol.JpcSessionSerialized.#ctor(Goedel.Protocol.JpcInterface,Goedel.Protocol.ICredential)">
             <summary>
             Create a remote session with authentication under the
             specified credential.
             </summary>
             <param name="host">The host implementation</param>
-            <param name="accountAddress">The service account.</param>
+            <param name="credential">The credential to be used.</param>
         </member>
         <member name="M:Goedel.Protocol.JpcSessionSerialized.Post(System.IO.MemoryStream,Goedel.Protocol.JsonObject)">
             <summary>
@@ -1312,12 +1399,33 @@
             <summary>
             Post a transaction of type <paramref name="tag"/> with request data 
             <paramref name="request"/> to the service expecting a response of type
-            <paramref name="tagResponse"/>
             </summary>
             <param name="tag">The transaction tag.</param>
-            <param name="tagResponse">The response type tag.</param>
             <param name="request">The request data.</param>
             <returns>The response data.</returns>
+        </member>
+        <member name="T:Goedel.Protocol.JpcSessionDirect">
+            <summary>
+            Direct connection between client and service host. Useful for debugging
+            and for direct access to a service on the same machine.
+            </summary>
+        </member>
+        <member name="M:Goedel.Protocol.JpcSessionDirect.#ctor(Goedel.Protocol.JpcInterface,Goedel.Protocol.ICredential)">
+            <summary>
+            Create a direct session for the specified account.
+            </summary>
+            <param name="credential">The credential to be used.</param>
+            <param name="jpcInterface">The interfact to which the direct session is bound</param>
+        </member>
+        <member name="M:Goedel.Protocol.JpcSessionDirect.GetWebClient``1">
+            <summary>
+            Return a client bound to the interface using the session.
+            </summary>
+            <typeparam name="T">The client type</typeparam>
+            <returns>The client</returns>
+        </member>
+        <member name="M:Goedel.Protocol.JpcSessionDirect.Rebind(Goedel.Protocol.ICredential)">
+            <inheritdoc/>
         </member>
         <member name="T:Goedel.Protocol.JSONAWriter">
             <summary>
@@ -1778,11 +1886,6 @@
              Base class for all request messages.
              </summary>
         </member>
-        <member name="F:Goedel.Protocol.Request.AuthenticationContext">
-            <summary>
-            The authentication context that is set by the authentication layer.
-            </summary>
-        </member>
         <member name="P:Goedel.Protocol.Request.Service">
              <summary>
             Name of the Service to which the request is directed.
@@ -1954,26 +2057,24 @@
             <param name="jsonReader">The input stream</param>
             <param name="tag">The tag</param>
         </member>
-        <member name="T:Goedel.Protocol.AuthenticationContext">
-            <summary>
-            Result of authenticating the request in the pre-dispatcher.
-            </summary>
-        </member>
-        <member name="M:Goedel.Protocol.AuthenticationContext.VerifyAccount(System.String)">
-            <summary>
-            Callback to authenticate the account.
-            </summary>
-            <param name="accountAddress">The account name to be authenticated.</param>
-            <returns>True if the account name is verified, otherwise false.</returns>
-        </member>
-        <member name="T:Goedel.Protocol.VerifiedAccount">
+        <member name="T:Goedel.Protocol.IVerifiedAccount">
             <summary>
             
             </summary>
         </member>
-        <member name="F:Goedel.Protocol.VerifiedAccount.AccountAddress">
+        <member name="P:Goedel.Protocol.IVerifiedAccount.AccountAddress">
             <summary>
             The account identifier.
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.IVerifiedAccount.AuthenticatedProfileUDF">
+            <summary>
+            The profile identifer.
+            </summary>
+        </member>
+        <member name="P:Goedel.Protocol.IVerifiedAccount.AuthenticationKeyIdentifier">
+            <summary>
+            The authentication key identifier.
             </summary>
         </member>
         <member name="T:Goedel.Protocol.ObjectEncoding">
@@ -2020,6 +2121,12 @@
             <summary>
             Primary key to use for the object.
             </summary>
+        </member>
+        <member name="F:Goedel.Protocol.JsonObject.Enveloped">
+            <summary>The enveloped object data.</summary> 
+        </member>
+        <member name="F:Goedel.Protocol.JsonObject.KeyLocate">
+            <summary>Key collection to be used to decrypt enveloped data within the object.</summary> 
         </member>
         <member name="P:Goedel.Protocol.JsonObject._Keys">
             <summary>
@@ -2118,11 +2225,12 @@
             <param name="objectEncoding">The object encoding to use for serialization.</param>
             <returns>Data as byte sequence.</returns>
         </member>
-        <member name="M:Goedel.Protocol.JsonObject.GetJsonWriter(Goedel.Protocol.ObjectEncoding)">
+        <member name="M:Goedel.Protocol.JsonObject.GetJsonWriter(Goedel.Protocol.ObjectEncoding,System.IO.Stream)">
             <summary>
             Return a JsonWriter for the encoding <paramref name="objectEncoding"/>.
             </summary>
             <param name="objectEncoding">The object encoding to use for serialization.</param>
+            <param name="output">The output stream.</param>
             <returns>The JsonWriter.</returns>
         </member>
         <member name="M:Goedel.Protocol.JsonObject.Serialize(Goedel.Protocol.Writer,System.Boolean)">
@@ -2408,11 +2516,20 @@
         <member name="F:Goedel.Protocol.JsonReader.Token.JSONBCD">
             <summary>JSON-BCD extended tag, for internal use</summary>
         </member>
+        <member name="F:Goedel.Protocol.JsonReader.Token.BOM">
+            <summary>Byte Order Mark</summary>
+        </member>
         <member name="F:Goedel.Protocol.JsonReader.Token.Empty">
             <summary></summary>
         </member>
         <member name="F:Goedel.Protocol.JsonReader.Tokens">
             <summary>Tokens to be returned if the FSR stops in the specified state.</summary>
+        </member>
+        <member name="F:Goedel.Protocol.JsonReader.Line">
+            <summary>The Line Number (used for error reporting)</summary> 
+        </member>
+        <member name="F:Goedel.Protocol.JsonReader.Column">
+            <summary>The Colum number (used for error reporting)</summary> 
         </member>
         <member name="F:Goedel.Protocol.JsonReader.Lookahead">
             <summary>If true there is a token in the lookahead buffer.</summary>
@@ -2599,6 +2716,15 @@
             <param name="TagDictionary">Dictionary mapping tags to factory methods</param>
             <returns>The deserialized object.</returns>
         </member>
+        <member name="M:Goedel.Protocol.JsonReader.ReadFile``1(System.String,System.Boolean)">
+            <summary>
+            Convenience method, reads a file in the 
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="file"></param>
+            <param name="tagged"></param>
+            <returns></returns>
+        </member>
         <member name="T:Goedel.Protocol.JSONWriterFactoryDelegate">
             <summary>
             Factory delegate returning a JSONWriter
@@ -2636,11 +2762,11 @@
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.#ctor(System.IO.Stream)">
             <summary>
-            Create a new writer instance with the output <paramref name="Output"/>. 
-            If <paramref name="Output"/> is null, a memory stream is created and
+            Create a new writer instance with the output <paramref name="output"/>. 
+            If <paramref name="output"/> is null, a memory stream is created and
             used as the output.
             </summary>
-            <param name="Output">Output buffer</param> 
+            <param name="output">Output buffer</param> 
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.JSONWriterFactory">
             <summary>
@@ -2651,32 +2777,32 @@
             <summary>
             Write Tag to the stream
             </summary>
-            <param name="Tag">Tag text.</param>
-            <param name="IndentIn">Current indent level.</param>
+            <param name="tag">Tag text.</param>
+            <param name="indentIn">Current indent level.</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteInteger32(System.Int32)">
             <summary>Write 32 bit integer.</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteInteger64(System.Int64)">
             <summary>Write 64 bit integer</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteFloat32(System.Single)">
             <summary>Write float32</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteFloat64(System.Double)">
             <summary>Write float64</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteBoolean(System.Boolean)">
             <summary>Write boolean.</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteString(System.String)">
             <summary>Write string.</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteBinary(System.Byte[],System.Int32,System.Int32)">
             <summary>Write binary data as Base64Url encoded string.</summary>
@@ -2691,13 +2817,13 @@
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteBinaryPart(System.Byte[],System.Int64,System.Int64)">
             <summary>Write binary data as length-data item.</summary>
-            <param name="Data">Value to write</param>
-            <param name="First">The index position of the first byte in the input data to process</param>
-            <param name="Length">The number of bytes to process</param>
+            <param name="data">Value to write</param>
+            <param name="first">The index position of the first byte in the input data to process</param>
+            <param name="length">The number of bytes to process</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteDateTime(System.Nullable{System.DateTime})">
             <summary>Write Date-Time value in RFC3339 format.</summary>
-            <param name="Data">Value to write</param>
+            <param name="data">Value to write</param>
         </member>
         <member name="M:Goedel.Protocol.JsonWriter.WriteArrayStart">
             <summary>Mark start of array element</summary>

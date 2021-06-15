@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "i3Ik2FiYAN+OYy0qbLQGiQAs1tHrOR1/0a7aKOeEv7Glyk+g5WqOxynOxeJcVwYXS+/BkVg8UW3wFXm9T6XX2Q==",
+  "dgSpecHash": "Til1p47PWz4jrho8PIOzb2/G8H9rWVML/3rWpzwaCtGJTCLx3rL+XF9zkqc7RDahZnSsRiQUJolYi2rW6cm1gw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\hallam\\Work\\Callsign\\Specification\\Specification.csproj",
+  "projectFilePath": "C:\\Users\\hallam\\Work\\meshservices\\Callsign\\Specification\\Specification.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\hallam\\.nuget\\packages\\microsoft.codecoverage\\16.7.1\\microsoft.codecoverage.16.7.1.nupkg.sha512",
     "C:\\Users\\hallam\\.nuget\\packages\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",

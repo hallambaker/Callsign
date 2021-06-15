@@ -2764,6 +2764,15 @@
             <param name="key">The signature key.</param>
             <returns>True, if the signature is valid.</returns>
         </member>
+        <member name="M:Goedel.Cryptography.Dare.DareEnvelope.GetValidatedDigest">
+            <summary>
+            Compute the digest of the payload and if a digest value is specified in the header
+            or trailer, verify that it matches.
+            </summary>
+            <returns>If a payload digest field is specified in the trailer that does not
+            match the digest of the payload, returns the payload. Otherwise returns the
+            digest of the payload.</returns>
+        </member>
         <member name="M:Goedel.Cryptography.Dare.DareEnvelope.FindSignature(Goedel.Cryptography.CryptoKey)">
             <summary>
             Find a signature whose key identifier matches <paramref name="key"/>
@@ -2891,6 +2900,11 @@
             </summary>
             <param name="inputStream">The input stream, must support reading.</param>
             <param name="keyCollection">The key collection to be used to resolve identifiers to keys.</param>
+        </member>
+        <member name="M:Goedel.Cryptography.Dare.DareEnvelope.Strip">
+            <summary>
+            Strip the envelope of all unnecessary convenience data.
+            </summary>
         </member>
         <member name="P:Goedel.Cryptography.Dare.DareEnvelopeWriter.CanRead">
             <summary>
@@ -3527,7 +3541,7 @@
         <member name="P:Goedel.Cryptography.Dare.DarePolicy.Encrypt">
             <summary>If true, payload data must be encrypted.</summary> 
         </member>
-        <member name="P:Goedel.Cryptography.Dare.DarePolicy.KeyLocate">
+        <member name="P:Goedel.Cryptography.Dare.DarePolicy.KeyLocation">
             <summary>Key collection to be used to resolve keys.</summary> 
         </member>
         <member name="M:Goedel.Cryptography.Dare.DarePolicy.#ctor">
@@ -4294,7 +4308,7 @@
         <member name="M:Goedel.Cryptography.Dare.Enveloped`1.Decode(Goedel.Cryptography.Dare.IKeyCollection,Goedel.Cryptography.Dare.EnvelopeValidation)">
             <summary>
             Decrypt and deserialize the envelope to obtain the typed contents and set the value of 
-            <see cref="F:Goedel.Protocol.JsonObject.EnvelopedData"/> to the original envelope data.
+            <see cref="F:Goedel.Protocol.JsonObject.Enveloped"/> to the original envelope data.
             </summary>
             <param name="keyCollection">Key collection to be used to find decryption keys and
             roots of trust for verification keys.</param>
@@ -4309,7 +4323,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.StreamDataCorrupt.Templates">
+        <member name="P:Goedel.Cryptography.Dare.StreamDataCorrupt.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.StreamDataCorrupt.#ctor(System.String,System.Exception,System.Object[])">
@@ -4327,7 +4341,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.StreamDataCorrupt.Throw">
+        <member name="P:Goedel.Cryptography.Dare.StreamDataCorrupt.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4340,7 +4354,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.SequenceDataCorrupt.Templates">
+        <member name="P:Goedel.Cryptography.Dare.SequenceDataCorrupt.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.SequenceDataCorrupt.#ctor(System.String,System.Exception,System.Object[])">
@@ -4358,7 +4372,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.SequenceDataCorrupt.Throw">
+        <member name="P:Goedel.Cryptography.Dare.SequenceDataCorrupt.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4371,7 +4385,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EnvelopeDataCorrupt.Templates">
+        <member name="P:Goedel.Cryptography.Dare.EnvelopeDataCorrupt.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.EnvelopeDataCorrupt.#ctor(System.String,System.Exception,System.Object[])">
@@ -4389,7 +4403,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EnvelopeDataCorrupt.Throw">
+        <member name="P:Goedel.Cryptography.Dare.EnvelopeDataCorrupt.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4404,7 +4418,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidContainerTypeException.Templates">
+        <member name="P:Goedel.Cryptography.Dare.InvalidContainerTypeException.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.InvalidContainerTypeException.#ctor(System.String,System.Exception,System.Object[])">
@@ -4422,7 +4436,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidContainerTypeException.Throw">
+        <member name="P:Goedel.Cryptography.Dare.InvalidContainerTypeException.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4437,7 +4451,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.FrameTooLargeException.Templates">
+        <member name="P:Goedel.Cryptography.Dare.FrameTooLargeException.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.FrameTooLargeException.#ctor(System.String,System.Exception,System.Object[])">
@@ -4455,7 +4469,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.FrameTooLargeException.Throw">
+        <member name="P:Goedel.Cryptography.Dare.FrameTooLargeException.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4470,7 +4484,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidFileModeException.Templates">
+        <member name="P:Goedel.Cryptography.Dare.InvalidFileModeException.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.InvalidFileModeException.#ctor(System.String,System.Exception,System.Object[])">
@@ -4488,7 +4502,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidFileModeException.Throw">
+        <member name="P:Goedel.Cryptography.Dare.InvalidFileModeException.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4502,7 +4516,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidFileFormatException.Templates">
+        <member name="P:Goedel.Cryptography.Dare.InvalidFileFormatException.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.InvalidFileFormatException.#ctor(System.String,System.Exception,System.Object[])">
@@ -4520,7 +4534,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.InvalidFileFormatException.Throw">
+        <member name="P:Goedel.Cryptography.Dare.InvalidFileFormatException.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4534,7 +4548,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.ObjectIdentifierNotUnique.Templates">
+        <member name="P:Goedel.Cryptography.Dare.ObjectIdentifierNotUnique.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.ObjectIdentifierNotUnique.#ctor(System.String,System.Exception,System.Object[])">
@@ -4552,7 +4566,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.ObjectIdentifierNotUnique.Throw">
+        <member name="P:Goedel.Cryptography.Dare.ObjectIdentifierNotUnique.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4566,7 +4580,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.AccessRefused.Templates">
+        <member name="P:Goedel.Cryptography.Dare.AccessRefused.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.AccessRefused.#ctor(System.String,System.Exception,System.Object[])">
@@ -4584,7 +4598,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.AccessRefused.Throw">
+        <member name="P:Goedel.Cryptography.Dare.AccessRefused.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4598,7 +4612,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.DataRecordTruncated.Templates">
+        <member name="P:Goedel.Cryptography.Dare.DataRecordTruncated.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.DataRecordTruncated.#ctor(System.String,System.Exception,System.Object[])">
@@ -4616,7 +4630,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.DataRecordTruncated.Throw">
+        <member name="P:Goedel.Cryptography.Dare.DataRecordTruncated.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4629,7 +4643,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.ArchiveEntryMissingFileName.Templates">
+        <member name="P:Goedel.Cryptography.Dare.ArchiveEntryMissingFileName.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.ArchiveEntryMissingFileName.#ctor(System.String,System.Exception,System.Object[])">
@@ -4647,7 +4661,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.ArchiveEntryMissingFileName.Throw">
+        <member name="P:Goedel.Cryptography.Dare.ArchiveEntryMissingFileName.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4660,7 +4674,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EntryNotFound.Templates">
+        <member name="P:Goedel.Cryptography.Dare.EntryNotFound.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.EntryNotFound.#ctor(System.String,System.Exception,System.Object[])">
@@ -4678,7 +4692,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EntryNotFound.Throw">
+        <member name="P:Goedel.Cryptography.Dare.EntryNotFound.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4691,7 +4705,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EntryAlreadyExists.Templates">
+        <member name="P:Goedel.Cryptography.Dare.EntryAlreadyExists.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.EntryAlreadyExists.#ctor(System.String,System.Exception,System.Object[])">
@@ -4709,7 +4723,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.EntryAlreadyExists.Throw">
+        <member name="P:Goedel.Cryptography.Dare.EntryAlreadyExists.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4722,7 +4736,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.UndefinedStoreAction.Templates">
+        <member name="P:Goedel.Cryptography.Dare.UndefinedStoreAction.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.UndefinedStoreAction.#ctor(System.String,System.Exception,System.Object[])">
@@ -4740,7 +4754,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.UndefinedStoreAction.Throw">
+        <member name="P:Goedel.Cryptography.Dare.UndefinedStoreAction.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4753,7 +4767,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.TaggingNotSupported.Templates">
+        <member name="P:Goedel.Cryptography.Dare.TaggingNotSupported.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.TaggingNotSupported.#ctor(System.String,System.Exception,System.Object[])">
@@ -4771,7 +4785,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.TaggingNotSupported.Throw">
+        <member name="P:Goedel.Cryptography.Dare.TaggingNotSupported.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4784,7 +4798,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.FileNotFound.Templates">
+        <member name="P:Goedel.Cryptography.Dare.FileNotFound.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.FileNotFound.#ctor(System.String,System.Exception,System.Object[])">
@@ -4802,7 +4816,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.FileNotFound.Throw">
+        <member name="P:Goedel.Cryptography.Dare.FileNotFound.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -4815,7 +4829,7 @@
             <summary>The exception formatting delegate. May be overriden 
             locally or globally to implement different exception formatting.</summary>
         </member>
-        <member name="F:Goedel.Cryptography.Dare.DirectoryNotFound.Templates">
+        <member name="P:Goedel.Cryptography.Dare.DirectoryNotFound.Templates">
             <summary>Templates for formatting response messages.</summary>
         </member>
         <member name="M:Goedel.Cryptography.Dare.DirectoryNotFound.#ctor(System.String,System.Exception,System.Object[])">
@@ -4833,7 +4847,7 @@
             </summary>
             public static global::Goedel.Utilities.ThrowNewDelegate ThrowNew = _Throw;
         </member>
-        <member name="F:Goedel.Cryptography.Dare.DirectoryNotFound.Throw">
+        <member name="P:Goedel.Cryptography.Dare.DirectoryNotFound.Throw">
             <summary>
             The public fatory delegate
             </summary>
@@ -5797,6 +5811,9 @@
         </member>
         <member name="P:Goedel.Cryptography.Dare.Sequence.SequenceIndex">
             <summary>The last sequence index found.</summary> 
+        </member>
+        <member name="P:Goedel.Cryptography.Dare.Sequence.TrailerLast">
+            <summary>The trailer section of the last envelope in the sequence.</summary> 
         </member>
         <member name="P:Goedel.Cryptography.Dare.Sequence.HeaderBytes">
             <summary>The current frame header as binary data</summary>

@@ -15,11 +15,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\mmm\Libraries\Core\Goedel.Utilities\Goedel.Utilities.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
-    <ProjectReference Include="..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
-    <ProjectReference Include="..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Dare\Goedel.Cryptography.Dare.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Cryptography.Jose\Goedel.Cryptography.Jose.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Protocol\Goedel.Protocol.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Libraries\Goedel.Utilities\Goedel.Utilities.csproj" />
+    <ProjectReference Include="..\..\..\mmm\Mesh\Goedel.Mesh\Goedel.Mesh.csproj" />
   </ItemGroup>
 
   <ItemGroup>
